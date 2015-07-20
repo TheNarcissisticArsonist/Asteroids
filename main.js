@@ -28,11 +28,13 @@ function asteroid(size, pos, vel, acl) {
   this.aclM = Math.sqrt(Math.pow(acl[0], 2) + Math.pow(acl[1], 2));
   this.angle = Math.floor(Math.random() * 360);
 }
+var asteroids = [];
 
 function setUpLevel(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
   for(i=0; i<numAsteroids; ++i) {
     htmlString += "<img class=\"gameObject bigAsteroid\" src=\"Asteroid.png\"></img>";
+    asteroids[i] = new asteroid(3, [0, 0], [0, 0], [0, 0]);
   }
   return htmlString;
 }
