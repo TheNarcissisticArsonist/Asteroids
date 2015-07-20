@@ -75,7 +75,6 @@ newGame.addEventListener("click", function() {
   level = 1;
   lives = maxLives;
 
-  updateUserDisplay();
   for(i=0; i<levelAsteroids; ++i) {
     do {
       asteroids[i][0].pos[0] = Math.floor(Math.random() * 1200 + 1);
@@ -94,5 +93,7 @@ newGame.addEventListener("click", function() {
     );
   }
   spaceship[0].pos = [600, 300];
+
+  updateUserDisplay();
   updateGameBoard();
 });
