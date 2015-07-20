@@ -251,48 +251,53 @@ document.addEventListener("keyup", function(event) {
 });
 
 function physicsLoop() {
-  //Spaceship
-    //Acceleration
-    if(keys.w) {
-      spaceship[0].aclM = spaceshipAcceleration;
-    }
-    else{
-      spaceship[0].aclM = 0;
-    }
-    updateComponents();
-    //Velocity
-    spaceship[0].vel[0] += spaceship[0].acl[0];
-    spaceship[0].vel[1] += spaceship[0].acl[1];
-    updateMagnitude();
-    //Position
-    spaceship[0].pos[0] += spaceship[0].vel[0];
-    spaceship[0].pos[1] += spaceship[0].vel[1];
-    //Test if off screen
-    if(spaceship[0].pos[0] > 1200 - 32) {
-      spaceship[0].pos[0] -= 1200 - 64;
-    }
-    else if(spaceship[0].pos[0] < 0  + 32) {
-      spaceship[0].pos[0] += 1200 - 64;
-    }
-    if(spaceship[0].pos[1] > 600 - 32) {
-      spaceship[0].pos[1] -= 600 - 64;
-    }
-    else if(spaceship[0].pos[1] < 0 + 32) {
-      spaceship[0].pos[1] += 600 - 64;
-    }
-    //Display position
-    spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
-    spaceship[1].style.top = String(spaceship[0].pos[1]-32) + "px";
-    //Rotation
-    if(keys.a && !keys.d) {
-      spaceship[0].angle -= spaceshipRotationSpeed;
-    }
-    else if(keys.d && !keys.a) {
-      spaceship[0].angle += spaceshipRotationSpeed;
-    }
-    spaceship[1].style.transform = "rotate(" + spaceship[0].angle + "deg)";
+  physicsLoopSpaceshipMovement();
+  physicsLoopAsteroidMovement();
 
-  //Asteroids
+  updateData();
+}
+function physicsLoopSpaceshipMovement() {
+  //Acceleration
+  if(keys.w) {
+    spaceship[0].aclM = spaceshipAcceleration;
+  }
+  else{
+    spaceship[0].aclM = 0;
+  }
+  updateComponents();
+  //Velocity
+  spaceship[0].vel[0] += spaceship[0].acl[0];
+  spaceship[0].vel[1] += spaceship[0].acl[1];
+  updateMagnitude();
+  //Position
+  spaceship[0].pos[0] += spaceship[0].vel[0];
+  spaceship[0].pos[1] += spaceship[0].vel[1];
+  //Test if off screen
+  if(spaceship[0].pos[0] > 1200 - 32) {
+    spaceship[0].pos[0] -= 1200 - 64;
+  }
+  else if(spaceship[0].pos[0] < 0  + 32) {
+    spaceship[0].pos[0] += 1200 - 64;
+  }
+  if(spaceship[0].pos[1] > 600 - 32) {
+    spaceship[0].pos[1] -= 600 - 64;
+  }
+  else if(spaceship[0].pos[1] < 0 + 32) {
+    spaceship[0].pos[1] += 600 - 64;
+  }
+  //Display position
+  spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
+  spaceship[1].style.top = String(spaceship[0].pos[1]-32) + "px";
+  //Rotation
+  if(keys.a && !keys.d) {
+    spaceship[0].angle -= spaceshipRotationSpeed;
+  }
+  else if(keys.d && !keys.a) {
+    spaceship[0].angle += spaceshipRotationSpeed;
+  }
+  spaceship[1].style.transform = "rotate(" + spaceship[0].angle + "deg)";
+}
+function physicsLoopAsteroidMovement() {
   for(i=0; i<asteroids.length; ++i) {
     //Acceleration
     asteroids[i][0].aclM = 0;
@@ -322,8 +327,5 @@ function physicsLoop() {
     //Display Position
     asteroids[i][1].style.left = String(asteroids[i][0].pos[0] - (asteroids[i][0].width/2)) + "px";
     asteroids[i][1].style.top = String(asteroids[i][0].pos[1] - (asteroids[i][0].height/2)) + "px";
-
   }
-
-  updateData();
 }
