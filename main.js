@@ -18,6 +18,7 @@ var maxLives = 3;
 var levelAsteroids = 3;
 var maxAsteroidVelocity = 2;
 var spaceshipAcceleration = 0.4;
+var spaceshipRotationSpeed = 5;
 
 var spaceship = {};
 function asteroid(size, pos, vel, acl) {
@@ -265,6 +266,14 @@ function physicsLoop() {
     //Display position
     spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
     spaceship[1].style.top = String(spaceship[0].pos[1]-32) + "px";
+    //Rotation
+    if(keys.a && !keys.d) {
+      spaceship[0].angle -= spaceshipRotationSpeed;
+    }
+    else if(keys.d && !keys.a) {
+      spaceship[0].angle += spaceshipRotationSpeed;
+    }
+    spaceship[1].style.transform = "rotate(" + spaceship[0].angle + "deg)";
 
   //Asteroids
 
