@@ -74,7 +74,7 @@ function startingStateObjects() {
   asteroidsRandomPosition();
   asteroidsRandomVelocity();
   updateMagnitude();
-  spaceship[0].pos = [600-32, 300-32];
+  spaceship[0].pos = [600, 300];
 }
 function asteroidsRandomPosition() {
   for(i=0; i<levelAsteroids; ++i) {
