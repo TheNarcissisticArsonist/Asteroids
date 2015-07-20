@@ -99,6 +99,34 @@ function updateMagnitude() {
   spaceship[0].velM = Math.sqrt(Math.pow(spaceship[0].vel[0], 2) + Math.pow(spaceship[0].vel[1], 2));
   spaceship[0].aclM = Math.sqrt(Math.pow(spaceship[0].acl[0], 2) + Math.pow(spaceship[0].acl[1], 2));
 }
+function levelIntro(levelNum) {
+  alertBox.innerHTML = "Level " + String(levelNum);
+  alertBox.style.display = "inline-block"
+  window.setTimeout(function() {
+    alertBox.innerHTML = "";
+    alertBox.style.display = "none";
+    window.setTimeout(function() {
+      alertBox.innerHTML = "Get ready...";
+      alertBox.style.display = "inline-block";
+      window.setTimeout(function() {
+        alertBox.innerHTML = "";
+        alertBox.style.display = "none";
+        window.setTimeout(function() {
+          updateUserDisplay();
+          updateGameBoard();
+          window.setTimeout(function() {
+            alertBox.innerHTML = "Go!";
+            alertBox.style.display = "inline-block";
+            window.setTimeout(function() {
+              alertBox.innerHTML = "";
+              alertBox.style.display = "none";
+            }, 750);
+          }, 750);
+        }, 750);
+      }, 750);
+    }, 750);
+  }, 750);
+}
 
 newGame.addEventListener("click", function() {
   levelCont.style.display = "inline-block";
@@ -124,31 +152,5 @@ newGame.addEventListener("click", function() {
 
   alertBox = document.getElementById("alertBox");
 
-  alertBox.innerHTML = "Level 1";
-  alertBox.style.display = "inline-block"
-
-  window.setTimeout(function() {
-    alertBox.innerHTML = "";
-    alertBox.style.display = "none";
-    window.setTimeout(function() {
-      alertBox.innerHTML = "Get ready...";
-      alertBox.style.display = "inline-block";
-      window.setTimeout(function() {
-        alertBox.innerHTML = "";
-        alertBox.style.display = "none";
-        window.setTimeout(function() {
-          updateUserDisplay();
-          updateGameBoard();
-          window.setTimeout(function() {
-            alertBox.innerHTML = "Go!";
-            alertBox.style.display = "inline-block";
-            window.setTimeout(function() {
-              alertBox.innerHTML = "";
-              alertBox.style.display = "none";
-            }, 750);
-          }, 750);
-        }, 750);
-      }, 750);
-    }, 750);
-  }, 750);
+  levelIntro(1);
 });
