@@ -224,24 +224,5 @@ document.addEventListener("keyup", function(event) {
 });
 
 function physicsLoop() {
-  //Spaceship first
-    //Acceleration
-    if(keys.w) {
-      spaceship[0].aclM = spaceshipAcceleration;
-    }
-    else {
-      spaceship[0].aclM = 0;
-    }
-    updateComponents();
-    //Velocity
-    spaceship[0].vel[0] += spaceship[0].acl[0];
-    spaceship[0].vel[1] += spaceship[0].acl[1];
-    //Position
-    spaceship[0].pos[0] += spaceship[0].acl[0];
-    spaceship[0].pos[1] += spaceship[0].acl[1];
-    //Move the ship
-    spaceship[1].style.left = spaceship[0].pos[0]-32;
-    spaceship[1].style.top = spaceship[0].pos[1]-32;
-
-  //Asteroids
+  
 }
