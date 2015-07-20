@@ -19,6 +19,15 @@ var spaceship = {
   aclM: 0,
   angle: 0
 };
+function asteroid(size, pos, vel, acl) {
+  this.size = size;
+  this.pos = pos;
+  this.vel = vel;
+  this.acl = acl;
+  this.velM = Math.sqrt(Math.pow(vel[0], 2) + Math.pow(vel[1], 2));
+  this.aclM = Math.sqrt(Math.pow(acl[0], 2) + Math.pow(acl[1], 2));
+  this.angle = Math.floor(Math.random() * 360);
+}
 
 function setUpLevel(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
