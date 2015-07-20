@@ -91,6 +91,9 @@ function asteroidsRandomVelocity() {
   for(i=0; i<levelAsteroids; ++i) {
     asteroids[i][0].vel[0] = Math.random() * maxAsteroidVelocity;
     asteroids[i][0].vel[1] = Math.sqrt(Math.pow(maxAsteroidVelocity, 2) - Math.pow(asteroids[i][0].vel[0], 2));
+    constant = Math.random();
+    asteroids[i][0].vel[0] *= constant;
+    asteroids[i][0].vel[1] *= constant;
   }
 }
 function updateMagnitude() {
