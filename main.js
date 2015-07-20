@@ -9,6 +9,8 @@ var score;
 var level;
 var lives;
 
+var maxLives = 3;
+
 function setUpLevel(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
   for(i=0; i<numAsteroids; ++i) {
@@ -16,11 +18,21 @@ function setUpLevel(numAsteroids) {
   }
   return htmlString;
 }
+function updateUserDisplay() {
+  levelDisp.innerHTML = String(level);
+  scoreDisp.innerHTML = String(score);
+  for(i=0; i<lives; ++i) {
+    livesDisp.innerHTML += "<img src=\"Spaceship.png\"></img>";
+  }
+}
 
 newGame.addEventListener("click", function() {
   levelCont.style.display = "inline-block";
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
   gameBoard.innerHTML = setUpLevel(3);
-
+  score = 0;
+  level = 1;
+  lives = maxLives;
+  updateUserDisplay();
 });
