@@ -106,6 +106,7 @@ function updateMagnitude() {
 function levelIntro(levelNum) {
   alertBox.innerHTML = "Level " + String(levelNum);
   alertBox.style.display = "inline-block"
+  inTimeoutSequence = true;
   window.setTimeout(function() {
     alertBox.innerHTML = "";
     alertBox.style.display = "none";
@@ -123,6 +124,7 @@ function levelIntro(levelNum) {
           window.setTimeout(function() {
             alertBox.innerHTML = "";
             alertBox.style.display = "none";
+            inTimeoutSequence = false;
           }, 750);
         }, 750);
       }, 750);
