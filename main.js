@@ -249,6 +249,19 @@ function physicsLoop() {
     //Position
     spaceship[0].pos[0] += spaceship[0].vel[0];
     spaceship[0].pos[1] += spaceship[0].vel[1];
+    //Test if off screen
+    if(spaceship[0].pos[0] > 1200) {
+      spaceship[0].pos[0] -= 1200;
+    }
+    else if(spaceship[0].pos[0] < 0) {
+      spaceship[0].pos[0] += 1200;
+    }
+    if(spaceship[0].pos[1] > 600) {
+      spaceship[0].pos[1] -= 600;
+    }
+    else if(spaceship[0].pos[1] < 0) {
+      spaceship[0].pos[1] += 600;
+    }
     //Display position
     spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
     spaceship[1].style.top = String(spaceship[0].pos[1]-32) + "px";
