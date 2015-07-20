@@ -34,7 +34,8 @@ div#score {
   Game board styles
 */
 div#gameBoard {
+  /*Optimized for 1280x800*/
   width: 1200px;
   height: 600px;
-  border: 1px dotted black; 
+  border: 1px dotted black;
 }
