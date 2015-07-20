@@ -245,9 +245,13 @@ function physicsLoop() {
     //Velocity
     spaceship[0].vel[0] += spaceship[0].acl[0];
     spaceship[0].vel[1] += spaceship[0].acl[1];
+    updateMagnitude();
     //Position
     spaceship[0].pos[0] += spaceship[0].vel[0];
     spaceship[0].pos[1] += spaceship[0].vel[1];
+    //Display position
+    spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
+    spaceship[1].style.top = String(spaceship[0].pos[1]-32) + "px";
 
   //Asteroids
 
