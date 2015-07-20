@@ -5,6 +5,7 @@ var scoreDisp = document.getElementById("currentScore");
 var scoreCont = document.getElementById("score");
 var livesDisp = document.getElementById("lives");
 var gameBoard = document.getElementById("gameBoard");
+var alertBox;
 var score;
 var level;
 var lives;
@@ -121,6 +122,32 @@ newGame.addEventListener("click", function() {
   generateGameObjects();
   startingStateObjects();
 
-  updateUserDisplay();
-  updateGameBoard();
+  alertBox = document.getElementById("alertBox");
+
+  alertBox.innerHTML = "Level 1";
+  alertBox.style.display = "inline-block"
+
+  window.setTimeout(function() {
+    alertBox.innerHTML = "";
+    alertBox.style.display = "none";
+    window.setTimeout(function() {
+      alertBox.innerHTML = "Get ready...";
+      alertBox.style.display = "inline-block";
+      updateUserDisplay();
+      updateGameBoard();
+      window.setTimeout(function() {
+        alertBox.innerHTML = "";
+        alertBox.style.display = "none";
+        window.setTimeout(function() {
+          alertBox.innerHTML = "Go!";
+          alertBox.style.display = "inline-block";
+          window.setTimeout(function() {
+            alertBox.innerHTML = "";
+            alertBox.style.display = "none";
+            console.log("Start main physics loop.");
+          }, 500);
+        }, 250);
+      }, 750);
+    }, 250);
+  }, 750);
 });
