@@ -1,8 +1,9 @@
 var newGame = document.getElementById("new");
-var level = document.getElementById("currentLevel");
+var levelDisp = document.getElementById("currentLevel");
 var levelCont = document.getElementById("level");
-var score = document.getElementById("currentScore");
+var scoreDisp = document.getElementById("currentScore");
 var scoreCont = document.getElementById("score");
+var livesDisp = document.getElementById("lives");
 var gameBoard = document.getElementById("gameBoard");
 var score;
 var level;
@@ -21,4 +22,5 @@ newGame.addEventListener("click", function() {
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
   gameBoard.innerHTML = setUpLevel(3);
+
 });
