@@ -34,7 +34,7 @@ var asteroids = [];
 function setUpLevel(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
   for(i=0; i<numAsteroids; ++i) {
-    htmlString += "<img class=\"gameObject bigAsteroid\" src=\"Asteroid.png\"></img>";
+    htmlString += "<img class=\"gameObject bigAsteroid\" id=\"bigAsteroid"+i+"\"src=\"Asteroid.png\"></img>";
     asteroids[i] = new asteroid(3, [0, 0], [0, 0], [0, 0]);
   }
   return htmlString;
@@ -53,15 +53,19 @@ newGame.addEventListener("click", function() {
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
   gameBoard.innerHTML = setUpLevel(levelAsteroids);
+  for(i=0; i<levelAsteroids; ++i) {
+    asteroids[i] = [asteroids[i], document.getElementById("bigAsteroid"+i)];
+  }
   score = 0;
   level = 1;
   lives = maxLives;
   updateUserDisplay();
   for(i=0; i<levelAsteroids; ++i) {
     do {
-      asteroids[i].pos[0] = Math.floor(Math.random() * 1200 + 1);
-      asteroids[i].pos[1] = Math.floor(Math.random() * 600 + 1);
+      asteroids[i][0].pos[0] = Math.floor(Math.random() * 1200 + 1);
+      asteroids[i][0].pos[1] = Math.floor(Math.random() * 600 + 1);
     }
-    while(!((asteroids[i].pos[0] > 800 || asteroids[i].pos[0] < 400) && (asteroids[i].pos[1] > 500 || asteroids[i].pos[1] < 100)));
+    while(!((asteroids[i][0].pos[0] > 800 || asteroids[i][0].pos[0] < 400) && (asteroids[i][0].pos[1] > 500 || asteroids[i][0].pos[1] < 100)));
   }
+
 });
