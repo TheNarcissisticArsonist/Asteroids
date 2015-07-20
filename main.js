@@ -16,7 +16,8 @@ var firstGame = true;
 
 var maxLives = 3;
 var levelAsteroids = 3;
-var maxAsteroidVelocity = 2;
+var maxAsteroidVelocity = 4;
+var minAsteroidVelocity = 0.5;
 var spaceshipAcceleration = 0.4;
 var spaceshipRotationSpeed = 5;
 
@@ -87,7 +88,6 @@ function generateGameObjects() {
 function startingStateObjects() {
   asteroidsRandomPosition();
   asteroidsRandomVelocity();
-  updateMagnitude();
   spaceship[0].pos = [600, 300];
 }
 function asteroidsRandomPosition() {
@@ -110,18 +110,22 @@ function asteroidsRandomPosition() {
   }
 }
 function asteroidsRandomVelocity() {
-  for(i=0; i<levelAsteroids; ++i) {
-    asteroids[i][0].vel[0] = Math.random() * maxAsteroidVelocity;
-    asteroids[i][0].vel[1] = Math.sqrt(Math.pow(maxAsteroidVelocity, 2) - Math.pow(asteroids[i][0].vel[0], 2));
-    constant = Math.random();
-    asteroids[i][0].vel[0] *= constant;
-    asteroids[i][0].vel[1] *= constant;
+  for(j=0; j<levelAsteroids; ++j) {
+    do {
+      asteroids[j][0].vel[0] = Math.random() * maxAsteroidVelocity;
+      asteroids[j][0].vel[1] = Math.sqrt(Math.pow(maxAsteroidVelocity, 2) - Math.pow(asteroids[j][0].vel[0], 2));
+      constant = Math.random();
+      asteroids[j][0].vel[0] *= constant;
+      asteroids[j][0].vel[1] *= constant;
+      updateMagnitude();
+    }
+    while(asteroids[j][0].velM > minAsteroidVelocity);
   }
 }
 function updateMagnitude() {
-  for(i=0; i<asteroids.length; ++i) {
-    asteroids[i][0].velM = Math.sqrt(Math.pow(asteroids[i][0].vel[0], 2) + Math.pow(asteroids[i][0].vel[1], 2));
-    asteroids[i][0].aclM = Math.sqrt(Math.pow(asteroids[i][0].acl[0], 2) + Math.pow(asteroids[i][0].acl[1], 2));
+  for(k=0; k<asteroids.length; ++k) {
+    asteroids[k][0].velM = Math.sqrt(Math.pow(asteroids[k][0].vel[0], 2) + Math.pow(asteroids[k][0].vel[1], 2));
+    asteroids[k][0].aclM = Math.sqrt(Math.pow(asteroids[k][0].acl[0], 2) + Math.pow(asteroids[k][0].acl[1], 2));
   }
   spaceship[0].velM = Math.sqrt(Math.pow(spaceship[0].vel[0], 2) + Math.pow(spaceship[0].vel[1], 2));
   spaceship[0].aclM = Math.sqrt(Math.pow(spaceship[0].acl[0], 2) + Math.pow(spaceship[0].acl[1], 2));
@@ -155,9 +159,9 @@ function levelIntro(levelNum) {
   }, 750);
 }
 function updateComponents() {
-  for(i=0; i<asteroids.length; ++i) {
-    asteroids[i][0].acl[0] = asteroids[i][0].aclM * Math.sin(asteroids[i][0].angle * Math.PI / 180);
-    asteroids[i][0].acl[1] = asteroids[i][0].aclM * Math.sin(asteroids[i][0].angle * Math.PI / 180);
+  for(k=0; k<asteroids.length; ++k) {
+    asteroids[k][0].acl[0] = asteroids[k][0].aclM * Math.sin(asteroids[k][0].angle * Math.PI / 180);
+    asteroids[k][0].acl[1] = asteroids[k][0].aclM * Math.sin(asteroids[k][0].angle * Math.PI / 180);
   }
   spaceship[0].acl[0] = spaceship[0].aclM * Math.sin(spaceship[0].angle * Math.PI / 180);
   spaceship[0].acl[1] = -1 * spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
@@ -294,9 +298,11 @@ function physicsLoop() {
     asteroids[i][0].aclM = 0;
     asteroids[i][0].acl[0] = 0;
     asteroids[i][0].acl[1] = 0;
+    updateComponents();
     //Velocity
     asteroids[i][0].vel[0] += asteroids[i][0].acl[0];
     asteroids[i][0].vel[1] += asteroids[i][0].acl[1];
+    updateMagnitude();
     //Position
     asteroids[i][0].pos[0] += asteroids[i][0].vel[0];
     asteroids[i][0].pos[1] += asteroids[i][0].vel[1];
