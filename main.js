@@ -16,6 +16,7 @@ var firstGame = true;
 var maxLives = 3;
 var levelAsteroids = 3;
 var maxAsteroidVelocity = 2;
+var spaceshipAcceleration = 0.4;
 
 var spaceship = {};
 function asteroid(size, pos, vel, acl) {
@@ -138,6 +139,14 @@ function levelIntro(levelNum) {
     }, 750);
   }, 750);
 }
+function updateComponents() {
+  for(i=0; i<asteroids.length; ++i) {
+    asteroids[i][0].acl[0] = asteroids[i][0].aclM * Math.cos(asteroids[i][0].angle * Math.PI / 180);
+    asteroids[i][0].acl[1] = asteroids[i][0].aclM * Math.sin(asteroids[i][0].angle * Math.PI / 180);
+  }
+  spaceship[0].acl[0] = spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
+  spaceship[0].acl[1] = spaceship[0].aclM * Math.sin(spaceship[0].angle * Math.PI / 180);
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
@@ -215,5 +224,24 @@ document.addEventListener("keyup", function(event) {
 });
 
 function physicsLoop() {
+  //Spaceship first
+    //Acceleration
+    if(keys.w) {
+      spaceship[0].aclM = spaceshipAcceleration;
+    }
+    else {
+      spaceship[0].aclM = 0;
+    }
+    updateComponents();
+    //Velocity
+    spaceship[0].vel[0] += spaceship[0].acl[0];
+    spaceship[0].vel[1] += spaceship[0].acl[1];
+    //Position
+    spaceship[0].pos[0] += spaceship[0].acl[0];
+    spaceship[0].pos[1] += spaceship[0].acl[1];
+    //Move the ship
+    spaceship[1].style.left = spaceship[0].pos[0]-32;
+    spaceship[1].style.top = spaceship[0].pos[1]-32;
 
+  //Asteroids
 }
