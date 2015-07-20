@@ -47,6 +47,12 @@ function updateUserDisplay() {
     livesDisp.innerHTML += "<img src=\"Spaceship.png\"></img>";
   }
 }
+function updateGameBoard() {
+  for(i=0; i<asteroids.length; ++i) {
+    asteroids[i][1].style.left = asteroids[i][0].pos[0] + "px";
+    asteroids[i][1].style.top = asteroids[i][0].pos[1] + "px";
+  }
+}
 
 newGame.addEventListener("click", function() {
   levelCont.style.display = "inline-block";
@@ -67,5 +73,5 @@ newGame.addEventListener("click", function() {
     }
     while(!((asteroids[i][0].pos[0] > 800 || asteroids[i][0].pos[0] < 400) && (asteroids[i][0].pos[1] > 500 || asteroids[i][0].pos[1] < 100)));
   }
-
+  updateGameBoard();
 });
