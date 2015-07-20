@@ -133,21 +133,22 @@ newGame.addEventListener("click", function() {
     window.setTimeout(function() {
       alertBox.innerHTML = "Get ready...";
       alertBox.style.display = "inline-block";
-      updateUserDisplay();
-      updateGameBoard();
       window.setTimeout(function() {
         alertBox.innerHTML = "";
         alertBox.style.display = "none";
         window.setTimeout(function() {
-          alertBox.innerHTML = "Go!";
-          alertBox.style.display = "inline-block";
+          updateUserDisplay();
+          updateGameBoard();
           window.setTimeout(function() {
-            alertBox.innerHTML = "";
-            alertBox.style.display = "none";
-            console.log("Start main physics loop.");
-          }, 500);
-        }, 250);
-      }, 750);
-    }, 250);
+            alertBox.innerHTML = "Go!";
+            alertBox.style.display = "inline-block";
+            window.setTimeout(function() {
+              alertBox.innerHTML = "";
+              alertBox.style.display = "none";
+            }, 1000);
+          }, 1000);
+        }, 500);
+      }, 1000);
+    }, 500);
   }, 750);
 });
