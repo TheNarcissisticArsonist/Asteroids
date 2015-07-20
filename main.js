@@ -37,6 +37,7 @@ function setUpLevelHTML(numAsteroids) {
   for(i=0; i<numAsteroids; ++i) {
     htmlString += "<img class=\"gameObject bigAsteroid\" id=\"bigAsteroid"+i+"\"src=\"Asteroid.png\"></img>";
   }
+  htmlString += "<div id=\"alertBox\" style=\"display: none;\">Alert Box</div>"
   return htmlString;
 }
 function updateUserDisplay() {

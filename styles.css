@@ -47,6 +47,7 @@ div#gameBoard {
   position: absolute;
   left: 5px;
   top: 150px;
+  text-align: center;
 }
 
 /*
@@ -72,4 +73,14 @@ div.smallAsteroid {
 }
 div#ship {
   z-index: 100;
+}
+
+/*
+  Alert Box Styling
+*/
+div#alertBox {
+  border: 3px dotted red;
+  height: 60px;
+  width: 200px;
+  margin: 267px 0px;
 }
