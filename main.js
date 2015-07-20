@@ -87,14 +87,12 @@ newGame.addEventListener("click", function() {
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
 
-  gameBoard.innerHTML = setUpLevelHTML(levelAsteroids);
-
-  generateGameObjects();
-
   score = 0;
   level = 1;
   lives = maxLives;
 
+  gameBoard.innerHTML = setUpLevelHTML(levelAsteroids);
+  generateGameObjects();
   startingPositionObjects();
 
   updateUserDisplay();
