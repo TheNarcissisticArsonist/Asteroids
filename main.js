@@ -145,10 +145,10 @@ newGame.addEventListener("click", function() {
             window.setTimeout(function() {
               alertBox.innerHTML = "";
               alertBox.style.display = "none";
-            }, 1000);
-          }, 1000);
-        }, 500);
-      }, 1000);
-    }, 500);
+            }, 750);
+          }, 750);
+        }, 750);
+      }, 750);
+    }, 750);
   }, 750);
 });
