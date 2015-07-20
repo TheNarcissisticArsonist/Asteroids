@@ -11,6 +11,7 @@ var level;
 var lives;
 
 var inTimeoutSequence = false;
+var firstGame = true;
 
 var maxLives = 3;
 var levelAsteroids = 3;
@@ -145,6 +146,11 @@ newGame.addEventListener("click", function() {
   startNewGame();
 });
 function startNewGame() {
+  if(!firstGame) {
+    window.clearInterval(mainLoop);
+  }
+  firstGame = false;
+
   levelCont.style.display = "inline-block";
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
@@ -169,6 +175,7 @@ function startNewGame() {
   alertBox = document.getElementById("alertBox");
 
   levelIntro(1);
+  mainLoop = window.setInterval(physicsLoop, 33);
 };
 
 document.addEventListener("keydown", function(event) {
@@ -206,3 +213,7 @@ document.addEventListener("keyup", function(event) {
       break;
   }
 });
+
+function physicsLoop() {
+
+}
