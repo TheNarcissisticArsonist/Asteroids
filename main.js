@@ -27,9 +27,9 @@ function asteroid(size, pos, vel, acl) {
 var asteroids = [];
 
 function setUpLevelHTML(numAsteroids) {
-  htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
+  htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\" style=\"display: none;\"></img>"
   for(i=0; i<numAsteroids; ++i) {
-    htmlString += "<img class=\"gameObject bigAsteroid\" id=\"bigAsteroid"+i+"\"src=\"Asteroid.png\"></img>";
+    htmlString += "<img class=\"gameObject bigAsteroid\" id=\"bigAsteroid"+i+"\"src=\"Asteroid.png\" style=\"display: none;\"></img>";
   }
   htmlString += "<div id=\"alertBox\" style=\"display: none;\">Alert Box</div>"
   return htmlString;
@@ -46,9 +46,11 @@ function updateGameBoard() {
   for(i=0; i<asteroids.length; ++i) {
     asteroids[i][1].style.left = String(asteroids[i][0].pos[0]) + "px";
     asteroids[i][1].style.top = String(asteroids[i][0].pos[1]) + "px";
+    asteroids[i][1].style.display = "inline-block";
   }
   spaceship[1].style.left = String(spaceship[0].pos[0]) + "px";
   spaceship[1].style.top = String(spaceship[0].pos[1]) + "px";
+  spaceship[1].style.display = "inline-block";
 }
 function generateGameObjects() {
   for(i=0; i<levelAsteroids; ++i) {
