@@ -49,7 +49,7 @@ div#gameBoard {
 /*
   Game Element Styles
 */
-div.gameObject {
+.gameObject {
   position: relative;
 }
 div.bigAsteroid {
