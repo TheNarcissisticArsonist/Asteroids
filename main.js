@@ -54,6 +54,13 @@ function updateGameBoard() {
   spaceship[1].style.left = String(spaceship[0].pos[0]) + "px";
   spaceship[1].style.top = String(spaceship[0].pos[1]) + "px";
 }
+function generateGameObjects() {
+  for(i=0; i<levelAsteroids; ++i) {
+    asteroids[i] = new asteroid(3, [0, 0], [0, 0], [0, 0]);
+    asteroids[i] = [asteroids[i], document.getElementById("bigAsteroid"+i)];
+  }
+  spaceship = [spaceship, document.getElementById("ship")];
+}
 
 newGame.addEventListener("click", function() {
   levelCont.style.display = "inline-block";
@@ -61,14 +68,13 @@ newGame.addEventListener("click", function() {
   gameBoard.style.display = "inline-block";
 
   gameBoard.innerHTML = setUpLevelHTML(levelAsteroids);
-  for(i=0; i<levelAsteroids; ++i) {
-    asteroids[i] = new asteroid(3, [0, 0], [0, 0], [0, 0]);
-    asteroids[i] = [asteroids[i], document.getElementById("bigAsteroid"+i)];
-  }
-  spaceship = [spaceship, document.getElementById("ship")];
+
+  generateGameObjects();
+
   score = 0;
   level = 1;
   lives = maxLives;
+
   updateUserDisplay();
   for(i=0; i<levelAsteroids; ++i) {
     do {
