@@ -264,17 +264,17 @@ function physicsLoop() {
     spaceship[0].pos[0] += spaceship[0].vel[0];
     spaceship[0].pos[1] += spaceship[0].vel[1];
     //Test if off screen
-    if(spaceship[0].pos[0] > 1200) {
-      spaceship[0].pos[0] -= 1200;
+    if(spaceship[0].pos[0] > 1200 - 32) {
+      spaceship[0].pos[0] -= 1200 - 64;
     }
-    else if(spaceship[0].pos[0] < 0) {
-      spaceship[0].pos[0] += 1200;
+    else if(spaceship[0].pos[0] < 0  + 32) {
+      spaceship[0].pos[0] += 1200 - 64;
     }
-    if(spaceship[0].pos[1] > 600) {
-      spaceship[0].pos[1] -= 600;
+    if(spaceship[0].pos[1] > 600 - 32) {
+      spaceship[0].pos[1] -= 600 - 64;
     }
-    else if(spaceship[0].pos[1] < 0) {
-      spaceship[0].pos[1] += 600;
+    else if(spaceship[0].pos[1] < 0 + 32) {
+      spaceship[0].pos[1] += 600 - 64;
     }
     //Display position
     spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
@@ -301,17 +301,17 @@ function physicsLoop() {
     asteroids[i][0].pos[0] += asteroids[i][0].vel[0];
     asteroids[i][0].pos[1] += asteroids[i][0].vel[1];
     //Test if off screen
-    if(asteroids[i][0].pos[0] > 1200) {
-      asteroids[i][0].pos[0] -= 1200;
+    if(asteroids[i][0].pos[0] > 1200 - 32) {
+      asteroids[i][0].pos[0] -= 1200 - 64;
     }
-    else if(asteroids[i][0] < 0) {
-      asteroids[i][0].pos[0] += 1200;
+    else if(asteroids[i][0] < 0 + 32) {
+      asteroids[i][0].pos[0] += 1200 -64;
     }
-    if(asteroids[i][0].pos[1] > 600) {
-      asteroids[i][0].pos[1] -= 600;
+    if(asteroids[i][0].pos[1] > 600 - 32) {
+      asteroids[i][0].pos[1] -= 600 - 64;
     }
-    else if(asteroids[i][0].pos[1] < 0) {
-      asteroids[i][0].pos[1] += 600;
+    else if(asteroids[i][0].pos[1] < 0 + 32) {
+      asteroids[i][0].pos[1] += 600 - 64;
     }
     //Display Position
     asteroids[i][1].style.left = String(asteroids[i][0].pos[0] - (asteroids[i][0].width/2)) + "px";
