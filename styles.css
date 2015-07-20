@@ -44,13 +44,16 @@ div#gameBoard {
   width: 1200px;
   height: 600px;
   border: 1px dotted black;
+  position: absolute;
+  left: 5px;
+  top: 150px;
 }
 
 /*
   Game Element Styles
 */
 .gameObject {
-  position: relative;
+  position: absolute;
 }
 div.bigAsteroid {
   width: 50px;

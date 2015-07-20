@@ -49,8 +49,8 @@ function updateUserDisplay() {
 }
 function updateGameBoard() {
   for(i=0; i<asteroids.length; ++i) {
-    asteroids[i][1].style.left = asteroids[i][0].pos[0] + "px";
-    asteroids[i][1].style.top = asteroids[i][0].pos[1] + "px";
+    asteroids[i][1].style.left = String(asteroids[i][0].pos[0]) + "px";
+    asteroids[i][1].style.top = String(asteroids[i][0].pos[1]) + "px";
   }
 }
 
@@ -71,7 +71,17 @@ newGame.addEventListener("click", function() {
       asteroids[i][0].pos[0] = Math.floor(Math.random() * 1200 + 1);
       asteroids[i][0].pos[1] = Math.floor(Math.random() * 600 + 1);
     }
-    while(!((asteroids[i][0].pos[0] > 800 || asteroids[i][0].pos[0] < 400) && (asteroids[i][0].pos[1] > 500 || asteroids[i][0].pos[1] < 100)));
+    while(
+      !(
+        (asteroids[i][0].pos[0] > 800 || asteroids[i][0].pos[0] < 400)
+        &&
+        (asteroids[i][0].pos[0] < (1200-50) && asteroids[i][0].pos[0] > (0+50))
+        &&
+        (asteroids[i][0].pos[1] > 500 || asteroids[i][0].pos[1] < 100)
+        &&
+        (asteroids[i][0].pos[1] < (600-50) && asteroids[i][0].pos[1] > (0+50))
+      )
+    );
   }
   updateGameBoard();
 });
