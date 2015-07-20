@@ -88,3 +88,10 @@ div#alertBox {
   background-color: white;
   z-index: 1000;
 }
+
+/*
+  Data Box
+*/
+div#dataCont p {
+  display: block
+}

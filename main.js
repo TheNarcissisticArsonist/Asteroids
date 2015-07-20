@@ -5,6 +5,7 @@ var scoreDisp = document.getElementById("currentScore");
 var scoreCont = document.getElementById("score");
 var livesDisp = document.getElementById("lives");
 var gameBoard = document.getElementById("gameBoard");
+var infoCont = document.getElementById("spaceshipInfo");
 var alertBox;
 var score;
 var level;
@@ -147,6 +148,14 @@ function updateComponents() {
   spaceship[0].acl[0] = spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
   spaceship[0].acl[1] = spaceship[0].aclM * Math.sin(spaceship[0].angle * Math.PI / 180);
 }
+function updateData() {
+  document.getElementById("pos").innerHTML = "pos:" + spaceship[0].pos;
+  document.getElementById("vel").innerHTML = "vel:" + spaceship[0].vel;
+  document.getElementById("acl").innerHTML = "acl:" + spaceship[0].acl;
+  document.getElementById("velM").innerHTML = "velM:" + spaceship[0].velM;
+  document.getElementById("aclM").innerHTML = "aclM:" + spaceship[0].aclM;
+  document.getElementById("angle").innerHTML = "angle:" + spaceship[0].angle;
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
@@ -224,5 +233,6 @@ document.addEventListener("keyup", function(event) {
 });
 
 function physicsLoop() {
-  
+
+  updateData();
 }
