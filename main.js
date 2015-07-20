@@ -61,7 +61,7 @@ function generateGameObjects() {
   }
   spaceship = [spaceship, document.getElementById("ship")];
 }
-function randomlyPositionAsteroids() {
+function startingPositionObjects() {
   for(i=0; i<levelAsteroids; ++i) {
     do {
       asteroids[i][0].pos[0] = Math.floor(Math.random() * 1200 + 1);
@@ -79,6 +79,7 @@ function randomlyPositionAsteroids() {
       )
     );
   }
+  spaceship[0].pos = [600, 300];
 }
 
 newGame.addEventListener("click", function() {
@@ -94,9 +95,7 @@ newGame.addEventListener("click", function() {
   level = 1;
   lives = maxLives;
 
-  randomlyPositionAsteroids();
-
-  spaceship[0].pos = [600, 300];
+  startingPositionObjects();
 
   updateUserDisplay();
   updateGameBoard();
