@@ -114,15 +114,13 @@ function levelIntro(levelNum) {
         alertBox.innerHTML = "";
         alertBox.style.display = "none";
         window.setTimeout(function() {
+          alertBox.innerHTML = "Go!";
+          alertBox.style.display = "inline-block";
           updateUserDisplay();
           updateGameBoard();
           window.setTimeout(function() {
-            alertBox.innerHTML = "Go!";
-            alertBox.style.display = "inline-block";
-            window.setTimeout(function() {
-              alertBox.innerHTML = "";
-              alertBox.style.display = "none";
-            }, 750);
+            alertBox.innerHTML = "";
+            alertBox.style.display = "none";
           }, 750);
         }, 750);
       }, 750);
