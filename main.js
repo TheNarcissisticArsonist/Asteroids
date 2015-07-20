@@ -128,7 +128,8 @@ function levelIntro(levelNum) {
   }, 750);
 }
 
-newGame.addEventListener("click", function() {
+newGame.addEventListener("click", startNewGame);
+function startNewGame() {
   levelCont.style.display = "inline-block";
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
@@ -153,4 +154,4 @@ newGame.addEventListener("click", function() {
   alertBox = document.getElementById("alertBox");
 
   levelIntro(1);
-});
+};
