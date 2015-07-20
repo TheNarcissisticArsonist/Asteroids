@@ -279,12 +279,11 @@ function physicsLoop() {
   for(i=0; i<asteroids.length; ++i) {
     //Acceleration
     asteroids[i][0].aclM = 0;
-    asteroids[i][0].acl = [0, 0];
-    updateComponents();
+    asteroids[i][0].acl[0] = 0;
+    asteroids[i][0].acl[1] = 0;
     //Velocity
     asteroids[i][0].vel[0] += asteroids[i][0].acl[0];
     asteroids[i][0].vel[1] += asteroids[i][0].acl[1];
-    updateMagnitude();
     //Position
     asteroids[i][0].pos[0] += asteroids[i][0].vel[0];
     asteroids[i][0].pos[1] += asteroids[i][0].vel[1];
@@ -301,6 +300,9 @@ function physicsLoop() {
     else if(asteroids[i][0].pos[1] < 0) {
       asteroids[i][0].pos[1] += 600;
     }
+    //Display Position
+    asteroids[i][1].style.left = String(asteroids[i][0].pos[0] - (asteroids[i][1].style.width/2)) + "px";
+    asteroids[i][1].style.top = String(asteroids[i][0].pos[1] - (asteroids[i][1].style.height/2)) + "px";
 
   }
 
