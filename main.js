@@ -65,6 +65,7 @@ function generateGameObjects() {
 function startingStateObjects() {
   asteroidsRandomPosition();
   asteroidsRandomVelocity();
+  updateMagnitude();
   spaceship[0].pos = [600, 300];
 }
 function asteroidsRandomPosition() {
@@ -91,6 +92,14 @@ function asteroidsRandomVelocity() {
     asteroids[i][0].vel[0] = Math.random() * maxAsteroidVelocity;
     asteroids[i][0].vel[1] = Math.sqrt(Math.pow(maxAsteroidVelocity, 2) - Math.pow(asteroids[i][0].vel[0], 2));
   }
+}
+function updateMagnitude() {
+  for(i=0; i<asteroids.length; ++i) {
+    asteroids[i][0].velM = Math.sqrt(Math.pow(asteroids[i][0].vel[0], 2) + Math.pow(asteroids[i][0].vel[1], 2));
+    asteroids[i][0].aclM = Math.sqrt(Math.pow(asteroids[i][0].acl[0], 2) + Math.pow(asteroids[i][0].acl[1], 2));
+  }
+  spaceship[0].velM = Math.sqrt(Math.pow(spaceship[0].vel[0], 2) + Math.pow(spaceship[0].vel[1], 2));
+  spaceship[0].aclM = Math.sqrt(Math.pow(spaceship[0].acl[0], 2) + Math.pow(spaceship[0].acl[1], 2));
 }
 
 newGame.addEventListener("click", function() {
