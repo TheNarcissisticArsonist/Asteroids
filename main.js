@@ -10,6 +10,7 @@ var level;
 var lives;
 
 var maxLives = 3;
+var levelAsteroids = 3;
 
 var spaceship = {
   pos: [0, 0],
@@ -51,9 +52,16 @@ newGame.addEventListener("click", function() {
   levelCont.style.display = "inline-block";
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
-  gameBoard.innerHTML = setUpLevel(3);
+  gameBoard.innerHTML = setUpLevel(levelAsteroids);
   score = 0;
   level = 1;
   lives = maxLives;
   updateUserDisplay();
+  for(i=0; i<levelAsteroids; ++i) {
+    do {
+      asteroids[i].pos[0] = Math.floor(Math.random() * 1200 + 1);
+      asteroids[i].pos[1] = Math.floor(Math.random() * 600 + 1);
+    }
+    while(!((asteroids[i].pos[0] > 800 || asteroids[i].pos[0] < 400) && (asteroids[i].pos[1] > 500 || asteroids[i].pos[1] < 100)));
+  }
 });
