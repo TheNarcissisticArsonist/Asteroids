@@ -41,6 +41,7 @@ function setUpLevel(numAsteroids) {
 function updateUserDisplay() {
   levelDisp.innerHTML = String(level);
   scoreDisp.innerHTML = String(score);
+  livesDisp.innerHTML = "";
   for(i=0; i<lives; ++i) {
     livesDisp.innerHTML += "<img src=\"Spaceship.png\"></img>";
   }
