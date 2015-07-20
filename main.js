@@ -148,10 +148,10 @@ function levelIntro(levelNum) {
           alertBox.style.display = "inline-block";
           updateUserDisplay();
           updateGameBoard();
+          inTimeoutSequence = false;
           window.setTimeout(function() {
             alertBox.innerHTML = "";
             alertBox.style.display = "none";
-            inTimeoutSequence = false;
           }, 750);
         }, 750);
       }, 750);
