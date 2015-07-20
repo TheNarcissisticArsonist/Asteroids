@@ -4,6 +4,9 @@ var levelCont = document.getElementById("level");
 var score = document.getElementById("currentScore");
 var scoreCont = document.getElementById("score");
 var gameBoard = document.getElementById("gameBoard");
+var score;
+var level;
+var lives;
 
 function setUpLevel(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
