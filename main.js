@@ -28,6 +28,12 @@ function asteroid(size, pos, vel, acl) {
 }
 var asteroids = [];
 
+keys = {
+  w: false,
+  a: false,
+  d: false
+};
+
 function setUpLevelHTML(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\" style=\"display: none;\"></img>"
   for(i=0; i<numAsteroids; ++i) {
