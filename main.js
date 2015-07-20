@@ -242,6 +242,12 @@ function physicsLoop() {
       spaceship[0].aclM = 0;
     }
     updateComponents();
+    //Velocity
+    spaceship[0].vel[0] += spaceship[0].acl[0];
+    spaceship[0].vel[1] += spaceship[0].acl[1];
+    //Position
+    spaceship[0].pos[0] += spaceship[0].vel[0];
+    spaceship[0].pos[1] += spaceship[0].vel[1];
 
   //Asteroids
 
