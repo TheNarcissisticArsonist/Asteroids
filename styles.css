@@ -11,6 +11,9 @@ p {
 /*
   Information box styles
 */
+div#ui div {
+  vertical-align: top;
+}
 div.info {
   width: 100px;
   height: 40px;
@@ -28,6 +31,9 @@ div#level {
 }
 div#score {
   background-color: green;
+}
+div#lives img {
+  transform: rotate(45deg);
 }
 
 /*
