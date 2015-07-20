@@ -23,6 +23,19 @@ var spaceshipRotationSpeed = 5;
 var spaceship = {};
 function asteroid(size, pos, vel, acl) {
   this.size = size;
+  switch(size) {
+    case 3:
+      this.width = 50;
+      this.height = 50;
+      break;
+    case 2:
+      this.width = 25;
+      this.height = 25;
+      break;
+    case 1:
+      this.width = 10;
+      this.height = 10;
+  }
   this.pos = pos;
   this.vel = vel;
   this.acl = acl;
@@ -301,8 +314,8 @@ function physicsLoop() {
       asteroids[i][0].pos[1] += 600;
     }
     //Display Position
-    asteroids[i][1].style.left = String(asteroids[i][0].pos[0] - (asteroids[i][1].style.width/2)) + "px";
-    asteroids[i][1].style.top = String(asteroids[i][0].pos[1] - (asteroids[i][1].style.height/2)) + "px";
+    asteroids[i][1].style.left = String(asteroids[i][0].pos[0] - (asteroids[i][0].width/2)) + "px";
+    asteroids[i][1].style.top = String(asteroids[i][0].pos[1] - (asteroids[i][0].height/2)) + "px";
 
   }
 
