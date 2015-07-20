@@ -142,11 +142,11 @@ function levelIntro(levelNum) {
 }
 function updateComponents() {
   for(i=0; i<asteroids.length; ++i) {
-    asteroids[i][0].acl[0] = asteroids[i][0].aclM * Math.cos(asteroids[i][0].angle * Math.PI / 180);
-    asteroids[i][0].acl[1] = asteroids[i][0].aclM * Math.sin(asteroids[i][0].angle * Math.PI / 180);
+    asteroids[i][0].acl[0] = asteroids[i][0].aclM * Math.sin(asteroids[i][0].angle * Math.PI / 180);
+    asteroids[i][0].acl[1] = asteroids[i][0].aclM * Math.cos(asteroids[i][0].angle * Math.PI / 180);
   }
-  spaceship[0].acl[0] = spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
-  spaceship[0].acl[1] = spaceship[0].aclM * Math.sin(spaceship[0].angle * Math.PI / 180);
+  spaceship[0].acl[0] = spaceship[0].aclM * Math.sin(spaceship[0].angle * Math.PI / 180);
+  spaceship[0].acl[1] = -1 * spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
 }
 function updateData() {
   document.getElementById("pos").innerHTML = "pos:" + spaceship[0].pos;
@@ -233,6 +233,18 @@ document.addEventListener("keyup", function(event) {
 });
 
 function physicsLoop() {
+  //Spaceship
+    //Acceleration
+    if(keys.w) {
+      spaceship[0].aclM = spaceshipAcceleration;
+    }
+    else{
+      spaceship[0].aclM = 0;
+    }
+    updateComponents();
+
+  //Asteroids
+
 
   updateData();
 }
