@@ -45,3 +45,28 @@ div#gameBoard {
   height: 600px;
   border: 1px dotted black;
 }
+
+/*
+  Game Element Styles
+*/
+div.gameObject {
+  position: relative;
+}
+div.bigAsteroid {
+  width: 50px;
+  height: 50px;
+  z-index: 200;
+}
+div.mediumAsteroid {
+  width: 25px;
+  height: 25px;
+  z-index: 300;
+}
+div.smallAsteroid {
+  width: 10px;
+  height: 10px;
+  z-index: 400;
+}
+div#ship {
+  z-index: 100;
+}
