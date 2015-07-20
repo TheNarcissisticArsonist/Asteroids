@@ -31,11 +31,10 @@ function asteroid(size, pos, vel, acl) {
 }
 var asteroids = [];
 
-function setUpLevel(numAsteroids) {
+function setUpLevelHTML(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
   for(i=0; i<numAsteroids; ++i) {
     htmlString += "<img class=\"gameObject bigAsteroid\" id=\"bigAsteroid"+i+"\"src=\"Asteroid.png\"></img>";
-    asteroids[i] = new asteroid(3, [0, 0], [0, 0], [0, 0]);
   }
   return htmlString;
 }
@@ -60,8 +59,10 @@ newGame.addEventListener("click", function() {
   levelCont.style.display = "inline-block";
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
-  gameBoard.innerHTML = setUpLevel(levelAsteroids);
+
+  gameBoard.innerHTML = setUpLevelHTML(levelAsteroids);
   for(i=0; i<levelAsteroids; ++i) {
+    asteroids[i] = new asteroid(3, [0, 0], [0, 0], [0, 0]);
     asteroids[i] = [asteroids[i], document.getElementById("bigAsteroid"+i)];
   }
   spaceship = [spaceship, document.getElementById("ship")];
