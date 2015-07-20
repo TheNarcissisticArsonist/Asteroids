@@ -144,7 +144,7 @@ function levelIntro(levelNum) {
 function updateComponents() {
   for(i=0; i<asteroids.length; ++i) {
     asteroids[i][0].acl[0] = asteroids[i][0].aclM * Math.sin(asteroids[i][0].angle * Math.PI / 180);
-    asteroids[i][0].acl[1] = asteroids[i][0].aclM * Math.cos(asteroids[i][0].angle * Math.PI / 180);
+    asteroids[i][0].acl[1] = asteroids[i][0].aclM * Math.sin(asteroids[i][0].angle * Math.PI / 180);
   }
   spaceship[0].acl[0] = spaceship[0].aclM * Math.sin(spaceship[0].angle * Math.PI / 180);
   spaceship[0].acl[1] = -1 * spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
@@ -276,7 +276,33 @@ function physicsLoop() {
     spaceship[1].style.transform = "rotate(" + spaceship[0].angle + "deg)";
 
   //Asteroids
+  for(i=0; i<asteroids.length; ++i) {
+    //Acceleration
+    asteroids[i][0].aclM = 0;
+    asteroids[i][0].acl = [0, 0];
+    updateComponents();
+    //Velocity
+    asteroids[i][0].vel[0] += asteroids[i][0].acl[0];
+    asteroids[i][0].vel[1] += asteroids[i][0].acl[1];
+    updateMagnitude();
+    //Position
+    asteroids[i][0].pos[0] += asteroids[i][0].vel[0];
+    asteroids[i][0].pos[1] += asteroids[i][0].vel[1];
+    //Test if off screen
+    if(asteroids[i][0].pos[0] > 1200) {
+      asteroids[i][0].pos[0] -= 1200;
+    }
+    else if(asteroids[i][0] < 0) {
+      asteroids[i][0].pos[0] += 1200;
+    }
+    if(asteroids[i][0].pos[1] > 600) {
+      asteroids[i][0].pos[1] -= 600;
+    }
+    else if(asteroids[i][0].pos[1] < 0) {
+      asteroids[i][0].pos[1] += 600;
+    }
 
+  }
 
   updateData();
 }
