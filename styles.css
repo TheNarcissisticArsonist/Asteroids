@@ -5,35 +5,22 @@ p {
   display: inline-block;
 }
 
+div.info {
+  width: 100px;
+  height: 40px;
+  text-align: center;
+}
+div.info p {
+  padding: 11px 0px;
+  margin: 0px;
+}
+
 div#new {
-  width: 100px;
-  height: 40px;
   background-color: blue;
-  text-align: center;
 }
-div#new p {
-  padding: 11px 0px;
-  margin: 0px;
-}
-
 div#level {
-  width: 100px;
-  height: 40px;
   background-color: red;
-  text-align: center;
 }
-div#level p {
-  padding: 11px 0px;
-  margin: 0px;
-}
-
 div#score {
-  width: 100px;
-  height: 40px;
   background-color: green;
-  text-align: center;
-}
-div#score p {
-  padding: 11px 0px;
-  margin: 0px;
 }
