@@ -17,7 +17,7 @@ var firstGame = true;
 var maxLives = 3;
 var levelAsteroids = 3;
 var maxAsteroidVelocity = 4;
-var minAsteroidVelocity = 0.5;
+var minAsteroidVelocity = 1.5;
 var spaceshipAcceleration = 0.4;
 var spaceshipRotationSpeed = 5;
 
@@ -119,7 +119,7 @@ function asteroidsRandomVelocity() {
       asteroids[j][0].vel[1] *= constant;
       updateMagnitude();
     }
-    while(asteroids[j][0].velM > minAsteroidVelocity);
+    while(asteroids[j][0].velM < minAsteroidVelocity);
   }
 }
 function updateMagnitude() {
