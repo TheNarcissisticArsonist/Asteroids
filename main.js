@@ -11,6 +11,15 @@ var lives;
 
 var maxLives = 3;
 
+var spaceship = {
+  pos: [0, 0],
+  vel: [0, 0],
+  acl: [0, 0],
+  velM: 0,
+  aclM: 0,
+  angle: 0
+};
+
 function setUpLevel(numAsteroids) {
   htmlString = "<img class=\"gameObject\" id=\"ship\" src=\"Spaceship.png\"></img>"
   for(i=0; i<numAsteroids; ++i) {
