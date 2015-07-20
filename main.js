@@ -13,14 +13,7 @@ var maxLives = 3;
 var levelAsteroids = 3;
 var maxAsteroidVelocity = 2;
 
-var spaceship = {
-  pos: [0, 0],
-  vel: [0, 0],
-  acl: [0, 0],
-  velM: 0,
-  aclM: 0,
-  angle: 0
-};
+var spaceship = {};
 function asteroid(size, pos, vel, acl) {
   this.size = size;
   this.pos = pos;
@@ -67,7 +60,7 @@ function startingStateObjects() {
   asteroidsRandomPosition();
   asteroidsRandomVelocity();
   updateMagnitude();
-  spaceship[0].pos = [600, 300];
+  spaceship[0].pos = [600-32, 300-32];
 }
 function asteroidsRandomPosition() {
   for(i=0; i<levelAsteroids; ++i) {
@@ -110,6 +103,15 @@ newGame.addEventListener("click", function() {
   levelCont.style.display = "inline-block";
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
+
+  spaceship = {
+    pos: [0, 0],
+    vel: [0, 0],
+    acl: [0, 0],
+    velM: 0,
+    aclM: 0,
+    angle: 0
+  };
 
   score = 0;
   level = 1;
