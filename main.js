@@ -217,6 +217,33 @@ function lineLineCollision(line1, line2) {
       return false;
     }
 }
+function lineCircleCollision(testLine, testCircle) {
+  mtestLine = (testLine.point2.y-testLine.point1.y)/(testLine.point2.x-testLine.point1.x);
+  mDiameter1 = -1/mtestLine;
+
+  if(mtestLine == 0 || mDiameter1 == 0) {
+    return lineCircleCollisionRightAngle(testLine, testCircle);
+  }
+
+  b = Math.sqrt((Math.pow(testCircle.radius, 2)) / (Math.pow(mDiameter1, 2)+1));
+  a = b * mDiameter1;
+
+  p1 = new point(testCircle.center.x-b, testCircle.center.y-a);
+  p2 = new point(testCircle.center.x+b, testCircle.center.y+a);
+  p3 = new point(testCircle.center.x-b, testCircle.center.y+a);
+  p4 = new point(testCircle.center.x+b, testCircle.center.y-a);
+  diameter1 = new line(p1, p2);
+  diameter2 = new line(p3, p4);
+  if(lineLineCollision(testLine, diameter1) || lineLineCollision(testLine, diameter2)) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+function lineCircleCollisionRightAngle(theTestLine, theTestCircle) {
+  
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
