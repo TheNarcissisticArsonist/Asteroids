@@ -377,7 +377,7 @@ document.addEventListener("keyup", function(event) {
 function physicsLoop() {
   physicsLoopSpaceshipMovement();
   physicsLoopAsteroidMovement();
-
+  updateSpaceshipHitbox();
   updateData();
 }
 function physicsLoopSpaceshipMovement() {
