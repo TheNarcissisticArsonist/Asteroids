@@ -284,6 +284,12 @@ function toPolar(x, y) {
     return new polarPoint(0, 0);
   }
 }
+function updateAsteroidHitboxes() {
+  for(r=0; r<asteroids.length; ++r) {
+    asteroids[r][0].hitbox.center.x = asteroids[r][0].pos[0];
+    asteroids[r][0].hitbox.center.y = asteroids[r][0].pos[1];
+  }
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
@@ -368,6 +374,7 @@ document.addEventListener("keyup", function(event) {
 function physicsLoop() {
   physicsLoopSpaceshipMovement();
   physicsLoopAsteroidMovement();
+  updateAsteroidHitboxes();
   //document.getElementById("colliding").innerHTML = testForCollisions();
   updateData();
 }
