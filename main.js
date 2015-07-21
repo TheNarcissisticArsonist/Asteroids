@@ -246,10 +246,10 @@ function lineCircleCollision(testLine, testCircle) {
   else {
     if(mtestLine == 0) {
       a = 0;
-      b = mDiameter1;
+      b = testCircle.radius;
     }
     else if(mDiameter1 == 0) {
-      a = mDiameter1;
+      a = testCircle.radius;
       b = 0;
     }
   }
