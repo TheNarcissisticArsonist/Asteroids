@@ -201,7 +201,22 @@ function updateData() {
 function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
 }
-
+function lineLineCollision(line1, line2) {
+  if(
+        (((line2.point1.x >= line1.point1.x) && (line2.point2.x <= line1.point2.x))
+      ||
+        ((line2.point1.x <= line1.point1.x) && (line2.point2.x >= line1.point2.x)))
+    &&
+        (((line2.point1.y >= line1.point1.y) && (line2.point2.y <= line1.point2.y))
+      ||
+        ((line2.point1.y <= line1.point1.y) && (line2.point2.y >= line1.point2.y)))
+    ) {
+      return true;
+    }
+    else {
+      return false;
+    }
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
