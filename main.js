@@ -295,8 +295,6 @@ function updateSpaceshipHitbox() {
 function testForCollisions() {
   collided = false;
   for(n=0; n<asteroids.length; ++n) {
-    asteroids[n][0].hitbox.center.x += asteroids[n][0].pos[0];
-    asteroids[n][0].hitbox.center.y += asteroids[n][0].pos[1];
     for(o=0; o<spaceship[0].hitbox.lines.length; ++o) {
       spaceship[0].hitbox.points[o].x += spaceship[0].pos[0];
       spaceship[0].hitbox.points[o].y += spaceship[0].pos[1];
