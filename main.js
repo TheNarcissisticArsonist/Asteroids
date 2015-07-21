@@ -190,6 +190,7 @@ function levelIntro(levelNum) {
           updateUserDisplay();
           updateGameBoard();
           inTimeoutSequence = false;
+          mainLoop = window.setInterval(physicsLoop, 33);
           window.setTimeout(function() {
             alertBox.innerHTML = "";
             alertBox.style.display = "none";
@@ -361,7 +362,6 @@ function startNewGame() {
   alertBox = document.getElementById("alertBox");
 
   levelIntro(1);
-  mainLoop = window.setInterval(physicsLoop, 33);
 };
 
 document.addEventListener("keydown", function(event) {
@@ -405,7 +405,7 @@ function physicsLoop() {
   physicsLoopAsteroidMovement();
   updateSpaceshipHitbox();
   updateAsteroidHitbox();
-  testForCollisions();
+  document.getElementById("colliding").innerHTML = testForCollisions();
   updateData();
 }
 function physicsLoopSpaceshipMovement() {
