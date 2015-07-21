@@ -315,6 +315,12 @@ function startNewGame() {
    * p2 32, -27
    * p3 -32, -27
    */
+   p1 = new point(0+spaceship[0].pos[0], 32+spaceship[0].pos[1]);
+   p2 = new point(32+spaceship[0].pos[0], -27+spaceship[0].pos[1]);
+   p3 = new point(-32+spaceship[0].pos[0], -27+spaceship[0].pos[1]);
+   poly = new polygon([p1, p2, p3]);
+
+   spaceship[0].hitbox = poly;
 
   alertBox = document.getElementById("alertBox");
 
