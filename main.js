@@ -100,12 +100,12 @@ function updateUserDisplay() {
 }
 function updateGameBoard() {
   for(i=0; i<asteroids.length; ++i) {
-    asteroids[i][1].style.left = String(asteroids[i][0].pos[0]) + "px";
-    asteroids[i][1].style.top = String(asteroids[i][0].pos[1]) + "px";
+    asteroids[i][1].style.left = String(asteroids[i][0].pos[0]-(asteroids[i][0].width/2)) + "px";
+    asteroids[i][1].style.top = String(600-asteroids[i][0].pos[1]-(asteroids[i][0].width/2)) + "px";
     asteroids[i][1].style.display = "inline-block";
   }
-  spaceship[1].style.left = String(spaceship[0].pos[0]) + "px";
-  spaceship[1].style.top = String(spaceship[0].pos[1]) + "px";
+  spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
+  spaceship[1].style.top = String(600-spaceship[0].pos[1]-32) + "px";
   spaceship[1].style.display = "inline-block";
 }
 function generateGameObjects() {
@@ -190,11 +190,11 @@ function levelIntro(levelNum) {
 }
 function updateComponents() {
   for(k=0; k<asteroids.length; ++k) {
-    asteroids[k][0].acl[0] = asteroids[k][0].aclM * Math.sin(asteroids[k][0].angle * Math.PI / 180);
-    asteroids[k][0].acl[1] = asteroids[k][0].aclM * Math.sin(asteroids[k][0].angle * Math.PI / 180);
+    asteroids[k][0].acl[0] = -1 * asteroids[k][0].aclM * Math.sin(asteroids[k][0].angle * Math.PI / 180);
+    asteroids[k][0].acl[1] = asteroids[k][0].aclM * Math.cos(asteroids[k][0].angle * Math.PI / 180);
   }
   spaceship[0].acl[0] = spaceship[0].aclM * Math.sin(spaceship[0].angle * Math.PI / 180);
-  spaceship[0].acl[1] = -1 * spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
+  spaceship[0].acl[1] = spaceship[0].aclM * Math.cos(spaceship[0].angle * Math.PI / 180);
 }
 function updateData() {
   document.getElementById("pos").innerHTML = "pos:" + spaceship[0].pos;
@@ -368,7 +368,7 @@ function physicsLoopSpaceshipMovement() {
   }
   //Display position
   spaceship[1].style.left = String(spaceship[0].pos[0]-32) + "px";
-  spaceship[1].style.top = String(spaceship[0].pos[1]-32) + "px";
+  spaceship[1].style.top = String(600-spaceship[0].pos[1]-32) + "px";
   //Rotation
   if(keys.a && !keys.d) {
     spaceship[0].angle -= spaceshipRotationSpeed;
@@ -409,6 +409,6 @@ function physicsLoopAsteroidMovement() {
     }
     //Display Position
     asteroids[i][1].style.left = String(asteroids[i][0].pos[0] - (asteroids[i][0].width/2)) + "px";
-    asteroids[i][1].style.top = String(asteroids[i][0].pos[1] - (asteroids[i][0].height/2)) + "px";
+    asteroids[i][1].style.top = String(600-asteroids[i][0].pos[1] - (asteroids[i][0].height/2)) + "px";
   }
 }
