@@ -221,12 +221,20 @@ function lineCircleCollision(testLine, testCircle) {
   mtestLine = (testLine.point2.y-testLine.point1.y)/(testLine.point2.x-testLine.point1.x);
   mDiameter1 = -1/mtestLine;
 
-  if(mtestLine == 0 || mDiameter1 == 0) {
-    return lineCircleCollisionRightAngle(testLine, testCircle);
+  if(!(mtestLine == 0 || mDiameter1 == 0)) {
+    b = Math.sqrt((Math.pow(testCircle.radius, 2)) / (Math.pow(mDiameter1, 2)+1));
+    a = b * mDiameter1;
   }
-
-  b = Math.sqrt((Math.pow(testCircle.radius, 2)) / (Math.pow(mDiameter1, 2)+1));
-  a = b * mDiameter1;
+  else {
+    if(mtestLine == 0) {
+      a = 0;
+      b = mDiameter1;
+    }
+    else if(mDiameter1 == 0) {
+      a = mDiameter1;
+      b = 0;
+    }
+  }
 
   p1 = new point(testCircle.center.x-b, testCircle.center.y-a);
   p2 = new point(testCircle.center.x+b, testCircle.center.y+a);
@@ -240,9 +248,6 @@ function lineCircleCollision(testLine, testCircle) {
   else {
     return false;
   }
-}
-function lineCircleCollisionRightAngle(theTestLine, theTestCircle) {
-  
 }
 
 newGame.addEventListener("click", function() {
