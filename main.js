@@ -45,6 +45,10 @@ function asteroid(size, pos, vel, acl) {
   this.angle = Math.floor(Math.random() * 360);
 }
 var asteroids = [];
+function point(x, y) {
+  this.x = x;
+  this.y = y;
+}
 
 keys = {
   w: false,
@@ -177,6 +181,7 @@ function updateData() {
 function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
 }
+
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
