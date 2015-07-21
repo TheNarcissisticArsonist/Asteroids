@@ -120,6 +120,11 @@ function generateGameObjects() {
     asteroids[i] = [asteroids[i], document.getElementById("bigAsteroid"+i)];
   }
   spaceship = [spaceship, document.getElementById("ship")];
+  p1 = new point(0, 32);
+  p2 = new point(32, -27);
+  p3 = new point(-32, -27);
+  poly = new polygon([p1, p2, p3]);
+  spaceship[0].hitbox = poly;
 }
 function startingStateObjects() {
   asteroidsRandomPosition();
@@ -326,12 +331,6 @@ function startNewGame() {
    * p2 32, -27
    * p3 -32, -27
    */
-   p1 = new point(0, 32);
-   p2 = new point(32, -27);
-   p3 = new point(-32, -27);
-   poly = new polygon([p1, p2, p3]);
-
-   spaceship[0].hitbox = poly;
 
   alertBox = document.getElementById("alertBox");
 
