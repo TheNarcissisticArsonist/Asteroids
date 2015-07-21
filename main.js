@@ -53,6 +53,10 @@ function line(point1, point2) {
   this.point1 = point1;
   this.point2 = point2;
 }
+function circle(center, radius) {
+  this.center = center;
+  this.radius = radius;
+}
 
 keys = {
   w: false,
