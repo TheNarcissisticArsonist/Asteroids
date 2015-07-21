@@ -49,6 +49,10 @@ function point(x, y) {
   this.x = x;
   this.y = y;
 }
+function line(point1, point2) {
+  this.point1 = point1;
+  this.point2 = point2;
+}
 
 keys = {
   w: false,
