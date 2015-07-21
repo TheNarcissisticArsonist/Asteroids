@@ -174,6 +174,9 @@ function updateData() {
   document.getElementById("aclM").innerHTML = "aclM:" + spaceship[0].aclM;
   document.getElementById("angle").innerHTML = "angle:" + spaceship[0].angle;
 }
+function distance(x1, y1, x2, y2) {
+  return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
