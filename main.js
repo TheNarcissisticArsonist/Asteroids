@@ -74,6 +74,10 @@ function polygon(points) {
   }
   this.lines.push(new line(points[points.length-1], points[0]));
 }
+function polarPoint(r, a) {
+  this.r = r;
+  this.a = a;
+}
 //The units used in these geometric objects are pixels
 
 keys = {
@@ -255,8 +259,22 @@ function lineCircleCollision(testLine, testCircle) {
     return false;
   }
 }
-function pointFromAngleAndMagnitude(angle, magnitude) {
+function pointFromAngleAndMagnitude(angle, magnitude) {//angle in degrees
   return new point(magnitude * Math.cos(angle * Math.PI / 180), magnitude * Math.sin(angle * Math.PI / 180))
+}
+function toPolar(x, y) {
+  if(x>0) {
+    return new polarPoint(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)), Math.atan(y/x) * 180 / Math.PI);
+  }
+  else if(x<0) {
+    return new polarPoint(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)), 180 + (Math.atan(y/x) * 180 / Math.PI));
+  }
+  else if(y != 0) {
+    return new polarPoint(y, 0);
+  }
+  else {
+    return new polarPoint(0, 0);
+  }
 }
 
 newGame.addEventListener("click", function() {
@@ -291,6 +309,12 @@ function startNewGame() {
   gameBoard.innerHTML = setUpLevelHTML(levelAsteroids);
   generateGameObjects();
   startingStateObjects();
+
+  /* Make hitbox
+   * p1 0, 32
+   * p2 32, -27
+   * p3 -32, -27
+   */
 
   alertBox = document.getElementById("alertBox");
 
