@@ -314,6 +314,12 @@ function updateHitboxLines() {
   }
   spaceship[0].hitbox.lines[spaceship[0].hitbox.lines.length-1] = new line(spaceship[0].hitbox.points[spaceship[0].hitbox.points.length-1], spaceship[0].hitbox.points[0]);
 }
+function updateAsteroidHitbox() {
+  for(q=0; q<asteroids.length; ++q) {
+    asteroids[q][0].hitbox.center.x = asteroids[q][0].pos[0];
+    asteroids[q][0].hitbox.center.y = asteroids[q][0].pos[1];
+  }
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
@@ -400,6 +406,7 @@ function physicsLoop() {
   physicsLoopSpaceshipMovement();
   physicsLoopAsteroidMovement();
   updateSpaceshipHitbox();
+  updateAsteroidHitbox();
   testForCollisions();
   updateData();
 }
