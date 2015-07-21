@@ -57,12 +57,17 @@ function circle(center, radius) {
   this.center = center;
   this.radius = radius;
 }
-function polygon(numSides, points) {
-  this.numSides = numSides;
+function polygon(points) {
+  this.numSides = points.length;
   this.points = [];
   for(i=0; i<points.length; ++i) {
     this.points[i] = points[i];
   }
+  this.lines = [];
+  for(i=0; i<points.length - 1; ++i) {
+    this.lines[i] = new line(points[i], points[i+1]);
+  }
+  this.lines.push(new line(points[points.length-1], points[0]));
 }
 
 keys = {
