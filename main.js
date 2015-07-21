@@ -436,8 +436,6 @@ function physicsLoopAsteroidMovement() {
     //Position
     asteroids[i][0].pos[0] += asteroids[i][0].vel[0];
     asteroids[i][0].pos[1] += asteroids[i][0].vel[1];
-    asteroids[i][0].hitbox.center.x = asteroids[i][0].pos[0];
-    asteroids[i][0].hitbox.center.y = asteroids[i][0].pos[1];
     //Test if off screen
     if(asteroids[i][0].pos[0] > 1200 - 32) {
       asteroids[i][0].pos[0] -= 1200 - 64;
