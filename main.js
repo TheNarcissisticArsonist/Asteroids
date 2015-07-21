@@ -292,6 +292,28 @@ function updateSpaceshipHitbox() {
     spaceship[0].hitbox.points[m].y
   }
 }
+function testForCollisions() {
+  collided = false;
+  for(n=0; n<asteroids.length; ++n) {
+    asteroids[n][0].hitbox.center.x += asteroids[n][0].pos[0];
+    asteroids[n][0].hitbox.center.y += asteroids[n][0].pos[1];
+    for(o=0; o<spaceship[0].hitbox.lines.length; ++o) {
+      spaceship[0].hitbox.points[o].x += spaceship[0].pos[0];
+      spaceship[0].hitbox.points[o].y += spaceship[0].pos[1];
+      updateHitboxLines();
+      if(lineCircleCollision(spaceship[0].hitbox.lines[o], asteroids[n][0].hitbox)) {
+        collided = true;
+      }
+    }
+  }
+  return collided;
+}
+function updateHitboxLines() {
+  for(p=0; p<spaceship[0].hitbox.points.length-1; ++p) {
+    spaceship[0].hitbox.lines[p] = new line(spaceship[0].hitbox.points[p], spaceship[0].hitbox.points[p+1]);
+  }
+  spaceship[0].hitbox.lines[spaceship[0].hitbox.lines.length-1] = new line(spaceship[0].hitbox.points[spaceship[0].hitbox.points.length-1], spaceship[0].hitbox.points[0]);
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
@@ -378,6 +400,7 @@ function physicsLoop() {
   physicsLoopSpaceshipMovement();
   physicsLoopAsteroidMovement();
   updateSpaceshipHitbox();
+  testForCollisions();
   updateData();
 }
 function physicsLoopSpaceshipMovement() {
