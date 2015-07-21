@@ -284,41 +284,6 @@ function toPolar(x, y) {
     return new polarPoint(0, 0);
   }
 }
-function updateSpaceshipHitbox() {
-  for(m=0; m<spaceship[0].hitbox.points.length; ++m) {
-    temp = toPolar(spaceship[0].hitbox.points[m].x, spaceship[0].hitbox.points[m].y);
-    temp.a = spaceship[0].angle + hitboxAngles[m];
-    spaceship[0].hitbox.points[m] = pointFromAngleAndMagnitude(temp.a, temp.r);
-    spaceship[0].hitbox.points[m].x
-    spaceship[0].hitbox.points[m].y
-  }
-}
-function testForCollisions() {
-  collided = false;
-  for(n=0; n<asteroids.length; ++n) {
-    for(o=0; o<spaceship[0].hitbox.lines.length; ++o) {
-      spaceship[0].hitbox.points[o].x += spaceship[0].pos[0];
-      spaceship[0].hitbox.points[o].y += spaceship[0].pos[1];
-      updateHitboxLines();
-      if(lineCircleCollision(spaceship[0].hitbox.lines[o], asteroids[n][0].hitbox)) {
-        collided = true;
-      }
-    }
-  }
-  return collided;
-}
-function updateHitboxLines() {
-  for(p=0; p<spaceship[0].hitbox.points.length-1; ++p) {
-    spaceship[0].hitbox.lines[p] = new line(spaceship[0].hitbox.points[p], spaceship[0].hitbox.points[p+1]);
-  }
-  spaceship[0].hitbox.lines[spaceship[0].hitbox.lines.length-1] = new line(spaceship[0].hitbox.points[spaceship[0].hitbox.points.length-1], spaceship[0].hitbox.points[0]);
-}
-function updateAsteroidHitbox() {
-  for(q=0; q<asteroids.length; ++q) {
-    asteroids[q][0].hitbox.center.x = asteroids[q][0].pos[0];
-    asteroids[q][0].hitbox.center.y = asteroids[q][0].pos[1];
-  }
-}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
@@ -403,9 +368,7 @@ document.addEventListener("keyup", function(event) {
 function physicsLoop() {
   physicsLoopSpaceshipMovement();
   physicsLoopAsteroidMovement();
-  updateSpaceshipHitbox();
-  updateAsteroidHitbox();
-  document.getElementById("colliding").innerHTML = testForCollisions();
+  //document.getElementById("colliding").innerHTML = testForCollisions();
   updateData();
 }
 function physicsLoopSpaceshipMovement() {
