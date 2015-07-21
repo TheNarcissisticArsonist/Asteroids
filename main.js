@@ -69,6 +69,7 @@ function polygon(points) {
   }
   this.lines.push(new line(points[points.length-1], points[0]));
 }
+//The units used in these geometric objects are pixels
 
 keys = {
   w: false,
