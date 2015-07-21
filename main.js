@@ -28,14 +28,17 @@ function asteroid(size, pos, vel, acl) {
     case 3:
       this.width = 50;
       this.height = 50;
+      radius = 25;
       break;
     case 2:
       this.width = 25;
       this.height = 25;
+      radius = 12.5;
       break;
     case 1:
       this.width = 10;
       this.height = 10;
+      radius = 5;
   }
   this.pos = pos;
   this.vel = vel;
@@ -43,6 +46,8 @@ function asteroid(size, pos, vel, acl) {
   this.velM = Math.sqrt(Math.pow(vel[0], 2) + Math.pow(vel[1], 2));
   this.aclM = Math.sqrt(Math.pow(acl[0], 2) + Math.pow(acl[1], 2));
   this.angle = Math.floor(Math.random() * 360);
+  center = new point(pos[0], pos[1]);
+  this.hitbox = new circle(center, radius);
 }
 var asteroids = [];
 function point(x, y) {
@@ -387,6 +392,8 @@ function physicsLoopAsteroidMovement() {
     //Position
     asteroids[i][0].pos[0] += asteroids[i][0].vel[0];
     asteroids[i][0].pos[1] += asteroids[i][0].vel[1];
+    asteroids[i][0].hitbox.center.x = asteroids[i][0].pos[0];
+    asteroids[i][0].hitbox.center.y = asteroids[i][0].pos[1];
     //Test if off screen
     if(asteroids[i][0].pos[0] > 1200 - 32) {
       asteroids[i][0].pos[0] -= 1200 - 64;
