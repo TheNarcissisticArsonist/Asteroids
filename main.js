@@ -255,6 +255,9 @@ function lineCircleCollision(testLine, testCircle) {
     return false;
   }
 }
+function pointFromAngleAndMagnitude(angle, magnitude) {
+  return new point(magnitude * Math.cos(angle * Math.PI / 180), magnitude * Math.sin(angle * Math.PI / 180))
+}
 
 newGame.addEventListener("click", function() {
   if(inTimeoutSequence) {
@@ -280,6 +283,24 @@ function startNewGame() {
     aclM: 0,
     angle: 0
   };
+
+  /*p1  = new point(spaceship.pos[0]+0, spaceship.pos[1]+30);
+  p2  = new point(spaceship.pos[0]+8, spaceship.pos[1]+24);
+  p3  = new point(spaceship.pos[0]+8, spaceship.pos[1]+14);
+  p4  = new point(spaceship.pos[0]+30, spaceship.pos[1]-6);
+  p5  = new point(spaceship.pos[0]+30, spaceship.pos[1]-16);
+  p6  = new point(spaceship.pos[0]+18, spaceship.pos[1]-16);
+  p7  = new point(spaceship.pos[0]+13, spaceship.pos[1]-27);
+
+  p8  = new point(spaceship.pos[0]-13, spaceship.pos[1]-27);
+  p9  = new point(spaceship.pos[0]-18, spaceship.pos[1]-16);
+  p10 = new point(spaceship.pos[0]-30, spaceship.pos[1]-16);
+  p11 = new point(spaceship.pos[0]-30, spaceship.pos[1]-6);
+  p12 = new point(spaceship.pos[0]-8, spaceship.pos[1]+14);
+  p13 = new point(spaceship.pos[0]-8, spaceship.pos[1]+24);
+  p14 = new point(spaceship.pos[0]-0, spaceship.pos[1]+30);
+
+  poly = new polygon([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14]);*/
 
   score = 0;
   level = 1;
