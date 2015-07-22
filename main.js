@@ -26,6 +26,21 @@ var gameBoard       = document.getElementById("gameBoard");
 function point(x, y) {
   this.x = x;
   this.y = y;
+
+  this.convertToPolar = function(cX, cY) {
+    newX = this.x - cX;
+    newY = this.y - cY;
+    r = Math.sqrt(Math.pow(newX, 2) + Math.pow(newY, 2));
+    a = 0
+    if(!isNaN(Math.atan(newY/newX))) {
+      a = Math.atan(newY/newX);
+    }
+    if(newX < 0) {
+      a *= -1;
+    }
+    p = new polarPoint(r, a, cX, cY);
+    return p;
+  }
 }
 function line(point1, point2) {
   this.point1 = point1;
@@ -62,6 +77,19 @@ function polygon(points) {
     l = new line(p1, p2);
     sideList.push(l);
     return sideList;
+  }
+}
+function polarPoint(r, a, cX, cY) {
+  this.r = r;
+  this.a = a;
+  this.cX = cX;
+  this.cY = cY;
+
+  this.convertToRect = function() {
+    x = this.cX + (this.r * Math.cos(this.a));
+    y = this.cY + (this.r * Math.sin(this.a));
+    p = new point(x, y);
+    return p;
   }
 }
 
