@@ -39,3 +39,7 @@ function line(point1, point2) {
     return (this.point1.y - (this.m() * this.point1.x));
   }
 }
+function circle(point1, r) {
+  this.center = point1;
+  this.radius = r;
+}
