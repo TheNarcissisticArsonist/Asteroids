@@ -1,6 +1,6 @@
 //Game settings
-var asteroidSizes = [10, 30, 50];
-var spaceshipSize = 64;
+var asteroidSizes = [10, 30, 50]; //small, medium, large
+var spaceshipSize = 64; //Width and height -- it's a square.
 
 //Get user interface elements
 var newGameButton   = document.getElementById("new");
@@ -26,16 +26,6 @@ var gameBoard       = document.getElementById("gameBoard");
 function point(x, y) {
   this.x = x;
   this.y = y;
-  this.r = function() {
-    return Math.sqrt(Math.pow(this.x, 2)+Math.pow(this.y, 2));
-  }
-  this.a = function() {
-    return Math.atan(this.y/this.x); //RADIANS!!!!!
-  }
-  this.setXY = function(r, a) { //RADIANS!!!!!
-    this.x = r * Math.cos(a);
-    this.y = r * Math.sin(a);
-  }
 }
 function line(point1, point2) {
   this.point1 = point1;
