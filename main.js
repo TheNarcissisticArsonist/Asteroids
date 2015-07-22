@@ -43,3 +43,12 @@ function circle(point1, r) {
   this.center = point1;
   this.radius = r;
 }
+function polygon(points) {
+  this.points = [];
+  for(i0=0; i0<points.length; ++i0) {
+    this.points[i0] = points[i0];
+  }
+  this.numSides = function() {
+    return this.points.length;
+  }
+}
