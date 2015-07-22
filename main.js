@@ -1,5 +1,6 @@
 //Game settings
 var asteroidSizes = [10, 30, 50];
+var spaceshipSize = 64;
 
 //Get user interface elements
 var newGameButton   = document.getElementById("new");
@@ -105,5 +106,22 @@ function asteroid(size) {
     center = new point(this.pos[0], this.pos[1]);
     c = new circle(center, this.sideLength()/2);
     return c;
+  }
+}
+function spaceship() {
+  this.pos = [0, 0];
+  this.vel = [0, 0];
+  this.acl = [0, 0];
+  this.velM = 0;
+  this.aclM = 0;
+  this.angle = 0;
+  this.sideLength = spaceshipSize;
+
+  this.hitbox = function() {
+    p1 = new point(this.pos[0], this.pos[1]+(this.sideLength/2));
+    p2 = new point(this.pos[0]+(this.sideLength/2), this.pos[1]-(this.sideLength/2));
+    p3 = new point(this.pos[0]-(this.sideLength/2), this.pos[1]-(this.sideLength/2));
+    poly = new polygon([p1, p2, p3]);
+    return poly;
   }
 }
