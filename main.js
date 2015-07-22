@@ -1,3 +1,6 @@
+//Game settings
+var asteroidSizes = [10, 30, 50];
+
 //Get user interface elements
 var newGameButton   = document.getElementById("new");
 var levelCont       = document.getElementById("levelCont");
@@ -78,13 +81,13 @@ function asteroid(size) {
   this.sideLength = function() {
     switch(this.size) {
       case 1:
-        return 10;
+        return asteroidSizes[0];
         break;
       case 2:
-        return 30;
+        return asteroidSizes[1];
         break;
       case 3:
-        return 50;
+        return asteroidSizes[2];
         break;
     }
   }
