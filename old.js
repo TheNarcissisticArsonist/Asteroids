@@ -23,6 +23,8 @@ var spaceshipRotationSpeed = 5;
 
 var hitboxAngles = [toPolar(0, 32).a, toPolar(32, -27).a, toPolar(-27, -27).a];
 
+var epsilon = 0.01;
+
 var spaceship = {};
 function asteroid(size, pos, vel, acl) {
   this.size = size;
@@ -220,7 +222,52 @@ function distance(x1, y1, x2, y2) {
   return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
 }
 function lineLineCollision(line1, line2) {
-  
+  if(line1.point1.x > line1.point2.x) {
+    temp = line1.point1;
+    line1.point1 = line1.point2;
+    line1.point2 = temp;
+  }
+  if(line2.point1.x > line2.point2.x) {
+    temp = line2.point1;
+    line2.point1 = line2.point2;
+    line2.point2 = temp;
+  }
+  m1 = (line1.point1.y-line1.point2.y)/(line1.point1.x-line1.point2.x);
+  m2 = (line2.point1.y-line2.point2.y)/(line2.point1.x-line2.point2.x);
+
+  b1 = line1.point1.y - (m1 * line1.point1.x);
+  b2 = line2.point1.y - (m2 * line2.point1.x);
+
+  if(Math.abs(m1 - m2) < epsilon) {
+    if(Math.abs(b1 - b2) > epsilon) {
+      return false
+    }
+    else {
+      if(
+          ((line1.point1.x >= line2.point1.x) && (line1.point1.x <= line2.point2.x))
+          ||
+          ((line1.point1.x <= line2.point1.x) && (line1.point1.x >= line2.point2.x))
+        ) {
+        return true
+      }
+      else {
+        return false;
+      }
+    }
+  }
+
+  xi = (b2-b1)/(m1-m2);
+  yi = m1*xi + b1;
+  if(
+    ((line1.point1.x <= xi)&&(xi <= line1.point2.x))
+    &&
+    ((line2.point1.x <= xi)&&(xi <= line1.point2.x))
+  ) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 function lineCircleCollision(testLine, testCircle) {
   mtestLine = (testLine.point2.y-testLine.point1.y)/(testLine.point2.x-testLine.point1.x);
