@@ -28,6 +28,10 @@ function point(x, y) {
   this.a = function() {
     return Math.atan(this.y/this.x); //RADIANS!!!!!
   }
+  this.setXY = function(r, a) { //RADIANS!!!!!
+    this.x = r * Math.cos(a);
+    this.y = r * Math.sin(a);
+  }
 }
 function line(point1, point2) {
   this.point1 = point1;
