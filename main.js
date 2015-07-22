@@ -29,3 +29,13 @@ function point(x, y) {
     return Math.atan(this.y/this.x); //RADIANS!!!!!
   }
 }
+function line(point1, point2) {
+  this.point1 = point1;
+  this.point2 = point2;
+  this.m = function() {
+    return (this.point2.y-this.point1.y)/(this.point2.x-this.point1.x);
+  }
+  this.b = function() {
+    return (this.point1.y - (this.m() * this.point1.x));
+  }
+}
