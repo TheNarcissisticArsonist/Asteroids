@@ -17,3 +17,15 @@ var dataColliding   = document.getElementById("colliding");
 
 //Get game board element
 var gameBoard       = document.getElementById("gameBoard");
+
+//Geometric classes
+function point(x, y) {
+  this.x = x;
+  this.y = y;
+  this.r = function() {
+    return Math.sqrt(Math.pow(this.x, 2)+Math.pow(this.y, 2));
+  }
+  this.a = function() {
+    return Math.atan(this.y/this.x); //RADIANS!!!!!
+  }
+}
