@@ -31,13 +31,7 @@ function point(x, y) {
     newX = this.x - cX;
     newY = this.y - cY;
     r = Math.sqrt(Math.pow(newX, 2) + Math.pow(newY, 2));
-    a = 0
-    if(!isNaN(Math.atan(newY/newX))) {
-      a = Math.atan(newY/newX);
-    }
-    if(newX < 0) {
-      a *= -1;
-    }
+    a = arctan(newX, newY);
     p = new polarPoint(r, a, cX, cY);
     return p;
   }
@@ -142,4 +136,18 @@ function spaceship() {
     poly = new polygon([p1, p2, p3]);
     return poly;
   }
+}
+
+//Important math function I made
+function arctan(x, y) {
+  if(!isNaN(Math.atan(x/y))) {
+    temp = Math.atan(x/y);
+  }
+  else {
+    temp = 0;
+  }
+  if(x < 0)  {
+    temp += Math.PI;
+  }
+  return temp;
 }
