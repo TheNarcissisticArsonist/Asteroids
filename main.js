@@ -70,3 +70,37 @@ function polygon(points) {
     return sideList;
   }
 }
+
+//Game piece classes
+function asteroid(size) {
+  //Game and display attributes
+  this.size = size;
+  this.sideLength = function() {
+    switch(this.size) {
+      case 1:
+        return 10;
+        break;
+      case 2:
+        return 30;
+        break;
+      case 3:
+        return 50;
+        break;
+    }
+  }
+
+  //Physics attributes
+  this.pos = [0, 0];
+  this.vel = [0, 0];
+  this.acl = [0, 0];
+  this.velM = 0;
+  this.aclM = 0;
+  this.angle = 0;
+
+  //Hitbox attributes
+  this.hitbox = function() {
+    center = new point(this.pos[0], this.pos[1]);
+    c = new circle(center, this.sideLength()/2);
+    return c;
+  }
+}
