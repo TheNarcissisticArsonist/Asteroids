@@ -51,4 +51,18 @@ function polygon(points) {
   this.numSides = function() {
     return this.points.length;
   }
+  this.listSides = function() {
+    sideList = [];
+    for(i1=0; i1<this.points.length-1; ++i1) {
+      p1 = this.points[i1];
+      p2 = this.points[i1+1];
+      l = new line(p1, p2);
+      sideList.push(l);
+    }
+    p1 = this.points[this.points.length-1];
+    p2 = this.points[0];
+    l = new line(p1, p2);
+    sideList.push(l);
+    return sideList;
+  }
 }
