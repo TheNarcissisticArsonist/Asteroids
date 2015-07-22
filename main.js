@@ -30,7 +30,7 @@ function point(x, y) {
   this.convertToPolar = function(cX, cY) {
     newX = this.x - cX;
     newY = this.y - cY;
-    r = Math.sqrt(Math.pow(newX, 2) + Math.pow(newY, 2));
+    r = getC(newX, newY);
     a = arctan(newX, newY);
     p = new polarPoint(r, a, cX, cY);
     return p;
@@ -150,4 +150,7 @@ function arctan(x, y) {
     temp += Math.PI;
   }
   return temp;
+}
+function getC(a, b) {
+  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 }
