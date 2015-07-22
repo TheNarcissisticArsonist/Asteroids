@@ -26,10 +26,10 @@ div.info p {
 div#new {
   background-color: blue;
 }
-div#level {
+div#levelCont {
   background-color: red;
 }
-div#score {
+div#scoreCont {
   background-color: green;
 }
 div#lives img {
