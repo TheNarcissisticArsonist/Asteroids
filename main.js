@@ -8,7 +8,7 @@ var levelCont       = document.getElementById("levelCont");
 var levelDisplay    = document.getElementById("level");
 var scoreCont       = document.getElementById("scoreCont");
 var scoreDisplay    = document.getElementById("score");
-var lives           = document.getElementById("lives");
+var livesDisplay    = document.getElementById("lives");
 
 //Get data display elements
 var dataPos         = document.getElementById("pos");
@@ -181,6 +181,7 @@ var asteroids = [];
 var ship;
 var level;
 var score;
+var lives;
 
 //Set up level
 function setUpLevel(level) {
@@ -191,4 +192,24 @@ function setUpLevel(level) {
   }
   gameBoard.innerHTML += "<img id=\"spaceship\" class=\"gameObject\" src=\"Spaceship.png\"></img>";
   ship = new spaceship(document.getElementById("spaceship"));
+}
+
+
+//New game function
+function newGame() {
+  level = 0;
+  score = 1;
+  asteroids = [];
+  ship = null;
+  lives = 4;
+
+  levelCont.style.display = "inline-block";
+  scoreCont.style.display = "inline-block";
+  gameBoard.style.display = "inline-block";
+
+  for(i3=0; i3<lives-1; ++i3) {
+    livesDisplay.innerHTML += "<img src=\"Spaceship.png\" style=\"transform: rotate(45deg);\"></img>";
+  }
+
+  setUpLevel(1);
 }
