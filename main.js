@@ -1,6 +1,7 @@
 //Game settings
 var asteroidSizes = [10, 30, 50]; //small, medium, large
 var spaceshipSize = 64; //Width and height -- it's a square.
+var asteroidMaxSpeed = 1; //In pixels per second
 
 //Get user interface elements
 var newGameButton   = document.getElementById("new");
@@ -182,7 +183,6 @@ var ship;
 var level;
 var score;
 var lives;
-var asteroidMaxSpeed = 1;
 
 //Set up level
 function setUpLevel(level) {
@@ -193,6 +193,11 @@ function setUpLevel(level) {
   }
   gameBoard.innerHTML += "<img id=\"spaceship\" class=\"gameObject\" src=\"Spaceship.png\"></img>";
   ship = new spaceship(document.getElementById("spaceship"));
+
+  asteroidsRandom();
+
+  ship.element.style.left = String(600 - (spaceshipSize/2)) + "px";
+  ship.element.style.top = String(300 - (spaceshipSize/2)) + "px";
 }
 
 //Randomly place and start asteroids
