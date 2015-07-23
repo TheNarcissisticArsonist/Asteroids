@@ -138,7 +138,7 @@ function spaceship() {
   }
 }
 
-//Important math function I made
+//Important math functions I've made
 function arctan(x, y) {
   if(!isNaN(Math.atan(x/y))) {
     temp = Math.atan(x/y);
@@ -153,4 +153,16 @@ function arctan(x, y) {
 }
 function getC(a, b) {
   return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+}
+
+//Game variables
+var asteroids = [];
+var ship;
+
+//Set up level
+function setUpLevel(level) {
+  for(i2=0; i2<(level+2); ++i2) {
+    asteroids.push(new asteroid(3));
+  }
+  ship = new spaceship();
 }
