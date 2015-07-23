@@ -124,8 +124,8 @@ function asteroid(size, element) {
 
   //Visual attributes
   this.display = function() {
-    this.element.style.left = this.pos[0] - (this.sideLength()/2);
-    this.element.style.top  = 600 - (this.pos[1] - (this.sideLength()/2));
+    this.element.style.left = String(this.pos[0] - (this.sideLength()/2)) + "px";
+    this.element.style.top  = String(600 - this.pos[1] - (this.sideLength()/2)) + "px";
     this.element.style.transform = "rotate(" + this.angle + "rad)";
   }
 }
@@ -150,8 +150,8 @@ function spaceship(element) {
 
   //Visual attributes
   this.display = function() {
-    this.element.style.left = this.pos[0] - (spaceshipSize/2);
-    this.element.style.top  = 600 - (this.pos[1] - (spaceshipSize/2));
+    this.element.style.left = String(this.pos[0] - (spaceshipSize/2)) + "px";
+    this.element.style.top  = String(600 - this.pos[1] - (spaceshipSize/2)) + "px";
     this.element.style.transform = "rotate(" + this.angle + "rad)";
   }
 }
@@ -182,9 +182,9 @@ var score;
 //Set up level
 function setUpLevel(level) {
   for(i2=0; i2<level+2; ++i2) {
-    gameBoard.innerHTML += "<img id=\"asteroid" + i2 + "\" src=\"Asteroid.png\"></img>";
+    gameBoard.innerHTML += "<img id=\"asteroid" + i2 + "\" class=\"gameObject\" src=\"Asteroid.png\"></img>";
     asteroids.push(new asteroid(3, document.getElementById("asteroid" + i2)));
   }
-  gameBoard.innerHTML += "<img id=\"spaceship\" src=\"Spaceship.png\"></img>";
+  gameBoard.innerHTML += "<img id=\"spaceship\" class=\"gameObject\" src=\"Spaceship.png\"></img>";
   ship = new spaceship(document.getElementById("spaceship"));
 }
