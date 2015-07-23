@@ -244,6 +244,7 @@ function newGame() {
   scoreCont.style.display = "inline-block";
   gameBoard.style.display = "inline-block";
 
+  livesDisplay.innerHTML = "";
   for(i3=0; i3<lives-1; ++i3) {
     livesDisplay.innerHTML += "<img src=\"Spaceship.png\" style=\"transform: rotate(45deg);\"></img>";
   }
