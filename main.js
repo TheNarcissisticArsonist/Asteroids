@@ -1,7 +1,7 @@
 //Game settings
 var asteroidSizes = [10, 30, 50]; //small, medium, large
 var spaceshipSize = 64; //Width and height -- it's a square.
-var asteroidMaxSpeed = 1; //In pixels per second
+var asteroidMaxSpeed = 5; //In pixels per second
 
 //Get user interface elements
 var newGameButton   = document.getElementById("new");
