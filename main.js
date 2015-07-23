@@ -196,8 +196,13 @@ function setUpLevel(level) {
 
   asteroidsRandom();
 
-  ship.element.style.left = String(600 - (spaceshipSize/2)) + "px";
-  ship.element.style.top = String(300 - (spaceshipSize/2)) + "px";
+  ship.pos = [600, 300];
+  ship.vel = [0, 0];
+  ship.acl = [0, 0];
+  ship.velM = 0;
+  ship.aclM = 0;
+
+  ship.display();
 }
 
 //Randomly place and start asteroids
@@ -217,6 +222,10 @@ function asteroidsRandom() {
     dir = Math.random() * Math.PI;
     asteroids[i4].vel[0] = asteroids[i4].velM * Math.cos(dir);
     asteroids[i4].vel[1] = asteroids[i4].velM * Math.sin(dir);
+
+    //Acceleration
+    asteroids[i4].aclM = 0;
+    asteroids[i4].acl = [0, 0];
 
     //Display
     asteroids[i4].display();
