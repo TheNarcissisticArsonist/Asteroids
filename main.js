@@ -189,6 +189,39 @@ function getC(a, b) {
 function equal(num1, num2) {
   return Math.abs(num1 - num2) < epsilon;
 }
+function twoLinesColliding(line1, line2) {
+  m1 = (line1.point1.y-line1.point2.y)/(line1.point1.x-line1.point2.x);
+  m2 = (line2.point1.y-line2.point2.y)/(line2.point1.x-line2.point2.x);
+
+  b1 = line1.point1.y - (m1 * line1.point1.x);
+  b2 = line2.point1.y - (m2 * line2.point1.x);
+
+  if(equal(m1, m2)) {
+    if(!equal(b1, b2)) {
+      return false;
+    }
+    else {
+      if((line1.point1.x >= line2.point1.x && line1.point1.x <= line2.point2.x) || (line1.point2.x >= line2.point1.x && line1.point1.x <= line2.point2.x)) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
+
+  x = (b2-b1)/(m1-m2);
+
+  if((x >= line1.point1.x && x <= line1.point2.x) && (x >= line2.point1.x && x <= line2.point2.x)) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+function lineCircleColliding(line1, circle1) {
+
+}
 
 //Game variables
 var asteroids = [];
