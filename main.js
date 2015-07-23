@@ -2,6 +2,8 @@
 var asteroidSizes = [10, 30, 50]; //small, medium, large
 var spaceshipSize = 64; //Width and height -- it's a square.
 var asteroidMaxSpeed = 5; //In pixels per second
+var spaceshipAccelerationRate = 0.4; //In pixels per second per second
+var spaceshipRotationRate = 5; //In degrees per second
 
 //Get user interface elements
 var newGameButton   = document.getElementById("new");
@@ -295,7 +297,7 @@ function asteroidPhysics() {
     //Position
     asteroids[i5].pos[0] += asteroids[i5].vel[0];
     asteroids[i5].pos[1] += asteroids[i5].vel[1];
-      //Collision
+      //Edge collision
 
     //Rotation
     asteroids[i5].angle = 0;
@@ -305,7 +307,37 @@ function asteroidPhysics() {
   }
 }
 function spaceshipPhysics() {
+  //Acceleration
+  if(keys.w) {
+    ship.aclM = spaceshipAccelerationRate;
+    ship.acl[0] = spaceshipAccelerationRate * Math.sin(ship.angle);
+    ship.acl[1] = spaceshipAccelerationRate * Math.cos(ship.angle);
+  }
+  else {
+    ship.aclM = 0;
+    ship.acl = [0, 0];
+  }
 
+  //Velocity
+  ship.vel[0] += ship.acl[0];
+  ship.vel[1] += ship.acl[1];
+  ship.velM = getC(ship.vel[0], ship.vel[1]);
+
+  //Position
+  ship.pos[0] += ship.vel[0];
+  ship.pos[1] += ship.vel[1];
+    //Edge collision
+
+  //Rotation
+  if(keys.a && !keys.d) {
+    ship.angle -= spaceshipRotationRate * Math.PI / 180;
+  }
+  else if(keys.d && !keys.a) {
+    ship.angle += spaceshipRotationRate * Math.PI / 180;
+  }
+
+  //Display
+  ship.display();
 }
 function testForCollisions() {
 
