@@ -180,6 +180,7 @@ var ship;
 var level;
 var score;
 var lives;
+var firstGame = true;
 
 //Set up level
 function setUpLevel(level) {
@@ -249,6 +250,11 @@ function asteroidsRandom() {
 
 //New game function
 function newGame() {
+  if(!firstGame) {
+    window.clearInterval(mainLoop);
+  }
+  firstGame = false;
+
   level = 0;
   score = 1;
   asteroids = [];
@@ -265,4 +271,10 @@ function newGame() {
   }
 
   setUpLevel(1);
+
+  mainLoop = window.setInterval(physicsLoop, 33);
+}
+
+function physicsLoop() {
+
 }
