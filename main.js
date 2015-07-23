@@ -88,7 +88,7 @@ function polarPoint(r, a, cX, cY) {
 }
 
 //Game piece classes
-function asteroid(size) {
+function asteroid(size, element) {
   //Game and display attributes
   this.size = size;
   this.sideLength = function() {
@@ -113,6 +113,8 @@ function asteroid(size) {
   this.aclM = 0;
   this.angle = 0;
 
+  this.element = element; //Used for updating display and such
+
   //Hitbox attributes
   this.hitbox = function() {
     center = new point(this.pos[0], this.pos[1]);
@@ -120,7 +122,7 @@ function asteroid(size) {
     return c;
   }
 }
-function spaceship() {
+function spaceship(element) {
   this.pos = [0, 0];
   this.vel = [0, 0];
   this.acl = [0, 0];
@@ -128,6 +130,8 @@ function spaceship() {
   this.aclM = 0;
   this.angle = 0;
   this.sideLength = spaceshipSize;
+
+  this.element = element; //Used for updating display and such
 
   this.hitbox = function() {
     p1 = new point(this.pos[0], this.pos[1]+(this.sideLength/2));
@@ -161,8 +165,10 @@ var ship;
 
 //Set up level
 function setUpLevel(level) {
-  for(i2=0; i2<(level+2); ++i2) {
-    asteroids.push(new asteroid(3));
+  for(i2=0; i2<level+2; ++i2) {
+    gameBoard.innerHTML += "<img id=\"asteroid" + i2 + "\" src=\"Asteroid.png\"></img>";
+    asteroids.push(new asteroid(3, document.getElementById("asteroid" + i2)));
   }
-  ship = new spaceship();
+  gameBoard.innerHTML += "<img id=\"spaceship\" src=\"Spaceship.png\"></img>";
+  ship = new spaceship(document.getElementById("spaceship"));
 }
