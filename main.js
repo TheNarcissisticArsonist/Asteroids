@@ -313,3 +313,40 @@ function testForCollisions() {
 function testIfRoundOver() {
 
 }
+
+//User input...
+newGameButton.addEventListener("click", newGame);
+var keys = {
+  w: false,
+  a: false,
+  d: false
+};
+document.addEventListener("keydown", function(event) {
+  switch(event.which) {
+    case 78: //n
+      newGame();
+      break;
+    case 87: //w
+      keys.w = true;
+      break;
+    case 65: //a
+      keys.a = true;
+      break;
+    case 68: //d
+      keys.d = true;
+      break;
+  }
+});
+document.addEventListener("keyup", function(event) {
+  switch(event.which) {
+    case 87: //w
+      keys.w = false;
+      break;
+    case 65: //a
+      keys.a = false;
+      break;
+    case 68: //d
+      keys.d = false;
+      break;
+  }
+});
