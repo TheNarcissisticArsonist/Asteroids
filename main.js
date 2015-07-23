@@ -278,7 +278,7 @@ function newGame() {
 function physicsLoop() {
   spaceshipPhysics();
   asteroidPhysics();
-  testForColissions();
+  testForCollisions();
   testIfRoundOver();
 }
 function asteroidPhysics() {
@@ -295,6 +295,7 @@ function asteroidPhysics() {
     //Position
     asteroids[i5].pos[0] += asteroids[i5].vel[0];
     asteroids[i5].pos[1] += asteroids[i5].vel[1];
+      //Collision
 
     //Rotation
     asteroids[i5].angle = 0;
@@ -306,7 +307,7 @@ function asteroidPhysics() {
 function spaceshipPhysics() {
 
 }
-function testForColissions() {
+function testForCollisions() {
 
 }
 function testIfRoundOver() {
