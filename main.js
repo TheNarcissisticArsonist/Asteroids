@@ -4,6 +4,7 @@ var spaceshipSize = 64; //Width and height -- it's a square.
 var asteroidMaxSpeed = 5; //In pixels per second
 var spaceshipAccelerationRate = 0.4; //In pixels per second per second
 var spaceshipRotationRate = 5; //In degrees per second
+var epsilon = 0.01;
 
 //Get user interface elements
 var newGameButton   = document.getElementById("new");
@@ -184,6 +185,9 @@ function arctan(x, y) {
 }
 function getC(a, b) {
   return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+}
+function equal(num1, num2) {
+  return Math.abs(num1 - num2) < epsilon;
 }
 
 //Game variables
