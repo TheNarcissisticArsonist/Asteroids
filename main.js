@@ -203,6 +203,8 @@ function setUpLevel(level) {
   ship.aclM = 0;
 
   ship.display();
+
+  levelDisplay.innerHTML = level;
 }
 
 //Randomly place and start asteroids
