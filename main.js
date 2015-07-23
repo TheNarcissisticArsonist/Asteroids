@@ -276,5 +276,20 @@ function newGame() {
 }
 
 function physicsLoop() {
+  spaceshipPhysics();
+  asteroidPhysics();
+  testForColissions();
+  testIfRoundOver();
+}
+function asteroidPhysics() {
 
+}
+function spaceshipPhysics() {
+
+}
+function testForColissions() {
+
+}
+function testIfRoundOver() {
+  
 }
