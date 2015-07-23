@@ -24,6 +24,16 @@ var dataColliding   = document.getElementById("colliding");
 
 //Get game board element
 var gameBoard       = document.getElementById("gameBoard");
+c1 = new point(0, 0);
+c2 = new point(1200, 0);
+c3 = new point(1200, 600);
+c4 = new point(0, 600);
+var gameBoundaries = [
+  new line(c1, c2),
+  new line(c2, c3),
+  new line(c3, c4),
+  new line(c4, c1)
+];
 
 //Geometric classes
 function point(x, y) {
