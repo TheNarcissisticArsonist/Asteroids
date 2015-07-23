@@ -182,6 +182,7 @@ var ship;
 var level;
 var score;
 var lives;
+var asteroidMaxSpeed = 1;
 
 //Set up level
 function setUpLevel(level) {
@@ -194,6 +195,28 @@ function setUpLevel(level) {
   ship = new spaceship(document.getElementById("spaceship"));
 }
 
+//Randomly place and start asteroids
+function asteroidsRandom() {
+  for(i4=0; i4<asteroids.length; ++i4) {
+    //Position
+    asteroids[i4].pos[0] = Math.random() * 400;
+    asteroids[i4].pos[1] = Math.random() * 100;
+    temp = Math.random() * 2;
+    if(temp < 1) {
+      asteroids[i4].pos[0] += 800;
+      asteroids[i4].pos[1] += 500;
+    }
+
+    //Velocity
+    asteroids[i4].velM = Math.random() * asteroidMaxSpeed;
+    dir = Math.random() * Math.PI;
+    asteroids[i4].vel[0] = asteroids[i4].velM * Math.cos(dir);
+    asteroids[i4].vel[1] = asteroids[i4].velM * Math.sin(dir);
+
+    //Display
+    asteroids[i4].display();
+  }
+}
 
 //New game function
 function newGame() {
