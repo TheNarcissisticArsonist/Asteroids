@@ -125,9 +125,6 @@ function asteroid(size, number) {
 
   //Visual attributes
   this.display = function() {
-    console.log(String(this.pos[0] - (this.sideLength()/2)) + "px");
-    console.log(String(600 - this.pos[1] - (this.sideLength()/2)) + "px");
-
     document.getElementById("asteroid"+this.element).style.left = String(this.pos[0] - (this.sideLength()/2)) + "px";
     document.getElementById("asteroid"+this.element).style.top  = String(600 - this.pos[1] - (this.sideLength()/2)) + "px";
     document.getElementById("asteroid"+this.element).style.transform = "rotate(" + this.angle + "rad)";
@@ -211,12 +208,28 @@ function setUpLevel(level) {
 function asteroidsRandom() {
   for(i4=0; i4<asteroids.length; ++i4) {
     //Position
-    asteroids[i4].pos[0] = Math.random() * (400 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2);
-    asteroids[i4].pos[1] = Math.random() * (100 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2);
     temp = Math.random() * 2;
     if(temp < 1) {
-      asteroids[i4].pos[0] = 1200 - (Math.random() * (400 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2));
-      asteroids[i4].pos[1] = 600 - (Math.random() * (100 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2));
+      temp = Math.random() * 2;
+      if(temp < 1) {
+        asteroids[i4].pos[0] = Math.random() * (400 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2);
+        asteroids[i4].pos[1] = Math.random() * 600;
+      }
+      else {
+        asteroids[i4].pos[0] = 1200 - (Math.random() * (400 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2));
+        asteroids[i4].pos[1] = Math.random() * 600;
+      }
+    }
+    else {
+      temp = Math.random() * 2;
+      if(temp < 1) {
+        asteroids[i4].pos[1] = Math.random() * (100 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2);
+        asteroids[i4].pos[0] = Math.random() * 1200;
+      }
+      else {
+        asteroids[i4].pos[1] = 600 - (Math.random() * (100 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2));
+        asteroids[i4].pos[0] = Math.random() * 1200;
+      }
     }
 
     //Velocity
