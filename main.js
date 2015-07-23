@@ -209,12 +209,12 @@ function setUpLevel(level) {
 function asteroidsRandom() {
   for(i4=0; i4<asteroids.length; ++i4) {
     //Position
-    asteroids[i4].pos[0] = Math.random() * 400;
-    asteroids[i4].pos[1] = Math.random() * 100;
+    asteroids[i4].pos[0] = Math.random() * (400 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2);
+    asteroids[i4].pos[1] = Math.random() * (100 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2);
     temp = Math.random() * 2;
     if(temp < 1) {
-      asteroids[i4].pos[0] += 800;
-      asteroids[i4].pos[1] += 500;
+      asteroids[i4].pos[0] = 1200 - (Math.random() * (400 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2));
+      asteroids[i4].pos[1] = 600 - (Math.random() * (100 - (asteroids[i4].sideLength()/2)) + (asteroids[i4].sideLength()/2));
     }
 
     //Velocity
