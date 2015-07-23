@@ -282,7 +282,26 @@ function physicsLoop() {
   testIfRoundOver();
 }
 function asteroidPhysics() {
+  for(i5=0; i5<asteroids.length; ++i5) {
+    //Acceleration
+    asteroids[i5].acl = [0, 0];
+    asteroids[i5].aclM = 0;
 
+    //Velocity
+    asteroids[i5].vel[0] += asteroids[i5].acl[0];
+    asteroids[i5].vel[1] += asteroids[i5].acl[1];
+    asteroids[i5].velM = getC(asteroids[i5].vel[0], asteroids[i5].vel[1]);
+
+    //Position
+    asteroids[i5].pos[0] += asteroids[i5].vel[0];
+    asteroids[i5].pos[1] += asteroids[i5].vel[1];
+
+    //Rotation
+    asteroids[i5].angle = 0;
+
+    //Display
+    asteroids[i5].display();
+  }
 }
 function spaceshipPhysics() {
 
@@ -291,5 +310,5 @@ function testForColissions() {
 
 }
 function testIfRoundOver() {
-  
+
 }
