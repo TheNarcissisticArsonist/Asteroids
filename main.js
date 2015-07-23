@@ -88,7 +88,7 @@ function polarPoint(r, a, cX, cY) {
 }
 
 //Game piece classes
-function asteroid(size, element) {
+function asteroid(size, number) {
   //Game and display attributes
   this.size = size;
   this.sideLength = function() {
@@ -113,7 +113,7 @@ function asteroid(size, element) {
   this.aclM = 0;
   this.angle = 0;
 
-  this.element = element; //Used for updating display and such
+  this.element = number; //Used for updating display and such
 
   //Hitbox attributes
   this.hitbox = function() {
@@ -124,9 +124,12 @@ function asteroid(size, element) {
 
   //Visual attributes
   this.display = function() {
-    this.element.style.left = String(this.pos[0] - (this.sideLength()/2)) + "px";
-    this.element.style.top  = String(600 - this.pos[1] - (this.sideLength()/2)) + "px";
-    this.element.style.transform = "rotate(" + this.angle + "rad)";
+    console.log(String(this.pos[0] - (this.sideLength()/2)) + "px");
+    console.log(String(600 - this.pos[1] - (this.sideLength()/2)) + "px");
+
+    document.getElementById("asteroid"+this.element).style.left = String(this.pos[0] - (this.sideLength()/2)) + "px";
+    document.getElementById("asteroid"+this.element).style.top  = String(600 - this.pos[1] - (this.sideLength()/2)) + "px";
+    document.getElementById("asteroid"+this.element).style.transform = "rotate(" + this.angle + "rad)";
   }
 }
 function spaceship(element) {
@@ -181,9 +184,10 @@ var score;
 
 //Set up level
 function setUpLevel(level) {
+  gameBoard.innerHTML = "";
   for(i2=0; i2<level+2; ++i2) {
     gameBoard.innerHTML += "<img id=\"asteroid" + i2 + "\" class=\"gameObject\" src=\"Asteroid.png\"></img>";
-    asteroids.push(new asteroid(3, document.getElementById("asteroid" + i2)));
+    asteroids.push(new asteroid(3, i2));
   }
   gameBoard.innerHTML += "<img id=\"spaceship\" class=\"gameObject\" src=\"Spaceship.png\"></img>";
   ship = new spaceship(document.getElementById("spaceship"));
