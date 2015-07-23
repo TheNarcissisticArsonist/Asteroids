@@ -121,6 +121,13 @@ function asteroid(size, element) {
     c = new circle(center, this.sideLength()/2);
     return c;
   }
+
+  //Visual attributes
+  this.display = function() {
+    this.element.style.left = this.pos[0] - (this.sideLength()/2);
+    this.element.style.top  = 600 - (this.pos[1] - (this.sideLength()/2));
+    this.element.style.transform = "rotate(" + this.angle + "rad)";
+  }
 }
 function spaceship(element) {
   this.pos = [0, 0];
@@ -139,6 +146,13 @@ function spaceship(element) {
     p3 = new point(this.pos[0]-(this.sideLength/2), this.pos[1]-(this.sideLength/2));
     poly = new polygon([p1, p2, p3]);
     return poly;
+  }
+
+  //Visual attributes
+  this.display = function() {
+    this.element.style.left = this.pos[0] - (spaceshipSize/2);
+    this.element.style.top  = 600 - (this.pos[1] - (spaceshipSize/2));
+    this.element.style.transform = "rotate(" + this.angle + "rad)";
   }
 }
 
@@ -162,6 +176,8 @@ function getC(a, b) {
 //Game variables
 var asteroids = [];
 var ship;
+var level;
+var score;
 
 //Set up level
 function setUpLevel(level) {
