@@ -189,7 +189,7 @@ function getC(a, b) {
 function equal(num1, num2) {
   return Math.abs(num1 - num2) < epsilon;
 }
-function twoLinesColliding(line1, line2) {
+function lineLineCollision(line1, line2) {
   m1 = (line1.point1.y-line1.point2.y)/(line1.point1.x-line1.point2.x);
   m2 = (line2.point1.y-line2.point2.y)/(line2.point1.x-line2.point2.x);
 
@@ -219,7 +219,7 @@ function twoLinesColliding(line1, line2) {
     return false;
   }
 }
-function lineCircleColliding(line1, circle1) {
+function lineCircleCollision(line1, circle1) {
 
 }
 
@@ -373,7 +373,23 @@ function spaceshipPhysics() {
   //Position
   ship.pos[0] += ship.vel[0];
   ship.pos[1] += ship.vel[1];
-    //Edge collision
+
+  //Edge collision
+  for(i6=0; i6<ship.hitbox().numSides(); ++i6) {
+    side = ship.hitbox().listSides()[i6];
+    if(lineLineCollision(side, gameBoundaries[0])) {
+      ship.pos[1] = spaceshipSize/2;
+    }
+    else if(lineLineCollision(side, gameBoundaries[1])) {
+      ship.pos[0] = spaceshipSize/2;
+    }
+    else if(lineLineCollision(side, gameBoundaries[2])) {
+      ship.pos[1] = 600 - (spaceshipSize/2);
+    }
+    else if(lineLineCollision(side, gameBoundaries[3])) {
+      ship.pos[0] = 1200 - (spaceshipSize/2);
+    }
+  }
 
   //Rotation
   if(keys.a && !keys.d) {
