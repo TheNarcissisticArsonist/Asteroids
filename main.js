@@ -378,16 +378,16 @@ function spaceshipPhysics() {
   for(i6=0; i6<ship.hitbox().numSides(); ++i6) {
     side = ship.hitbox().listSides()[i6];
     if(lineLineCollision(side, gameBoundaries[0])) {
-      ship.pos[1] = spaceshipSize/2;
-    }
-    else if(lineLineCollision(side, gameBoundaries[1])) {
-      ship.pos[0] = spaceshipSize/2;
-    }
-    else if(lineLineCollision(side, gameBoundaries[2])) {
       ship.pos[1] = 600 - (spaceshipSize/2);
     }
-    else if(lineLineCollision(side, gameBoundaries[3])) {
+    else if(lineLineCollision(side, gameBoundaries[1])) {
       ship.pos[0] = 1200 - (spaceshipSize/2);
+    }
+    else if(lineLineCollision(side, gameBoundaries[2])) {
+      ship.pos[1] = spaceshipSize/2;
+    }
+    else if(lineLineCollision(side, gameBoundaries[3])) {
+      ship.pos[0] = spaceshipSize/2;
     }
   }
 
