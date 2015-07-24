@@ -189,6 +189,9 @@ function getC(a, b) {
 function equal(num1, num2) {
   return Math.abs(num1 - num2) < epsilon;
 }
+function XOR(a, b) {
+  return (a && !b) || (b && !a);
+}
 function lineLineCollision(line1, line2) {
   m1 = (line1.point1.y-line1.point2.y)/(line1.point1.x-line1.point2.x);
   m2 = (line2.point1.y-line2.point2.y)/(line2.point1.x-line2.point2.x);
@@ -212,7 +215,7 @@ function lineLineCollision(line1, line2) {
 
   x = (b2-b1)/(m1-m2);
 
-  if((x >= line1.point1.x && x <= line1.point2.x) && (x >= line2.point1.x && x <= line2.point2.x)) {
+  if(XOR(x <= line1.point1.x, x<= line1.point2.x) && XOR(x <= line2.point1.x, x <= line2.point2.x)) {
     return true;
   }
   else {
