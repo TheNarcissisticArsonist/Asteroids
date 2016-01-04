@@ -169,7 +169,14 @@ function lineCircleCollisionTest(l, c) {
   }
 }
 function polygonCollision(poly1, poly2) {
-
+  for(i=0; i<poly1.lines.length; ++i) {
+    for(j=0; j<poly2.lines.length; ++j) {
+      if(lineCollisionTest(poly1.lines[i],poly2.lines[j])) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 //Event Listeners
 
