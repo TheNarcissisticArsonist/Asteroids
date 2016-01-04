@@ -34,6 +34,12 @@ function line(p1, p2) {
   }
   this.p1 = p1;
   this.p2 = p2;
+  this.getDirectionVector = function() {
+    x = this.p2.x - this.p1.x;
+    y = this.p2.y - this.p1.y;
+    magnitude = Math.sqrt((x*x)+(y*y));
+    return [x/magnitude, y/magnitude];
+  }
   this.setP1 = function(val) {
     this.p1 = val;
   }
@@ -85,6 +91,7 @@ function lineCollisionTest(l1, l2) {
 
   u = ((h*c)+(d*e)-(d*g)-(h*a))/((h*b)-(d*f));
   v = ((f*a)+(b*g)-(b*e)-(f*c))/((f*d)-(b*h));
+
   if((u>=0) && (u<=1) && (v>=0) && (v<=1)) {
     return true;
   }
