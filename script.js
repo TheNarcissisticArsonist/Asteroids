@@ -59,6 +59,10 @@ function line(p1, p2) {
     this.p2.y = val;
   }
 }
+function circle(c, r) {
+  this.c = c;
+  this.r = r;
+}
 
 //Functions
 function initialSetup() {
