@@ -1,5 +1,9 @@
 htmlELEMENTS = {
-  gameBoardCont: document.getElementById("gameBoardCont")
+  gameBoardCont:    document.getElementById("gameBoardCont"),
+  newGameButton:    document.getElementById("newGame"),
+  resetButton:      document.getElementById("reset"),
+  level:            document.getElementById("level"),
+  score:            document.getElementById("score")
 };
 
 boardWidth = 900;
