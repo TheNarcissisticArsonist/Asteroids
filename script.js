@@ -64,11 +64,17 @@ function circle(c, r) {
   this.r = r;
 }
 
-//Functions
+//Functions (Structure, General Math, Geometric Test)
 function initialSetup() {
   htmlELEMENTS.gameBoardCont.innerHTML = "";
   htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
+}
+
+function distance(p1, p2) {
+  x = p2.x - p1.x;
+  y = p2.y - p1.y;
+  return Math.sqrt(x*x + y*y);
 }
 
 function lineCollisionTest(l1, l2) {
@@ -120,7 +126,9 @@ function lineCollisionTest(l1, l2) {
     return false;
   }
 }
+function lineCircleCollisionTest(l, c) {
 
+}
 //Event Listeners
 
 
