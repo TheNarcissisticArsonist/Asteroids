@@ -61,6 +61,21 @@ function initialSetup() {
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
 }
 
+function lineCollisionTest(l1, l2) {
+  //l1=<1x0-(1x0+1x1)u,1y0-(1y0+1y1)u>
+  //l2=<2x0-(2x0+2x1)v,2y0-(2y0+2y1)v>
+
+  //{1x0-(1x0+1x1)u = 2x0-(2x0+2x1)v
+  //{1y0-(1y0+1y1)u = 2y0-(2y0+2y1)v
+  //    or
+  //{a+bu = c+dv
+  //{e+fu = g+hv
+  //    becomes
+  //u = (hc+de-dg-ha)/(hb-df)
+  //v = (fa+bg-be-fc)/(fd-bh)
+  //if u and v are between 0 and 1, they intersect
+}
+
 //Event Listeners
 
 
