@@ -18,3 +18,4 @@ var basicBoardOutlineSVG = "\
 //Generate the game board
 htmlELEMENTS.gameBoardCont.innerHTML = "";
 htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
+htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
