@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Asteroids</title>
-<link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Asteroids</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<p id="test">Test</p>
-<script type="text/javascript" src="script.js"></script>
+  <h3 id="title">Asteroids</h3>
+  <div id="gameBoard">
+    <p id="noJS">Error loading the game.</p>
+  </div>
+  <div id="ui">
+    <div id="uiFloatLeft">
+      <div id="newGame">New Game</div>
+      <div id="reset">Reset</div>
+    </div>
+    <div id="uiFloatRight">
+      <div id="levelCont">Level: <span id="level">-</span></div>
+      <div id="scoreCont">Score: <span id="score">--</span></div>
+    </div>
+  </div>
+  <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
