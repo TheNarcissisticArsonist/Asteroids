@@ -16,7 +16,7 @@ var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"
   <line x1='0' y1='"+boardHeight+"' x2='0' y2='0' style='"+boardBorderLineStyleString+"'></line>\
   </svg>"
 
-//Classes
+//Classes (Geometric, Game)
 function point(x, y) {
   this.x = x;
   this.y = y;
@@ -62,6 +62,14 @@ function line(p1, p2) {
 function circle(c, r) {
   this.c = c;
   this.r = r;
+}
+function polygon(points) {
+  this.points = points;
+  this.lines = [];
+  for(i=0; i<points.length-1; ++i) {
+    this.lines[i] = new line(points[i], points[i+1])
+  }
+  this.lines[points.length-1] = new line(points[points.length-1], points[0]);
 }
 
 //Functions (Structure, General Math, Geometric Test)
@@ -159,6 +167,9 @@ function lineCircleCollisionTest(l, c) {
   else {
     return false;
   }
+}
+function polygonCollision(poly1, poly2) {
+
 }
 //Event Listeners
 
