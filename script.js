@@ -34,7 +34,7 @@ function line(p1, p2) {
   }
   this.p1 = p1;
   this.p2 = p2;
-  this.getDirectionVector = function() {
+  this.getDirectionUnitVector = function() {
     x = this.p2.x - this.p1.x;
     y = this.p2.y - this.p1.y;
     magnitude = Math.sqrt((x*x)+(y*y));
@@ -68,6 +68,23 @@ function initialSetup() {
 }
 
 function lineCollisionTest(l1, l2) {
+  //Special case: line segments are on the same line
+  if(Math.abs(l1.getDirectionUnitVector()[0]) == Math.abs(l2.getDirectionUnitVector()[0])) {
+    //Ok, they are along the same line...
+    if(l1.p1.x >= l2.p1.x && l1.p1.x <= l2.p2.x) {
+      return true;
+    }
+    if(l1.p1.x <= l2.p1.x && l1.p1.x >= l2.p2.x) {
+      return true;
+    }
+    if(l1.p2.x >= l2.p1.x && l1.p2.x <= l2.p2.x) {
+      return true;
+    }
+    if(l1.p2.x <= l2.p1.x && l1.p2.x >= l2.p2.x) {
+      return true;
+    }
+  }
+
   //l1=<1x1-(1x1+1x2)u,1y1-(1y1+1y2)u>
   //l2=<2x1-(2x1+2x2)v,2y1-(2y1+2y2)v>
 
@@ -87,7 +104,7 @@ function lineCollisionTest(l1, l2) {
   e = l1.p1.y;
   f = -(l1.p1.y + l1.p2.y);
   g = l2.p1.y;
-  h = -(l2.p1.y+l2.p2.y);
+  h = -(l2.p1.y + l2.p2.y);
 
   u = ((h*c)+(d*e)-(d*g)-(h*a))/((h*b)-(d*f));
   v = ((f*a)+(b*g)-(b*e)-(f*c))/((f*d)-(b*h));
