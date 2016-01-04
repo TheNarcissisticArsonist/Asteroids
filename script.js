@@ -62,11 +62,11 @@ function initialSetup() {
 }
 
 function lineCollisionTest(l1, l2) {
-  //l1=<1x0-(1x0+1x1)u,1y0-(1y0+1y1)u>
-  //l2=<2x0-(2x0+2x1)v,2y0-(2y0+2y1)v>
+  //l1=<1x1-(1x1+1x2)u,1y1-(1y1+1y2)u>
+  //l2=<2x1-(2x1+2x2)v,2y1-(2y1+2y2)v>
 
-  //{1x0-(1x0+1x1)u = 2x0-(2x0+2x1)v
-  //{1y0-(1y0+1y1)u = 2y0-(2y0+2y1)v
+  //{1x1-(1x1+1x2)u = 2x1-(2x1+2x2)v
+  //{1y1-(1y1+1y2)u = 2y1-(2y1+2y2)v
   //    or
   //{a+bu = c+dv
   //{e+fu = g+hv
@@ -74,6 +74,23 @@ function lineCollisionTest(l1, l2) {
   //u = (hc+de-dg-ha)/(hb-df)
   //v = (fa+bg-be-fc)/(fd-bh)
   //if u and v are between 0 and 1, they intersect
+  a = l1.p1.x;
+  b = -(l1.p1.x + l1.p2.x);
+  c = l2.p1.x;
+  d = -(l2.p1.x + l2.p2.x);
+  e = l1.p1.y;
+  f = -(l1.p1.y + l1.p2.y);
+  g = l2.p1.y;
+  h = -(l2.p1.y+l2.p2.y);
+
+  u = ((h*c)+(d*e)-(d*g)-(h*a))/((h*b)-(d*f));
+  v = ((f*a)+(b*g)-(b*e)-(f*c))/((f*d)-(b*h));
+  if((u>=0) && (u<=1) && (v>=0) && (v<=1)) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 //Event Listeners
