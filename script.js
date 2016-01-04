@@ -76,6 +76,13 @@ function distance(p1, p2) {
   y = p2.y - p1.y;
   return Math.sqrt(x*x + y*y);
 }
+function vectorMagnitude(p) {
+  o = new point(0,0);
+  return distance(o, p);
+}
+function vectorDot(p1, p2) {
+  return (p1.x*p2.x) + (p1.y*p2.y);
+}
 
 function lineCollisionTest(l1, l2) {
   //Special case: line segments are on the same line
@@ -127,7 +134,31 @@ function lineCollisionTest(l1, l2) {
   }
 }
 function lineCircleCollisionTest(l, c) {
+  p1Distance = distance(l.p1, c.c);
+  p2Distance = distance(l.p2, c.c);
+  if((p1Distance <= c.r) != (p2Distance <= c.r)) {
+    return true;
+  }
+  if(p1Distance <= c.r && p2Distance <= c.r) {
+    return false;
+  }
 
+  v = new point(0, 0);
+  v.setX(c.c.x - l.p1.x);
+  v.setY(c.c.y - l.p1.y);
+
+  r = new point(0, 0);
+  r.setX(l1.getDirectionUnitVector()[1] * c.r * -1);
+  r.setY(l1.getDirectionUnitVector()[0] * c.r);
+
+  compVontoR = vectorDot(r, v)/vectorMagnitude(r)
+
+  if(compVontoR <= c.r) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 //Event Listeners
 
