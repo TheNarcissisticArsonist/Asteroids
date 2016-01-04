@@ -28,10 +28,6 @@ function point(x, y) {
   }
 }
 function line(p1, p2) {
-  if(!(p1 instanceof point && p2 instanceof point)) {
-    alert("BAD DON'T DO THAT ONLY USE LINES AS ARGUMENTS");
-    return;
-  }
   this.p1 = p1;
   this.p2 = p2;
   this.getDirectionUnitVector = function() {
@@ -65,6 +61,7 @@ function circle(c, r) {
   this.r = r;
 }
 function polygon(points) {
+  var i;
   this.points = points;
   this.lines = [];
   for(i=0; i<points.length-1; ++i) {
