@@ -35,6 +35,7 @@ function line(p1, p2) {
   this.p1 = p1;
   this.p2 = p2;
   this.getDirectionUnitVector = function() {
+    var x, y, magnitude;
     x = this.p2.x - this.p1.x;
     y = this.p2.y - this.p1.y;
     magnitude = Math.sqrt((x*x)+(y*y));
@@ -80,11 +81,13 @@ function initialSetup() {
 }
 
 function distance(p1, p2) {
+  var x, y;
   x = p2.x - p1.x;
   y = p2.y - p1.y;
   return Math.sqrt(x*x + y*y);
 }
 function vectorMagnitude(p) {
+  var o;
   o = new point(0,0);
   return distance(o, p);
 }
@@ -93,6 +96,7 @@ function vectorDot(p1, p2) {
 }
 
 function lineCollisionTest(l1, l2) {
+  var a, b, c, d, e, f, g, h, u, v;
   //Special case: line segments are on the same line
   if(Math.abs(l1.getDirectionUnitVector()[0]) == Math.abs(l2.getDirectionUnitVector()[0])) {
     //Ok, they are along the same line...
@@ -142,6 +146,7 @@ function lineCollisionTest(l1, l2) {
   }
 }
 function lineCircleCollisionTest(l, c) {
+  var p1Distance, p2Distance, v, r, compVontoR;
   p1Distance = distance(l.p1, c.c);
   p2Distance = distance(l.p2, c.c);
   if((p1Distance <= c.r) != (p2Distance <= c.r)) {
@@ -169,6 +174,7 @@ function lineCircleCollisionTest(l, c) {
   }
 }
 function polygonCollision(poly1, poly2) {
+  var i, j;
   for(i=0; i<poly1.lines.length; ++i) {
     for(j=0; j<poly2.lines.length; ++j) {
       if(lineCollisionTest(poly1.lines[i],poly2.lines[j])) {
