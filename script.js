@@ -1,3 +1,4 @@
+//Variables
 htmlELEMENTS = {
   gameBoardCont:    document.getElementById("gameBoardCont"),
   newGameButton:    document.getElementById("newGame"),
@@ -5,11 +6,9 @@ htmlELEMENTS = {
   level:            document.getElementById("level"),
   score:            document.getElementById("score")
 };
-
 boardWidth = 900;
 boardHeight = 600;
 boardBorderLineStyleString = "stroke: rgba(255,255,255,1);";
-
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'>\
   <line x1='0' y1='0' x2='"+boardWidth+"' y2='0' style='"+boardBorderLineStyleString+"'></line>\
   <line x1='"+boardWidth+"' y1='0' x2='"+boardWidth+"' y2='"+boardHeight+"' style='"+boardBorderLineStyleString+"'></line>\
@@ -17,6 +16,7 @@ var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"
   <line x1='0' y1='"+boardHeight+"' x2='0' y2='0' style='"+boardBorderLineStyleString+"'></line>\
   </svg>"
 
+//Classes
 function point(x, y) {
   this.x = x;
   this.y = y;
@@ -54,7 +54,15 @@ function line(p1, p2) {
   }
 }
 
-//Generate the game board
-htmlELEMENTS.gameBoardCont.innerHTML = "";
-htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
-htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
+//Functions
+function initialSetup() {
+  htmlELEMENTS.gameBoardCont.innerHTML = "";
+  htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
+  htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
+}
+
+//Event Listeners
+
+
+//Executed code below...
+initialSetup();
