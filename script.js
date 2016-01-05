@@ -8,13 +8,16 @@ var htmlELEMENTS = {
 };
 var boardWidth = 900;
 var boardHeight = 600;
-var boardBorderLineStyleString = "stroke: rgba(255,255,255,1);";
+var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'>\
-  <line x1='0' y1='0' x2='"+boardWidth+"' y2='0' style='"+boardBorderLineStyleString+"'></line>\
-  <line x1='"+boardWidth+"' y1='0' x2='"+boardWidth+"' y2='"+boardHeight+"' style='"+boardBorderLineStyleString+"'></line>\
-  <line x1='"+boardWidth+"' y1='"+boardHeight+"' x2='0' y2='"+boardHeight+"' style='"+boardBorderLineStyleString+"'></line>\
-  <line x1='0' y1='"+boardHeight+"' x2='0' y2='0' style='"+boardBorderLineStyleString+"'></line>\
+  <line x1='0' y1='0' x2='"+boardWidth+"' y2='0' style='"+standardSVGStyle+"'></line>\
+  <line x1='"+boardWidth+"' y1='0' x2='"+boardWidth+"' y2='"+boardHeight+"' style='"+standardSVGStyle+"'></line>\
+  <line x1='"+boardWidth+"' y1='"+boardHeight+"' x2='0' y2='"+boardHeight+"' style='"+standardSVGStyle+"'></line>\
+  <line x1='0' y1='"+boardHeight+"' x2='0' y2='0' style='"+standardSVGStyle+"'></line>\
   </svg>"
+var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
+  <line id='spaceshipSVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
+  <line id='spaceshipSVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"
 
 var score = null;
 var level = null;
@@ -106,6 +109,9 @@ function spaceship() {
     p = rotatePoint(-5, -8, t);
     this.hitbox[1].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
     this.hitbox[2].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+  }
+  this.createSVG = function() {
+
   }
   this.updateHitbox();
 }
