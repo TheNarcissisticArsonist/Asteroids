@@ -8,6 +8,9 @@ var htmlELEMENTS = {
 };
 var boardWidth = 900;
 var boardHeight = 600;
+var minAsteroidSpeed = 50; //pixels/second
+var maxAsteroidSpeed = 150; //pixels/second
+var spaceshipMaxSpeed = 150; //pixels/second
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'>\
   <line x1='0' y1='0' x2='"+boardWidth+"' y2='0' style='"+standardSVGStyle+"'></line>\
