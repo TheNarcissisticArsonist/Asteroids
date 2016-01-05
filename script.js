@@ -73,19 +73,20 @@ function spaceship() {
   this.Rpos = 0; //radians
   this.Rvel = 0; //radians/second
   this.Racl = 0; //radians/second^2
+  this.hitbox = [];
 }
 
-//Functions (Structure, General Math, Geometric Test)
+//Functions (Structure, General Math, Geometric)
 function initialSetup() {
   htmlELEMENTS.gameBoardCont.innerHTML = "";
   htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
 }
 function newGameClicked() {
-
+  //
 }
 function resetClicked() {
-
+  //
 }
 function updateUI() {
   htmlELEMENTS.level.innerHTML = (level == null) ? "--" : level;
@@ -184,6 +185,9 @@ function lineCircleCollisionTest(l, c) {
   else {
     return false;
   }
+}
+function createPoint(x, y) {
+  return new point(x, y);
 }
 
 //Event Listeners
