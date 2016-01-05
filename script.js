@@ -6,6 +6,12 @@ var htmlELEMENTS = {
   level:            document.getElementById("level"),
   score:            document.getElementById("score")
 };
+var keys = {
+  w: false,
+  a: false,
+  s: false,
+  d: false
+};
 var boardWidth = 900;
 var boardHeight = 600;
 var minAsteroidSpeed = 50; //pixels/second
@@ -19,10 +25,8 @@ var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1
   <line id='spaceshipSVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
   <line id='spaceshipSVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"
 var asteroidInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
-
 var score = null;
 var level = null;
-
 var ship = null;
 var asteroids = [];
 
@@ -323,6 +327,48 @@ function updateUI() {
 //Event Listeners
 htmlELEMENTS.newGameButton.addEventListener("click", newGameClicked);
 htmlELEMENTS.resetButton.addEventListener("click", resetClicked);
+document.addEventListener("keydown", function(event) {
+  console.log("Pressed key " + event.which);
+  switch(event.which) {
+    case 87: //w
+      keys.w = true;
+      break;
+    case 65: //a
+      keys.a = true;
+      break;
+    case 83: //s
+      keys.s = true;
+      break;
+    case 68: //d
+      keys.d = true;
+      break;
+    case 32: //space
+      //
+      break;
+    case 78: //n
+      //
+      break;
+    case 82: //r
+      //
+      break;
+  }
+});
+document.addEventListener("keyup", function(event) {
+  switch(event.which) {
+    case 87: //w
+      keys.w = false;
+      break;
+    case 65: //a
+      keys.a = false;
+      break;
+    case 83: //s
+      keys.s = false;
+      break;
+    case 68: //d
+      keys.d = false;
+      break;
+  }
+});
 
 //Executed code below...
 initialSetup();
