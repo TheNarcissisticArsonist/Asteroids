@@ -14,12 +14,7 @@ var spaceshipMaxSpeed = 150; //pixels/second
 var asteroidSizeMultiplier = 5; //pixels * r^2
 var minAsteroidStartDistance = 75; //pixels
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
-var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'>\
-  <line x1='0' y1='0' x2='"+boardWidth+"' y2='0' style='"+standardSVGStyle+"'></line>\
-  <line x1='"+boardWidth+"' y1='0' x2='"+boardWidth+"' y2='"+boardHeight+"' style='"+standardSVGStyle+"'></line>\
-  <line x1='"+boardWidth+"' y1='"+boardHeight+"' x2='0' y2='"+boardHeight+"' style='"+standardSVGStyle+"'></line>\
-  <line x1='0' y1='"+boardHeight+"' x2='0' y2='0' style='"+standardSVGStyle+"'></line>\
-  </svg>"
+var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
   <line id='spaceshipSVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
   <line id='spaceshipSVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"

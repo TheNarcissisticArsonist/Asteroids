@@ -22,3 +22,7 @@ div {
   padding: 50px 50px;
   background: radial-gradient(closest-side, rgba(127,127,127,1), rgba(0,0,0,1));
 }
+
+#gameBoard {
+  border: 1px solid white;
+}
