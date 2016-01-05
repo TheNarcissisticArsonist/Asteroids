@@ -250,7 +250,7 @@ function spawnAsteroids() {
   }
 }
 function mainLoop() {
-  //
+  //_
 };
 
 function distance(p1, p2) {
