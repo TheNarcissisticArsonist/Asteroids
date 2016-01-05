@@ -21,6 +21,7 @@ var asteroidSizeMultiplier = 5; //pixels * r^2
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
+var maxBullets = 3; //number of bullets
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
@@ -32,6 +33,7 @@ var score = null;
 var level = null;
 var ship = null;
 var asteroids = [];
+var bullets = [];
 
 //Classes (Geometric, Game)
 function point(x, y) {
