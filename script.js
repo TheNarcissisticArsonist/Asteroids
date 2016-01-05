@@ -364,7 +364,6 @@ function updateUI() {
   htmlELEMENTS.score.innerHTML = (score == null) ? "--" : score;
 }
 
-
 //Event Listeners
 htmlELEMENTS.newGameButton.addEventListener("click", newGameClicked);
 htmlELEMENTS.resetButton.addEventListener("click", resetClicked);
