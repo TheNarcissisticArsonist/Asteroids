@@ -72,6 +72,9 @@ function line(p1, p2) {
 function circle(c, r) {
   this.c = c;
   this.r = r;
+  this.setR = function(val) {
+    this.r = val;
+  }
 }
 function spaceship() {
   /*      /\      _   Spaceship location is based off of of the middle point
