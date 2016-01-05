@@ -21,6 +21,7 @@ var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
   <line id='spaceshipSVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
   <line id='spaceshipSVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"
+var asteroidInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
 
 var score = null;
 var level = null;
@@ -132,6 +133,36 @@ function spaceship() {
   this.updateHitbox();
   this.createSVG();
 }
+function asteroid(idTag) {
+  var x, y, s, t, c;
+  x = Math.random() * boardWidth;
+  y = Math.random() * boardHeight;
+  this.Cpos = [x, y];
+  s = (Math.random() * (maxAsteroidSpeed-minAsteroidSpeed)) + minAsteroidSpeed;
+  t = Math.random() * 2 * Math.PI;
+  x = s * Math.cos(t);
+  y = s * Math.sin(t);
+  this.Cvel = [x, y];
+  this.Cacl = [0, 0];
+  this.asteroidSize = 3;
+  c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), this.asteroidSize);
+  this.hitbox = [[c], []];
+  this.updateHitbox = function() {
+    this.hitbox[0][0].c.setX(this.Cpos[0]);
+    this.hitbox[0][0].c.setY(this.Cpos[1]);
+    this.hitbox[0][0].setR(this.asteroidSize*this.asteroidSize*10);
+  }
+  this.createSVG = function() {
+    htmlELEMENTS.gameBoard.innerHTML += (asteroidInitialSVG[0] + "bigAsteroid" + idTag + asteroidInitialSVG[1]);
+    this.hitbox[1][0] = document.getElementById("bigAsteroid" + idTag);
+    this.updateSVG();
+  }
+  this.updateSVG = function() {
+    this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
+    this.hitbox[1][0].setAttribute("cy", 600-this.Cpos[1]);
+    this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*10);
+  }
+}
 
 //Functions (Structure, General Math, Geometric, Display)
 function initialSetup() {
@@ -152,13 +183,13 @@ function newGameClicked() {
 function resetClicked() {
   //
 }
-function spawnAsteroid() {
-  //
+function spawnAsteroid(number) {
+  return new asteroid(number);
 }
 function spawnAsteroids() {
   var i;
   for(i=0; i<level; ++i) {
-    asteroids.push(spawnAsteroid());
+    asteroids.push(spawnAsteroid(i));
   }
 }
 function mainloop() {
