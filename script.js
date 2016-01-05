@@ -143,6 +143,7 @@ function newGameClicked() {
   initialSetup();
   ship = new spaceship();
   spawnAsteroids();
+  updateUI();
   mainLoop();
 }
 function resetClicked() {
