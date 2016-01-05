@@ -92,14 +92,25 @@ function spaceship() {
   l31 = new line(p3, p1);
   this.hitbox = [l12, l23, l31];
   this.updateHitbox = function() {
-    this.hitbox[0].setP1(createPoint(this.pos[0], this.pos[1]+8));     this.hitbox[0].setP2(createPoint(this.pos[0]+5,this.pos[1]-8));
-    this.hitbox[1].setP1(createPoint(this.pos[0]+5, this.pos[1]-8));   this.hitbox[1].setP2(createPoint(this.pos[0]-5,this.pos[1]-8));
-    this.hitbox[2].setP1(createPoint(this.pos[0]-5, this.pos[1]-8));   this.hitbox[2].setP2(createPoint(this.pos[0],this.pos[1]+8));
+    var x, y, t, p;
+    t = this.Rpos;
+
+    p = rotatePoint(0, 8, t);
+    this.hitbox[2].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[0].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+
+    p = rotatePoint(5, -8, t);
+    this.hitbox[0].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[1].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+
+    p = rotatePoint(-5, -8, t);
+    this.hitbox[1].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[2].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
   }
   this.updateHitbox();
 }
 
-//Functions (Structure, General Math, Geometric)
+//Functions (Structure, General Math, Geometric, Display)
 function initialSetup() {
   htmlELEMENTS.gameBoardCont.innerHTML = "";
   htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
@@ -129,6 +140,12 @@ function vectorMagnitude(p) {
 }
 function vectorDot(p1, p2) {
   return (p1.x*p2.x) + (p1.y*p2.y);
+}
+function rotatePoint(x, y, t) {
+  var x_, y_;
+  x_ = x*Math.cos(t) - y*Math.sin(t);
+  y_ = x*Math.sin(t) + y*Math.cos(t);
+  return [x_, y_];
 }
 
 function lineCollisionTest(l1, l2) {
@@ -214,6 +231,13 @@ function createPoint(x, y) {
 }
 function createLine(p1, p2) {
   return new line(p1, p2);
+}
+
+function showHitboxes() {
+
+}
+function hideHitboxes() {
+
 }
 
 //Event Listeners
