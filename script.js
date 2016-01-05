@@ -116,6 +116,15 @@ function spaceship() {
     this.hitbox[1][1] = document.getElementById("spaceshipSVGBack");
     this.hitbox[1][2] = document.getElementById("spaceshipSVGFrontLeft");
   }
+  this.updateSVG = function() {
+    var i;
+    for(i=0; i<3; ++i) {
+      this.hitbox[1][i].setAttribute("x1", this.hitbox[0][i].p1.x);
+      this.hitbox[1][i].setAttribute("y1", this.hitbox[0][i].p1.y);
+      this.hitbox[1][i].setAttribute("x2", this.hitbox[0][i].p2.x);
+      this.hitbox[1][i].setAttribute("y2", this.hitbox[0][i].p2.y);
+    }
+  }
   this.updateHitbox();
 }
 
