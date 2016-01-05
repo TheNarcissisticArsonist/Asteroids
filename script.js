@@ -115,6 +115,7 @@ function spaceship() {
     this.hitbox[1][0] = document.getElementById("spaceshipSVGFrontRight");
     this.hitbox[1][1] = document.getElementById("spaceshipSVGBack");
     this.hitbox[1][2] = document.getElementById("spaceshipSVGFrontLeft");
+    this.updateSVG();
   }
   this.updateSVG = function() {
     var i;
@@ -126,6 +127,7 @@ function spaceship() {
     }
   }
   this.updateHitbox();
+  this.createSVG();
 }
 
 //Functions (Structure, General Math, Geometric, Display)
