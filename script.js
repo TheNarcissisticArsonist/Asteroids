@@ -138,15 +138,22 @@ function initialSetup() {
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
 }
 function newGameClicked() {
-  //
+  score = 0;
+  level = 1;
+  initialSetup();
+  ship = new spaceship();
+  spawnAsteroids();
+  mainLoop();
 }
 function resetClicked() {
   //
 }
-function updateUI() {
-  htmlELEMENTS.level.innerHTML = (level == null) ? "--" : level;
-  htmlELEMENTS.score.innerHTML = (score == null) ? "--" : score;
+function spawnAsteroids() {
+  //
 }
+function mainloop() {
+  //
+};
 
 function distance(p1, p2) {
   var x, y;
@@ -253,6 +260,12 @@ function createPoint(x, y) {
 function createLine(p1, p2) {
   return new line(p1, p2);
 }
+
+function updateUI() {
+  htmlELEMENTS.level.innerHTML = (level == null) ? "--" : level;
+  htmlELEMENTS.score.innerHTML = (score == null) ? "--" : score;
+}
+
 
 //Event Listeners
 htmlELEMENTS.newGameButton.addEventListener("click", newGameClicked);
