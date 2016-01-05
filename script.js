@@ -252,13 +252,6 @@ function createLine(p1, p2) {
   return new line(p1, p2);
 }
 
-function showHitboxes() {
-
-}
-function hideHitboxes() {
-
-}
-
 //Event Listeners
 htmlELEMENTS.newGameButton.addEventListener("click", newGameClicked);
 htmlELEMENTS.resetButton.addEventListener("click", resetClicked);
