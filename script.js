@@ -12,6 +12,7 @@ var minAsteroidSpeed = 50; //pixels/second
 var maxAsteroidSpeed = 150; //pixels/second
 var spaceshipMaxSpeed = 150; //pixels/second
 var asteroidSizeMultiplier = 5; //pixels * r^2
+var minAsteroidStartDistance = 75; //pixels
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'>\
   <line x1='0' y1='0' x2='"+boardWidth+"' y2='0' style='"+standardSVGStyle+"'></line>\
@@ -139,9 +140,14 @@ function spaceship() {
   this.updateSVG();
 }
 function asteroid(idTag) {
-  var x, y, s, t, c;
-  x = Math.random() * boardWidth;
-  y = Math.random() * boardHeight;
+  var x, y, s, t, c, p1, p2;
+  p1 = new point(ship.Cpos[0], ship.Cpos[1]);
+  do {
+    x = Math.random() * boardWidth;
+    y = Math.random() * boardHeight;
+    p2 = createPoint(x, y);
+  }
+  while(distance(p1, p2) < minAsteroidStartDistance);
   this.Cpos = [x, y];
   s = (Math.random() * (maxAsteroidSpeed-minAsteroidSpeed)) + minAsteroidSpeed;
   t = Math.random() * 2 * Math.PI;
