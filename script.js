@@ -189,6 +189,9 @@ function lineCircleCollisionTest(l, c) {
 function createPoint(x, y) {
   return new point(x, y);
 }
+function createLine(p1, p2) {
+  return new line(p1, p2);
+}
 
 //Event Listeners
 htmlELEMENTS.newGameButton.addEventListener("click", newGameClicked);
