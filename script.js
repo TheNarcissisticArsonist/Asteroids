@@ -66,15 +66,6 @@ function circle(c, r) {
   this.c = c;
   this.r = r;
 }
-function polygon(points) {
-  var i;
-  this.points = points;
-  this.lines = [];
-  for(i=0; i<points.length-1; ++i) {
-    this.lines[i] = new line(points[i], points[i+1])
-  }
-  this.lines[points.length-1] = new line(points[points.length-1], points[0]);
-}
 function spaceship() {
   this.pos = [boardWidth/2, boardHeight/2]; //pixels
   this.vel = [0, 0]; //pixels/second
@@ -193,17 +184,6 @@ function lineCircleCollisionTest(l, c) {
   else {
     return false;
   }
-}
-function polygonCollision(poly1, poly2) {
-  var i, j;
-  for(i=0; i<poly1.lines.length; ++i) {
-    for(j=0; j<poly2.lines.length; ++j) {
-      if(lineCollisionTest(poly1.lines[i],poly2.lines[j])) {
-        return true;
-      }
-    }
-  }
-  return false;
 }
 
 //Event Listeners
