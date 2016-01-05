@@ -19,6 +19,9 @@ var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"
 var score = null;
 var level = null;
 
+var ship = null;
+var asteroids = [];
+
 //Classes (Geometric, Game)
 function point(x, y) {
   this.x = x;
@@ -71,6 +74,14 @@ function polygon(points) {
     this.lines[i] = new line(points[i], points[i+1])
   }
   this.lines[points.length-1] = new line(points[points.length-1], points[0]);
+}
+function spaceship() {
+  this.pos = [boardWidth/2, boardHeight/2]; //pixels
+  this.vel = [0, 0]; //pixels/second
+  this.acl = [0, 0]; //pixels/second^2
+  this.Rpos = 0; //radians
+  this.Rvel = 0; //radians/second
+  this.Racl = 0; //radians/second^2
 }
 
 //Functions (Structure, General Math, Geometric Test)
