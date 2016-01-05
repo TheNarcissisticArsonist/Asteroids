@@ -152,8 +152,14 @@ function newGameClicked() {
 function resetClicked() {
   //
 }
-function spawnAsteroids() {
+function spawnAsteroid() {
   //
+}
+function spawnAsteroids() {
+  var i;
+  for(i=0; i<level; ++i) {
+    asteroids.push(spawnAsteroid());
+  }
 }
 function mainloop() {
   //
