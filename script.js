@@ -352,10 +352,7 @@ document.addEventListener("keydown", function(event) {
       //
       break;
     case 78: //n
-      //
-      break;
-    case 82: //r
-      //
+      newGameClicked();
       break;
   }
 });
