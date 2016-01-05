@@ -195,7 +195,10 @@ function newGameClicked() {
   mainLoop();
 }
 function resetClicked() {
-  //
+  score = null;
+  level = null;
+  initialSetup();
+  updateUI();
 }
 function spawnAsteroid(number) {
   return new asteroid(number);
@@ -206,7 +209,7 @@ function spawnAsteroids() {
     asteroids.push(spawnAsteroid(i));
   }
 }
-function mainloop() {
+function mainLoop() {
   //
 };
 
