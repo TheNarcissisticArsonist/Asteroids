@@ -19,12 +19,15 @@ var maxAsteroidSpeed = 150; //pixels/second
 var spaceshipMaxSpeed = 150; //pixels/second
 var asteroidSizeMultiplier = 5; //pixels * r^2
 var minAsteroidStartDistance = 75; //pixels
+var bulletSpeed = 200; //pixels/second
+var bulletRadius = 3; //pixels
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
   <line id='spaceshipSVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
   <line id='spaceshipSVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"
 var asteroidInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
+var bulletInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"]
 var score = null;
 var level = null;
 var ship = null;
@@ -163,7 +166,7 @@ function asteroid(idTag) {
     this.hitbox[0][0].setR(this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
   }
   this.createSVG = function() {
-    htmlELEMENTS.gameBoard.innerHTML += (asteroidInitialSVG[0] + "bigAsteroid" + idTag + asteroidInitialSVG[1]);
+    htmlELEMENTS.gameBoard.innerHTML += asteroidInitialSVG[0] + "bigAsteroid" + idTag + asteroidInitialSVG[1];
     this.hitbox[1][0] = document.getElementById("bigAsteroid" + idTag);
     this.updateSVG();
   }
@@ -171,6 +174,36 @@ function asteroid(idTag) {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
     this.hitbox[1][0].setAttribute("cy", 600-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
+  }
+  this.updateHitbox();
+  this.createSVG();
+  this.updateSVG();
+}
+function bullet(idTag) {
+  var x, y, r, t, c;
+  this.Cpos = [ship.hitbox[0][0].p1.x, ship.hitbox[0][0].p1.y];
+  r = bulletSpeed;
+  t = ship.Rpos;
+  x = r*Math.cos(t);
+  y = r*Math.sin(t);
+  this.Cvel = [x, y];
+  this.Cacl = [0, 0];
+  this.distanceTraveled = null //  a;owgheaowgh;owagh
+  c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), bulletRadius);
+  this.hitbox = [[c], []];
+  this.updateHitbox = function() {
+    this.hitbox[0][0].c.setX(this.Cpos[0]);
+    this.hitbox[0][0].c.setY(this.Cpos[1]);
+  }
+  this.createSVG = function() {
+    htmlELEMENTS.gameBoard.innerHTML += bulletInitialSVG[0] + "bullet" + idTag + bulletInitialSVG[1];
+    this.hitbox[1][0] = document.getElementById("bullet" + idTag);
+    this.updateSVG();
+  }
+  this.updateSVG = function() {
+    this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
+    this.hitbox[1][0].setAttribute("cy", 600-this.Cpos[1]);
+    this.hitbox[1][0].setAttribute("r", this.hitbox[0][0].r);
   }
   this.updateHitbox();
   this.createSVG();
@@ -334,7 +367,6 @@ function updateUI() {
 htmlELEMENTS.newGameButton.addEventListener("click", newGameClicked);
 htmlELEMENTS.resetButton.addEventListener("click", resetClicked);
 document.addEventListener("keydown", function(event) {
-  console.log("Pressed key " + event.which);
   switch(event.which) {
     case 87: //w
       keys.w = true;
@@ -349,7 +381,7 @@ document.addEventListener("keydown", function(event) {
       keys.d = true;
       break;
     case 32: //space
-      //
+      //shoot
       break;
     case 78: //n
       newGameClicked();
