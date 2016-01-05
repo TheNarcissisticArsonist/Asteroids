@@ -185,6 +185,9 @@ function initialSetup() {
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
 }
 function newGameClicked() {
+  if(!confirm("Are you sure you want to start a new game?")) {
+    return;
+  }
   score = 0;
   level = 1;
   initialSetup();
@@ -194,6 +197,9 @@ function newGameClicked() {
   mainLoop();
 }
 function resetClicked() {
+  if(!confirm("Are you sure you want to reset?")) {
+    return;
+  }
   score = null;
   level = null;
   initialSetup();
