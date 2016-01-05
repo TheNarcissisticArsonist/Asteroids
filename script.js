@@ -135,6 +135,7 @@ function spaceship() {
   }
   this.updateHitbox();
   this.createSVG();
+  this.updateSVG();
 }
 function asteroid(idTag) {
   var x, y, s, t, c;
@@ -165,6 +166,9 @@ function asteroid(idTag) {
     this.hitbox[1][0].setAttribute("cy", 600-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*10);
   }
+  this.updateHitbox();
+  this.createSVG();
+  this.updateSVG();
 }
 
 //Functions (Structure, General Math, Geometric, Display)
