@@ -86,8 +86,8 @@ function resetClicked() {
 
 }
 function updateUI() {
-  htmlELEMENTS.level.innerHTML = level;
-  htmlELEMENTS.score.innerHTML = score;
+  htmlELEMENTS.level.innerHTML = (level == null) ? "--" : level;
+  htmlELEMENTS.score.innerHTML = (score == null) ? "--" : score;
 }
 
 function distance(p1, p2) {
