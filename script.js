@@ -93,31 +93,35 @@ function spaceship() {
   l12 = new line(p1, p2);
   l23 = new line(p2, p3);
   l31 = new line(p3, p1);
-  this.hitbox = [l12, l23, l31];
+  this.hitbox = [[l12, l23, l31], []];
   this.updateHitbox = function() {
     var x, y, t, p;
     t = this.Rpos;
 
     p = rotatePoint(0, 8, t);
-    this.hitbox[2].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
-    this.hitbox[0].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[0][2].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[0][0].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
 
     p = rotatePoint(5, -8, t);
-    this.hitbox[0].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
-    this.hitbox[1].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[0][0].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[0][1].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
 
     p = rotatePoint(-5, -8, t);
-    this.hitbox[1].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
-    this.hitbox[2].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[0][1].setP2(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
+    this.hitbox[0][2].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
   }
   this.createSVG = function() {
-
+    htmlELEMENTS.gameBoard.innerHTML += spaceshipInitialSVG;
+    this.hitbox[1][0] = document.getElementById("spaceshipSVGFrontRight");
+    this.hitbox[1][1] = document.getElementById("spaceshipSVGBack");
+    this.hitbox[1][2] = document.getElementById("spaceshipSVGFrontLeft");
   }
   this.updateHitbox();
 }
 
 //Functions (Structure, General Math, Geometric, Display)
 function initialSetup() {
+  htmlELEMENTS.gameBoard = null;
   htmlELEMENTS.gameBoardCont.innerHTML = "";
   htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
