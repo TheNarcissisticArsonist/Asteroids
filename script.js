@@ -67,13 +67,28 @@ function circle(c, r) {
   this.r = r;
 }
 function spaceship() {
+  /*      /\      _   Spaceship location is based off of of the middle point
+   *     /  \     |       over 5
+   *    /    \    16      up 8
+   *   /      \   |
+   *  /________\  _
+   *
+   *  |-- 10 --|
+   */
+  var p1, p2, p3, l12, l23, l31;
   this.pos = [boardWidth/2, boardHeight/2]; //pixels
   this.vel = [0, 0]; //pixels/second
   this.acl = [0, 0]; //pixels/second^2
   this.Rpos = 0; //radians
   this.Rvel = 0; //radians/second
   this.Racl = 0; //radians/second^2
-  this.hitbox = [];
+  p1 = new point(0, 0);
+  p2 = new point(1, 1);
+  p3 = new point(2, 2); //(arbitrary values)
+  l12 = new line(p1, p2);
+  l23 = new line(p2, p3);
+  l31 = new line(p3, p1);
+  this.hitbox = [l12, l23, l31];
 }
 
 //Functions (Structure, General Math, Geometric)
