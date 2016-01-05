@@ -76,12 +76,14 @@ function spaceship() {
    *  |-- 10 --|
    */
   var p1, p2, p3, l12, l23, l31;
-  this.pos = [boardWidth/2, boardHeight/2]; //pixels
-  this.vel = [0, 0]; //pixels/second
-  this.acl = [0, 0]; //pixels/second^2
+  this.Cpos = [boardWidth/2, boardHeight/2]; //pixels
+  this.Cvel = [0, 0]; //pixels/second
+  this.Cacl = [0, 0]; //pixels/second^2
   this.Rpos = 0; //radians
   this.Rvel = 0; //radians/second
   this.Racl = 0; //radians/second^2
+  //C stands for cartesian (as in cartesian coordinates)
+  //R stands for rotational (because, well, it measures the rotation :D)
   p1 = new point(0, 0);
   p2 = new point(1, 1);
   p3 = new point(2, 2); //(arbitrary values)
@@ -89,6 +91,12 @@ function spaceship() {
   l23 = new line(p2, p3);
   l31 = new line(p3, p1);
   this.hitbox = [l12, l23, l31];
+  this.updateHitbox = function() {
+    this.hitbox[0].setP1(createPoint(this.pos[0], this.pos[1]+8));     this.hitbox[0].setP2(createPoint(this.pos[0]+5,this.pos[1]-8));
+    this.hitbox[1].setP1(createPoint(this.pos[0]+5, this.pos[1]-8));   this.hitbox[1].setP2(createPoint(this.pos[0]-5,this.pos[1]-8));
+    this.hitbox[2].setP1(createPoint(this.pos[0]-5, this.pos[1]-8));   this.hitbox[2].setP2(createPoint(this.pos[0],this.pos[1]+8));
+  }
+  this.updateHitbox();
 }
 
 //Functions (Structure, General Math, Geometric)
