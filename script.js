@@ -11,6 +11,7 @@ var boardHeight = 600;
 var minAsteroidSpeed = 50; //pixels/second
 var maxAsteroidSpeed = 150; //pixels/second
 var spaceshipMaxSpeed = 150; //pixels/second
+var asteroidSizeMultiplier = 5; //pixels * r^2
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'>\
   <line x1='0' y1='0' x2='"+boardWidth+"' y2='0' style='"+standardSVGStyle+"'></line>\
@@ -154,7 +155,7 @@ function asteroid(idTag) {
   this.updateHitbox = function() {
     this.hitbox[0][0].c.setX(this.Cpos[0]);
     this.hitbox[0][0].c.setY(this.Cpos[1]);
-    this.hitbox[0][0].setR(this.asteroidSize*this.asteroidSize*10);
+    this.hitbox[0][0].setR(this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
   }
   this.createSVG = function() {
     htmlELEMENTS.gameBoard.innerHTML += (asteroidInitialSVG[0] + "bigAsteroid" + idTag + asteroidInitialSVG[1]);
@@ -164,7 +165,7 @@ function asteroid(idTag) {
   this.updateSVG = function() {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
     this.hitbox[1][0].setAttribute("cy", 600-this.Cpos[1]);
-    this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*10);
+    this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
   }
   this.updateHitbox();
   this.createSVG();
