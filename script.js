@@ -21,7 +21,6 @@ var asteroidSizeMultiplier = 5; //pixels * r^2
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
-var maxBullets = 3; //number of bullets
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
@@ -34,6 +33,10 @@ var level = null;
 var ship = null;
 var asteroids = [];
 var bullets = [];
+var numberOfStars = 30;
+var minStars = 20;
+var maxStars = 40;
+var randomNumberOfStars = true;
 
 //Classes (Geometric, Game)
 function point(x, y) {
@@ -174,7 +177,7 @@ function asteroid(idTag) {
   }
   this.updateSVG = function() {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
-    this.hitbox[1][0].setAttribute("cy", 600-this.Cpos[1]);
+    this.hitbox[1][0].setAttribute("cy", boardHeight-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
   }
   this.updateHitbox();
@@ -204,7 +207,7 @@ function bullet(idTag) {
   }
   this.updateSVG = function() {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
-    this.hitbox[1][0].setAttribute("cy", 600-this.Cpos[1]);
+    this.hitbox[1][0].setAttribute("cy", BoardHeight-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.hitbox[0][0].r);
   }
   this.updateHitbox();
@@ -214,10 +217,17 @@ function bullet(idTag) {
 
 //Functions (Structure, General Math, Geometric, Display)
 function initialSetup() {
+  var i;
   htmlELEMENTS.gameBoard = null;
   htmlELEMENTS.gameBoardCont.innerHTML = "";
   htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
+  if(randomNumberOfStars) {
+    numberOfStars = Math.floor(Math.random()*(maxStars-minStars)+minStars);
+  }
+  for(i=0; i<numberOfStars; ++i) {
+    htmlELEMENTS.gameBoard.innerHTML += starInitialSVG(Math.random()*boardWidth, Math.random()*boardHeight);
+  }
 }
 function newGameClicked() {
   if(!confirm("Are you sure you want to start a new game?")) {
@@ -250,7 +260,7 @@ function spawnAsteroids() {
   }
 }
 function mainLoop() {
-  //_
+  //
 };
 
 function distance(p1, p2) {
@@ -362,6 +372,9 @@ function createLine(p1, p2) {
 function updateUI() {
   htmlELEMENTS.level.innerHTML = (level == null) ? "--" : level;
   htmlELEMENTS.score.innerHTML = (score == null) ? "--" : score;
+}
+function starInitialSVG(x, y) {
+  return "<circle cx='"+x+"' cy='"+String(boardHeight-y)+"' r='1' style='"+standardSVGStyle+"' fill='white'></circle>";
 }
 
 //Event Listeners
