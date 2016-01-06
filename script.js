@@ -22,7 +22,7 @@ var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
 var shipCartAclRate = 5; //pixels/second^2
-var shipRotAclRate = 0.5; //radians/second^2
+var shipRotAclRate = Math.PI/24; //radians/second^2
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
@@ -270,7 +270,7 @@ function mainLoop() {
   //Evaluate spaceship stuff
   //cartesian
   //acl
-  r = ((keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0)));
+  r = ((keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0))) * dT;
   t = ship.Rpos;
   x = r * Math.cos(t + Math.PI/2);
   y = r * Math.sin(t + Math.PI/2);
@@ -283,7 +283,7 @@ function mainLoop() {
   ship.Cpos[1] += ship.Cvel[1];
   //rotational
   //acl
-  v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0)));
+  v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0))) * dT;
   ship.Racl = v;
   //vel
   ship.Rvel += ship.Racl;
