@@ -39,6 +39,9 @@ var numberOfStars = 30;
 var minStars = 20;
 var maxStars = 40;
 var randomNumberOfStars = true;
+var timeStamp1 = null;
+var timeStamp2 = null;
+var dT = null;
 
 //Classes (Geometric, Game)
 function point(x, y) {
@@ -133,7 +136,6 @@ function spaceship() {
     this.hitbox[1][0] = document.getElementById("spaceshipSVGFrontRight");
     this.hitbox[1][1] = document.getElementById("spaceshipSVGBack");
     this.hitbox[1][2] = document.getElementById("spaceshipSVGFrontLeft");
-    this.updateSVG();
   }
   this.updateSVG = function() {
     var i;
@@ -146,7 +148,6 @@ function spaceship() {
   }
   this.updateHitbox();
   this.createSVG();
-  this.updateSVG();
 }
 function asteroid(idTag) {
   var x, y, s, t, c, p1, p2;
@@ -233,8 +234,10 @@ function newGameClicked() {
   level = 1;
   initialSetup();
   ship = new spaceship();
+  ship.updateSVG();
   spawnAsteroids();
   updateUI();
+  timeStamp1 = new Date().getTime();
   mainLoop();
 }
 function resetClicked() {
@@ -258,10 +261,13 @@ function spawnAsteroids() {
 function mainLoop() {
   var x, y, r, t, v;
 
+  timeStamp2 = new Date().getTime();
+  dT = (timeStamp2 - timeStamp1)/1000;
+
   //Evaluate spaceship stuff
   //cartesian
   //acl
-r = (keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0));
+  r = ((keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0))) * dT;
   t = ship.Rpos;
   x = r * Math.cos(t);
   y = r * Math.sin(t);
@@ -274,12 +280,19 @@ r = (keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclR
   ship.Cpos[1] += ship.Cvel[1];
   //rotational
   //acl
-  v = (keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0));
+  v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0))) * dT;
   ship.Racl = v;
   //vel
   ship.Rvel += ship.Racl;
   //pos
   ship.Rpos += ship.Rvel;
+
+  ship.updateHitbox();
+  ship.updateSVG();
+
+  //Get next frame
+  timeStamp1 = new Date().getTime();
+  requestAnimationFrame(mainLoop);
 };
 
 function distance(p1, p2) {
