@@ -21,6 +21,8 @@ var asteroidSizeMultiplier = 3; //pixels * r^2
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
+var shipCartAclRate = 5; //pixels/second^2
+var shipRotAclRate = 0.5; //radians/second^2
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
@@ -254,7 +256,30 @@ function spawnAsteroids() {
   }
 }
 function mainLoop() {
-  //
+  var x, y, r, t, v;
+
+  //Evaluate spaceship stuff
+  //cartesian
+  //acl
+r = (keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0));
+  t = ship.Rpos;
+  x = r * Math.cos(t);
+  y = r * Math.sin(t);
+  ship.Cacl = [x, y];
+  //vel
+  ship.Cvel[0] += ship.Cacl[0];
+  ship.Cvel[1] += ship.Cacl[1];
+  //pos
+  ship.Cpos[0] += ship.Cvel[0];
+  ship.Cpos[1] += ship.Cvel[1];
+  //rotational
+  //acl
+  v = (keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0));
+  ship.Racl = v;
+  //vel
+  ship.Rvel += ship.Racl;
+  //pos
+  ship.Rpos += ship.Rvel;
 };
 
 function distance(p1, p2) {
