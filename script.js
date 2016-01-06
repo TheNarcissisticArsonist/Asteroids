@@ -324,9 +324,22 @@ function rotatePoint(x, y, t) {
 }
 
 function lineCollisionTest(l1, l2) {
-  var a, b, c, d, e, f, g, h, u, v;
+  var a, b, c, d, e, f, g, h, u, v, p, m, t;
   //Special case: line segments are on the same line
   if(Math.abs(l1.getDirectionUnitVector()[0]) == Math.abs(l2.getDirectionUnitVector()[0])) {
+    //Ok, they are parallel
+    p = new point(l2.p1.x-l1.p1.x, l2.p1.y-l1.p1.y);
+    if(p.x == 0 && p.y == 0); {
+      return true; //they contain the same endpoint
+    }
+    //Ok, p isn't a common endpoint
+    m = Math.sqrt(p.x*p.x + p.y*p.y);
+    p.setX(p.x/m);
+    p.setY(p.y/m);
+    if(Math.abs(p.x) != Math.abs(l1.getDirectionUnitVector()[0])) {
+      return false;
+    }
+
     //Ok, they are along the same line...
     if(l1.p1.x >= l2.p1.x && l1.p1.x <= l2.p2.x) {
       return true;
