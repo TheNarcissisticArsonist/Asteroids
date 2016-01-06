@@ -217,17 +217,11 @@ function bullet(idTag) {
 
 //Functions (Structure, General Math, Geometric, Display)
 function initialSetup() {
-  var i;
   htmlELEMENTS.gameBoard = null;
   htmlELEMENTS.gameBoardCont.innerHTML = "";
   htmlELEMENTS.gameBoardCont.innerHTML = basicBoardOutlineSVG;
   htmlELEMENTS.gameBoard = document.getElementById("gameBoard");
-  if(randomNumberOfStars) {
-    numberOfStars = Math.floor(Math.random()*(maxStars-minStars)+minStars);
-  }
-  for(i=0; i<numberOfStars; ++i) {
-    htmlELEMENTS.gameBoard.innerHTML += starInitialSVG(Math.random()*boardWidth, Math.random()*boardHeight);
-  }
+  placeStars();
 }
 function newGameClicked() {
   if(!confirm("Are you sure you want to start a new game?")) {
@@ -375,6 +369,15 @@ function updateUI() {
 }
 function starInitialSVG(x, y) {
   return "<circle cx='"+x+"' cy='"+String(boardHeight-y)+"' r='1' style='"+standardSVGStyle+"' fill='white'></circle>";
+}
+function placeStars() {
+  var i;
+  if(randomNumberOfStars) {
+    numberOfStars = Math.floor(Math.random()*(maxStars-minStars)+minStars);
+  }
+  for(i=0; i<numberOfStars; ++i) {
+    htmlELEMENTS.gameBoard.innerHTML += starInitialSVG(Math.random()*boardWidth, Math.random()*boardHeight);
+  }
 }
 
 //Event Listeners
