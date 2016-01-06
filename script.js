@@ -22,7 +22,7 @@ var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
 var shipCartAclRate = 8; //pixels/second^2
-var shipRotAclRate = Math.PI/24; //radians/second^2
+var shipRotAclRate = Math.PI/16; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
 //Some of these units may be wrong, but ¯\_(ツ)_/¯
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
