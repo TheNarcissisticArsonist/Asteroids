@@ -270,10 +270,10 @@ function mainLoop() {
   //Evaluate spaceship stuff
   //cartesian
   //acl
-  r = ((keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0))) * dT;
+  r = ((keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0)));
   t = ship.Rpos;
-  x = r * Math.cos(t);
-  y = r * Math.sin(t);
+  x = r * Math.cos(t + Math.PI/2);
+  y = r * Math.sin(t + Math.PI/2);
   ship.Cacl = [x, y];
   //vel
   ship.Cvel[0] += ship.Cacl[0];
@@ -283,7 +283,7 @@ function mainLoop() {
   ship.Cpos[1] += ship.Cvel[1];
   //rotational
   //acl
-  v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0))) * dT;
+  v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0)));
   ship.Racl = v;
   //vel
   ship.Rvel += ship.Racl;
