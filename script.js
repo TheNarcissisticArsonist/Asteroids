@@ -139,11 +139,14 @@ function spaceship() {
   }
   this.updateSVG = function() {
     var i;
+    this.hitbox[1][0] = document.getElementById("spaceshipSVGFrontRight");
+    this.hitbox[1][1] = document.getElementById("spaceshipSVGBack");
+    this.hitbox[1][2] = document.getElementById("spaceshipSVGFrontLeft");
     for(i=0; i<3; ++i) {
-      this.hitbox[1][i].setAttribute("x1", this.hitbox[0][i].p1.x);
-      this.hitbox[1][i].setAttribute("y1", boardHeight-this.hitbox[0][i].p1.y);
-      this.hitbox[1][i].setAttribute("x2", this.hitbox[0][i].p2.x);
-      this.hitbox[1][i].setAttribute("y2", boardHeight-this.hitbox[0][i].p2.y);
+      this.hitbox[1][i].setAttribute("x1", String(this.hitbox[0][i].p1.x));
+      this.hitbox[1][i].setAttribute("y1", String(boardHeight-this.hitbox[0][i].p1.y));
+      this.hitbox[1][i].setAttribute("x2", String(this.hitbox[0][i].p2.x));
+      this.hitbox[1][i].setAttribute("y2", String(boardHeight-this.hitbox[0][i].p2.y));
     }
   }
   this.updateHitbox();
@@ -292,6 +295,7 @@ function mainLoop() {
 
   //Get next frame
   timeStamp1 = new Date().getTime();
+  console.log("Loop!");
   requestAnimationFrame(mainLoop);
 };
 
