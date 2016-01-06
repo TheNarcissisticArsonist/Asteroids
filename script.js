@@ -21,8 +21,10 @@ var asteroidSizeMultiplier = 3; //pixels * r^2
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
-var shipCartAclRate = 5; //pixels/second^2
+var shipCartAclRate = 8; //pixels/second^2
 var shipRotAclRate = Math.PI/24; //radians/second^2
+var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
+//Some of these units may be wrong, but ¯\_(ツ)_/¯
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
 var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
@@ -287,6 +289,7 @@ function mainLoop() {
   ship.Racl = v;
   //vel
   ship.Rvel += ship.Racl;
+  ship.Rvel *= (1 - dT) * spaceshipRotationSlowingRate;
   //pos
   ship.Rpos += ship.Rvel;
 
