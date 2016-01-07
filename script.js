@@ -361,10 +361,10 @@ function spaceshipLoopEvaluation(dT) {
       break;
     }
   }
-  if(movedX) {
+  if(movedX && !movedY) {
     shipGhost.Cpos[1] = ship.Cpos[1];
   }
-  if(movedY) {
+  if(movedY && !movedX) {
     shipGhost.Cpos[0] = ship.Cpos[0];
   }
   if((!movedX) && (!movedY)) {
