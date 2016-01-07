@@ -35,7 +35,9 @@ var bulletInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"
 var score = null;
 var level = null;
 var ship = null;
+var shipGhost = null;
 var asteroids = [];
+var asteroidGhosts = [];
 var bullets = [];
 var numberOfStars = 30;
 var minStars = 20;
@@ -240,6 +242,8 @@ function newGameClicked() {
   initialSetup();
   ship = new spaceship();
   ship.updateSVG();
+  shipGhost = new spaceship();
+  shipGhost.updateSVG();
   spawnAsteroids();
   updateUI();
   timeStamp1 = new Date().getTime();
