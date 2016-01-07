@@ -302,6 +302,18 @@ function spaceshipLoopEvaluation(dT) {
   //pos
   ship.Cpos[0] += ship.Cvel[0];
   ship.Cpos[1] += ship.Cvel[1];
+  if(ship.Cpos[0] > boardWidth) {
+    ship.Cpos[0] -= boardWidth;
+  }
+  if(ship.Cpos[0] < 0) {
+    ship.Cpos[0] += boardWidth;
+  }
+  if(ship.Cpos[1] > boardHeight) {
+    ship.Cpos[1] -= boardHeight;
+  }
+  if(ship.Cpos[1] < 0) {
+    ship.Cpos[1] += boardHeight;
+  }
   //rotational
   //acl
   v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0))) * dT;
