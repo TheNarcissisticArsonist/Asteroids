@@ -334,11 +334,11 @@ function spaceshipLoopEvaluation(dT) {
 
   for(i=0; i<3; ++i) {
     if(ship.hitbox[0][i].p1.x>boardWidth || ship.hitbox[0][i].p2.x>boardWidth) {
-      shipGhost.Cpos[0] = ship.Cpos[0] - boardwidth;
+      shipGhost.Cpos[0] = ship.Cpos[0] - boardWidth;
       movedX = true;
     }
     else if(ship.hitbox[0][i].p1.x<0 || ship.hitbox[0][i].p2.x<0) {
-      shipGhost.Cpos[0] = ship.Cpos[0] + boardwidth;
+      shipGhost.Cpos[0] = ship.Cpos[0] + boardWidth;
       movedX = true;
     }
     if(movedX) {
