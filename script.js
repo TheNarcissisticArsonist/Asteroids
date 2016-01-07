@@ -286,7 +286,7 @@ function mainLoop() {
   requestAnimationFrame(mainLoop);
 };
 function spaceshipLoopEvaluation(dT) {
-  var x, y, r, t, v;
+  var x, y, r, t, v, i, movedX, movedY;
 
   //Evaluate spaceship stuff
   //cartesian
@@ -326,6 +326,49 @@ function spaceshipLoopEvaluation(dT) {
 
   ship.updateHitbox();
   ship.updateSVG();
+
+  movedX = false;
+  movedY = false;
+
+  for(i=0; i<3; ++i) {
+    if(ship.hitbox[0][i].p1.x>boardWidth || ship.hitbox[0][i].p2.x>boardWidth) {
+      shipGhost.Cpos[0] = ship.Cpos[0] - boardwidth;
+      movedX = true;
+    }
+    else if(ship.hitbox[0][i].p1.x<0 || ship.hitbox[0][i].p2.x<0) {
+      shipGhost.Cpos[0] = ship.Cpos[0] + boardwidth;
+      movedX = true;
+    }
+    if(movedX) {
+      break;
+    }
+  }
+  for(i=0; i<3; ++i) {
+    if(ship.hitbox[0][i].p1.y>boardHeight || ship.hitbox[0][i].p2.y>boardHeight) {
+      shipGhost.Cpos[1] = ship.Cpos[1] - boardHeight;
+      movedY = true;
+    }
+    else if(ship.hitbox[0][i].p1.y<0 || ship.hitbox[0][i].p2.y<0) {
+      shipGhost.Cpos[1] = ship.Cpos[1] + boardHeight;
+      movedY = true;
+    }
+    if(movedY) {
+      break;
+    }
+  }
+  if(movedX) {
+    shipGhost.Cpos[1] = ship.Cpos[1];
+  }
+  if(movedY) {
+    shipGhost.Cpos[0] = ship.Cpos[0];
+  }
+  if((!movedX) && (!movedY)) {
+    shipGhost.Cpos[0] = -100;
+    shipGhost.Cpos[1] = -100;
+  }
+
+  shipGhost.updateHitbox();
+  shipGhost.updateSVG();
 }
 
 function distance(p1, p2) {
