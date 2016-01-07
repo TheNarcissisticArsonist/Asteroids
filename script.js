@@ -327,6 +327,8 @@ function spaceshipLoopEvaluation(dT) {
   ship.updateHitbox();
   ship.updateSVG();
 
+  shipGhost.Rpos = ship.Rpos;
+
   movedX = false;
   movedY = false;
 
