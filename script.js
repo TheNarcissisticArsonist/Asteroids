@@ -275,10 +275,18 @@ function mainLoop() {
     return;
   }
 
-  var x, y, r, t, v;
-
   timeStamp2 = new Date().getTime();
   dT = (timeStamp2 - timeStamp1)/1000;
+
+  spaceshipLoopEvaluation(dT);
+
+  //Get next frame
+  timeStamp1 = new Date().getTime();
+  console.log("Loop!");
+  requestAnimationFrame(mainLoop);
+};
+function spaceshipLoopEvaluation(dT) {
+  var x, y, r, t, v;
 
   //Evaluate spaceship stuff
   //cartesian
@@ -306,12 +314,7 @@ function mainLoop() {
 
   ship.updateHitbox();
   ship.updateSVG();
-
-  //Get next frame
-  timeStamp1 = new Date().getTime();
-  console.log("Loop!");
-  requestAnimationFrame(mainLoop);
-};
+}
 
 function distance(p1, p2) {
   var x, y;
