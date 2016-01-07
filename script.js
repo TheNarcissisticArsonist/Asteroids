@@ -21,8 +21,8 @@ var asteroidSizeMultiplier = 3; //pixels * r^2
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
-var shipCartAclRate = 8; //pixels/second^2
-var shipRotAclRate = Math.PI/16; //radians/second^2
+var shipCartAclRate = 128; //pixels/second^2
+var shipRotAclRate = 2*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
 //Some of these units may be wrong, but ¯\_(ツ)_/¯
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
@@ -281,30 +281,30 @@ function mainLoop() {
   timeStamp2 = new Date().getTime();
   dT = (timeStamp2 - timeStamp1)/1000;
 
-  spaceshipLoopEvaluation(dT);
+  spaceshipLoopMotionEvaluation(dT);
 
   //Get next frame
   timeStamp1 = new Date().getTime();
   console.log("Loop!");
   requestAnimationFrame(mainLoop);
 };
-function spaceshipLoopEvaluation(dT) {
+function spaceshipLoopMotionEvaluation(dT) {
   var x, y, r, t, v, i, movedX, movedY;
 
   //Evaluate spaceship stuff
   //cartesian
   //acl
-  r = ((keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0))) * dT;
+  r = ((keys.w && keys.s) ? 0 : (keys.w ? shipCartAclRate : (keys.s ? -shipCartAclRate : 0)));
   t = ship.Rpos;
   x = r * Math.cos(t + Math.PI/2);
   y = r * Math.sin(t + Math.PI/2);
   ship.Cacl = [x, y];
   //vel
-  ship.Cvel[0] += ship.Cacl[0];
-  ship.Cvel[1] += ship.Cacl[1];
+  ship.Cvel[0] += ship.Cacl[0] * dT;
+  ship.Cvel[1] += ship.Cacl[1] * dT;
   //pos
-  ship.Cpos[0] += ship.Cvel[0];
-  ship.Cpos[1] += ship.Cvel[1];
+  ship.Cpos[0] += ship.Cvel[0] * dT;
+  ship.Cpos[1] += ship.Cvel[1] * dT;
   if(ship.Cpos[0] > boardWidth) {
     ship.Cpos[0] -= boardWidth;
   }
@@ -319,13 +319,13 @@ function spaceshipLoopEvaluation(dT) {
   }
   //rotational
   //acl
-  v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0))) * dT;
+  v = ((keys.a && keys.d) ? 0 : (keys.a ? shipRotAclRate : (keys.d ? -shipRotAclRate : 0)));
   ship.Racl = v;
   //vel
-  ship.Rvel += ship.Racl;
+  ship.Rvel += ship.Racl * dT;
   ship.Rvel *= (1 - dT) * spaceshipRotationSlowingRate;
   //pos
-  ship.Rpos += ship.Rvel;
+  ship.Rpos += ship.Rvel * dT;
 
   ship.updateHitbox();
   ship.updateSVG();
