@@ -238,7 +238,7 @@ function newGameClicked() {
   if(!confirm("Are you sure you want to start a new game?")) {
     return;
   }
-  stopGameLoop = false;
+  stopGameLoop = true;
   score = 0;
   level = 1;
   initialSetup();
@@ -249,7 +249,10 @@ function newGameClicked() {
   spawnAsteroids();
   updateUI();
   timeStamp1 = new Date().getTime();
-  mainLoop();
+  window.setTimeout(function() {
+    stopGameLoop = false;
+    mainLoop();
+  }, 0);
 }
 function resetClicked() {
   if(!confirm("Are you sure you want to reset?")) {
