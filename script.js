@@ -27,9 +27,6 @@ var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotat
 //Some of these units may be wrong, but ¯\_(ツ)_/¯
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
-var spaceshipInitialSVG = "<line id='spaceshipSVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
-  <line id='spaceshipSVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
-  <line id='spaceshipSVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"
 var asteroidInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
 var bulletInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"]
 var score = null;
@@ -95,7 +92,7 @@ function circle(c, r) {
     this.r = val;
   }
 }
-function spaceship() {
+function spaceship(idTag) {
   /*      /\      _   Spaceship location is based off of of the middle point
    *     /  \     |       over 5
    *    /    \    16      up 8
@@ -113,6 +110,7 @@ function spaceship() {
   this.Racl = 0; //radians/second^2
   //C stands for cartesian (as in cartesian coordinates)
   //R stands for rotational (because, well, it measures the rotation :D)
+  this.idTag = idTag;
   p1 = new point(0, 0);
   p2 = new point(1, 1);
   p3 = new point(2, 2); //(arbitrary values)
@@ -137,16 +135,16 @@ function spaceship() {
     this.hitbox[0][2].setP1(createPoint(this.Cpos[0]+p[0], this.Cpos[1]+p[1]));
   }
   this.createSVG = function() {
-    htmlELEMENTS.gameBoard.innerHTML += spaceshipInitialSVG;
-    this.hitbox[1][0] = document.getElementById("spaceshipSVGFrontRight");
-    this.hitbox[1][1] = document.getElementById("spaceshipSVGBack");
-    this.hitbox[1][2] = document.getElementById("spaceshipSVGFrontLeft");
+    htmlELEMENTS.gameBoard.innerHTML += spaceshipInitialSVG(idTag);
+    this.hitbox[1][0] = document.getElementById("spaceship"+this.idTag+"SVGFrontRight");
+    this.hitbox[1][1] = document.getElementById("spaceship"+this.idTag+"SVGBack");
+    this.hitbox[1][2] = document.getElementById("spaceship"+this.idTag+"SVGFrontLeft");
   }
   this.updateSVG = function() {
     var i;
-    this.hitbox[1][0] = document.getElementById("spaceshipSVGFrontRight");
-    this.hitbox[1][1] = document.getElementById("spaceshipSVGBack");
-    this.hitbox[1][2] = document.getElementById("spaceshipSVGFrontLeft");
+    this.hitbox[1][0] = document.getElementById("spaceship"+this.idTag+"SVGFrontRight");
+    this.hitbox[1][1] = document.getElementById("spaceship"+this.idTag+"SVGBack");
+    this.hitbox[1][2] = document.getElementById("spaceship"+this.idTag+"SVGFrontLeft");
     for(i=0; i<3; ++i) {
       this.hitbox[1][i].setAttribute("x1", String(this.hitbox[0][i].p1.x));
       this.hitbox[1][i].setAttribute("y1", String(boardHeight-this.hitbox[0][i].p1.y));
@@ -174,6 +172,7 @@ function asteroid(idTag) {
   this.Cvel = [x, y];
   this.Cacl = [0, 0];
   this.asteroidSize = 3;
+  this.idTag = idTag;
   c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), this.asteroidSize);
   this.hitbox = [[c], []];
   this.updateHitbox = function() {
@@ -182,8 +181,8 @@ function asteroid(idTag) {
     this.hitbox[0][0].setR(this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
   }
   this.createSVG = function() {
-    htmlELEMENTS.gameBoard.innerHTML += asteroidInitialSVG[0] + "bigAsteroid" + idTag + asteroidInitialSVG[1];
-    this.hitbox[1][0] = document.getElementById("bigAsteroid" + idTag);
+    htmlELEMENTS.gameBoard.innerHTML += asteroidInitialSVG[0] + "bigAsteroid" + this.idTag + asteroidInitialSVG[1];
+    this.hitbox[1][0] = document.getElementById("bigAsteroid" + this.idTag);
     this.updateSVG();
   }
   this.updateSVG = function() {
@@ -205,6 +204,7 @@ function bullet(idTag) {
   this.Cvel = [x, y];
   this.Cacl = [0, 0];
   this.distanceTraveled = null //  a;owgheaowgh;owagh
+  this.idTag = idTag;
   c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), bulletRadius);
   this.hitbox = [[c], []];
   this.updateHitbox = function() {
@@ -212,8 +212,8 @@ function bullet(idTag) {
     this.hitbox[0][0].c.setY(this.Cpos[1]);
   }
   this.createSVG = function() {
-    htmlELEMENTS.gameBoard.innerHTML += bulletInitialSVG[0] + "bullet" + idTag + bulletInitialSVG[1];
-    this.hitbox[1][0] = document.getElementById("bullet" + idTag);
+    htmlELEMENTS.gameBoard.innerHTML += bulletInitialSVG[0] + "bullet" + this.idTag + bulletInitialSVG[1];
+    this.hitbox[1][0] = document.getElementById("bullet" + this.idTag);
     this.updateSVG();
   }
   this.updateSVG = function() {
@@ -242,9 +242,9 @@ function newGameClicked() {
   score = 0;
   level = 1;
   initialSetup();
-  ship = new spaceship();
+  ship = new spaceship("main");
   ship.updateSVG();
-  shipGhost = new spaceship();
+  shipGhost = new spaceship("ghost");
   shipGhost.updateSVG();
   spawnAsteroids();
   updateUI();
@@ -447,6 +447,11 @@ function placeStars() {
   for(i=0; i<numberOfStars; ++i) {
     htmlELEMENTS.gameBoard.innerHTML += starInitialSVG(Math.random()*boardWidth, Math.random()*boardHeight);
   }
+}
+function spaceshipInitialSVG(idTag) {
+  return "<line id='spaceship"+idTag+"SVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
+    <line id='spaceship"+idTag+"SVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
+    <line id='spaceship"+idTag+"SVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"
 }
 
 //Event Listeners
