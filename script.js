@@ -46,6 +46,7 @@ var randomNumberOfStars = true;
 var timeStamp1 = null;
 var timeStamp2 = null;
 var dT = null;
+var stopGameLoop = false;
 
 //Classes (Geometric, Game)
 function point(x, y) {
@@ -237,6 +238,7 @@ function newGameClicked() {
   if(!confirm("Are you sure you want to start a new game?")) {
     return;
   }
+  stopGameLoop = false;
   score = 0;
   level = 1;
   initialSetup();
@@ -253,6 +255,7 @@ function resetClicked() {
   if(!confirm("Are you sure you want to reset?")) {
     return;
   }
+  stopGameLoop = true;
   score = null;
   level = null;
   initialSetup();
@@ -268,6 +271,10 @@ function spawnAsteroids() {
   }
 }
 function mainLoop() {
+  if(stopGameLoop) {
+    return;
+  }
+
   var x, y, r, t, v;
 
   timeStamp2 = new Date().getTime();
