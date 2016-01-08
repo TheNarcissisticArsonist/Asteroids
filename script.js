@@ -18,11 +18,12 @@ var minAsteroidSpeed = 50; //pixels/second
 var maxAsteroidSpeed = 150; //pixels/second
 var spaceshipMaxSpeed = 150; //pixels/second
 var asteroidSizeMultiplier = 3; //pixels * r^2
+var asteroidSizeAdditive = 10; //pixels
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
 var shipCartAclRate = 128; //pixels/second^2
-var shipRotAclRate = 2*Math.PI; //radians/second^2
+var shipRotAclRate = 4*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
 //Some of these units may be wrong, but ¯\_(ツ)_/¯
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
@@ -178,7 +179,7 @@ function asteroid(idTag) {
   this.updateHitbox = function() {
     this.hitbox[0][0].c.setX(this.Cpos[0]);
     this.hitbox[0][0].c.setY(this.Cpos[1]);
-    this.hitbox[0][0].setR(this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
+    this.hitbox[0][0].setR(this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier+asteroidSizeAdditive);
   }
   this.createSVG = function() {
     htmlELEMENTS.gameBoard.innerHTML += asteroidInitialSVG[0] + "bigAsteroid" + this.idTag + asteroidInitialSVG[1];
@@ -188,7 +189,7 @@ function asteroid(idTag) {
   this.updateSVG = function() {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
     this.hitbox[1][0].setAttribute("cy", boardHeight-this.Cpos[1]);
-    this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier);
+    this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier+asteroidSizeAdditive);
   }
   this.updateHitbox();
   this.createSVG();
@@ -284,6 +285,7 @@ function mainLoop() {
   dT = (timeStamp2 - timeStamp1)/1000;
 
   spaceshipLoopMotionEvaluation(dT);
+  asteroidsLoopMotionEvaluation(dT);
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -310,13 +312,13 @@ function spaceshipLoopMotionEvaluation(dT) {
   if(ship.Cpos[0] > boardWidth) {
     ship.Cpos[0] -= boardWidth;
   }
-  if(ship.Cpos[0] < 0) {
+  else if(ship.Cpos[0] < 0) {
     ship.Cpos[0] += boardWidth;
   }
   if(ship.Cpos[1] > boardHeight) {
     ship.Cpos[1] -= boardHeight;
   }
-  if(ship.Cpos[1] < 0) {
+  else if(ship.Cpos[1] < 0) {
     ship.Cpos[1] += boardHeight;
   }
   //rotational
@@ -392,6 +394,34 @@ function spaceshipLoopMotionEvaluation(dT) {
   for(i=0; i<3; ++i) {
     shipGhost[i].updateHitbox();
     shipGhost[i].updateSVG();
+  }
+}
+function asteroidsLoopMotionEvaluation(dT) {
+  var i;
+  for(i=0; i<asteroids.length; ++i) {
+    asteroids[i].Cacl = [0, 0];
+
+    asteroids[i].Cvel[0] += asteroids[i].Cacl[0] * dT;
+    asteroids[i].Cvel[1] += asteroids[i].Cacl[1] * dT;
+
+    asteroids[i].Cpos[0] += asteroids[i].Cvel[0] * dT;
+    asteroids[i].Cpos[1] += asteroids[i].Cvel[1] * dT;
+
+    if(asteroids[i].Cpos[0] > boardWidth) {
+      asteroids[i].Cpos[0] -= boardWidth;
+    }
+    else if(asteroids[i].Cpos[0] < 0) {
+      asteroids[i].Cpos[0] += boardWidth;
+    }
+    if(asteroids[i].Cpos[1] > boardHeight) {
+      asteroids[i].Cpos[1] -= boardHeight;
+    }
+    else if(asteroids[i].Cpos[1] < 0) {
+      asteroids[i].Cpos[1] += boardHeight;
+    }
+
+    asteroids[i].updateHitbox();
+    asteroids[i].updateSVG();
   }
 }
 
