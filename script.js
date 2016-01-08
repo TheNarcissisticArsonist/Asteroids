@@ -32,7 +32,7 @@ var bulletInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"
 var score = null;
 var level = null;
 var ship = null;
-var shipGhost = null;
+var shipGhost = [];
 var asteroids = [];
 var asteroidGhosts = [];
 var bullets = [];
@@ -244,8 +244,10 @@ function newGameClicked() {
   initialSetup();
   ship = new spaceship("main");
   ship.updateSVG();
-  shipGhost = new spaceship("ghost");
-  shipGhost.updateSVG();
+  shipGhost = [new spaceship("ghostX"), new spaceship("ghostY"), new spaceship("ghostXY")];
+  shipGhost[0].updateSVG();
+  shipGhost[1].updateSVG();
+  shipGhost[2].updateSVG();
   spawnAsteroids();
   updateUI();
   timeStamp1 = new Date().getTime();
@@ -330,18 +332,22 @@ function spaceshipLoopMotionEvaluation(dT) {
   ship.updateHitbox();
   ship.updateSVG();
 
-  shipGhost.Rpos = ship.Rpos;
+  shipGhost[0].Rpos = ship.Rpos;
+  shipGhost[1].Rpos = ship.Rpos;
+  shipGhost[2].Rpos = ship.Rpos;
 
   movedX = false;
   movedY = false;
 
   for(i=0; i<3; ++i) {
     if(ship.hitbox[0][i].p1.x>boardWidth || ship.hitbox[0][i].p2.x>boardWidth) {
-      shipGhost.Cpos[0] = ship.Cpos[0] - boardWidth;
+      shipGhost[0].Cpos[0] = ship.Cpos[0] - boardWidth;
+      shipGhost[2].Cpos[0] = ship.Cpos[0] - boardWidth;
       movedX = true;
     }
     else if(ship.hitbox[0][i].p1.x<0 || ship.hitbox[0][i].p2.x<0) {
-      shipGhost.Cpos[0] = ship.Cpos[0] + boardWidth;
+      shipGhost[0].Cpos[0] = ship.Cpos[0] + boardWidth;
+      shipGhost[2].Cpos[0] = ship.Cpos[0] + boardWidth;
       movedX = true;
     }
     if(movedX) {
@@ -350,11 +356,13 @@ function spaceshipLoopMotionEvaluation(dT) {
   }
   for(i=0; i<3; ++i) {
     if(ship.hitbox[0][i].p1.y>boardHeight || ship.hitbox[0][i].p2.y>boardHeight) {
-      shipGhost.Cpos[1] = ship.Cpos[1] - boardHeight;
+      shipGhost[1].Cpos[1] = ship.Cpos[1] - boardHeight;
+      shipGhost[2].Cpos[1] = ship.Cpos[1] - boardHeight;
       movedY = true;
     }
     else if(ship.hitbox[0][i].p1.y<0 || ship.hitbox[0][i].p2.y<0) {
-      shipGhost.Cpos[1] = ship.Cpos[1] + boardHeight;
+      shipGhost[1].Cpos[1] = ship.Cpos[1] + boardHeight;
+      shipGhost[2].Cpos[1] = ship.Cpos[1] + boardHeight;
       movedY = true;
     }
     if(movedY) {
@@ -362,18 +370,29 @@ function spaceshipLoopMotionEvaluation(dT) {
     }
   }
   if(movedX && !movedY) {
-    shipGhost.Cpos[1] = ship.Cpos[1];
+    shipGhost[0].Cpos[1] = ship.Cpos[1];
+    shipGhost[1].Cpos = [-100, -100];
+    shipGhost[2].Cpos = [-100, -100];
   }
-  if(movedY && !movedX) {
-    shipGhost.Cpos[0] = ship.Cpos[0];
+  else if(movedY && !movedX) {
+    shipGhost[1].Cpos[0] = ship.Cpos[0];
+    shipGhost[0].Cpos = [-100, -100];
+    shipGhost[2].Cpos = [-100, -100];
   }
-  if((!movedX) && (!movedY)) {
-    shipGhost.Cpos[0] = -100;
-    shipGhost.Cpos[1] = -100;
+  else if((!movedX) && (!movedY)) {
+    for(i=0; i<3; ++i) {
+      shipGhost[i].Cpos = [-100, -100];
+    }
+  }
+  else if(movedX && movedY) {
+    shipGhost[0].Cpos[1] = ship.Cpos[1];
+    shipGhost[1].Cpos[0] = ship.Cpos[0];
   }
 
-  shipGhost.updateHitbox();
-  shipGhost.updateSVG();
+  for(i=0; i<3; ++i) {
+    shipGhost[i].updateHitbox();
+    shipGhost[i].updateSVG();
+  }
 }
 
 function distance(p1, p2) {
