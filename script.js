@@ -187,6 +187,7 @@ function asteroid(idTag) {
     this.updateSVG();
   }
   this.updateSVG = function() {
+    this.hitbox[1][0] = document.getElementById("bigAsteroid" + this.idTag);
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
     this.hitbox[1][0].setAttribute("cy", boardHeight-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier+asteroidSizeAdditive);
@@ -274,6 +275,7 @@ function spawnAsteroids() {
   var i;
   for(i=0; i<level; ++i) {
     asteroids.push(spawnAsteroid(i));
+    asteroidGhosts.push([spawnAsteroid(i+"ghostX"), spawnAsteroid(i+"ghostY"), spawnAsteroid(i+"ghostXY")]);
   }
 }
 function mainLoop() {
@@ -397,7 +399,7 @@ function spaceshipLoopMotionEvaluation(dT) {
   }
 }
 function asteroidsLoopMotionEvaluation(dT) {
-  var i;
+  var i, j, movedX, movedY;
   for(i=0; i<asteroids.length; ++i) {
     asteroids[i].Cacl = [0, 0];
 
@@ -422,6 +424,54 @@ function asteroidsLoopMotionEvaluation(dT) {
 
     asteroids[i].updateHitbox();
     asteroids[i].updateSVG();
+
+    movedX = false;
+    movedY = false;
+
+    if(asteroids[i].hitbox[0][0].c.x + asteroids[i].hitbox[0][0].r>boardWidth) {
+      asteroidGhosts[i][0].Cpos[0] = asteroids[i].Cpos[0] - boardWidth;
+      asteroidGhosts[i][2].Cpos[0] = asteroids[i].Cpos[0] - boardWidth;
+      movedX = true;
+    }
+    else if(asteroids[i].hitbox[0][0].c.x - asteroids[i].hitbox[0][0].r<0) {
+      asteroidGhosts[i][0].Cpos[0] = asteroids[i].Cpos[0] + boardWidth;
+      asteroidGhosts[i][2].Cpos[0] = asteroids[i].Cpos[0] + boardWidth;
+      movedX = true;
+    }
+    if(asteroids[i].hitbox[0][0].c.y + asteroids[i].hitbox[0][0].r>boardHeight) {
+      asteroidGhosts[i][1].Cpos[1] = asteroids[i].Cpos[1] - boardHeight;
+      asteroidGhosts[i][2].Cpos[1] = asteroids[i].Cpos[1] - boardHeight;
+      movedY = true;
+    }
+    else if(asteroids[i].hitbox[0][0].c.y - asteroids[i].hitbox[0][0].r<0) {
+      asteroidGhosts[i][1].Cpos[1] = asteroids[i].Cpos[1] + boardHeight;
+      asteroidGhosts[i][2].Cpos[1] = asteroids[i].Cpos[1] + boardHeight;
+      movedY = true;
+    }
+
+    if(movedX && !movedY) {
+      asteroidGhosts[i][0].Cpos[1] = asteroids[i].Cpos[1];
+      asteroidGhosts[i][1].Cpos = [-100, -100];
+      asteroidGhosts[i][2].Cpos = [-100, -100];
+    }
+    else if(movedY && !movedX) {
+      asteroidGhosts[i][0].Cpos = [-100, -100];
+      asteroidGhosts[i][1].Cpos[0] = asteroids[i].Cpos[0];
+      asteroidGhosts[i][2].Cpos = [-100, -100];
+    }
+    else if((!movedX) && (!movedY)) {
+      for(j=0; j<3; ++j) {
+        asteroidGhosts[i][j].Cpos = [-100, -100];
+      }
+    }
+    else if(movedX && movedY) {
+      asteroidGhosts[i][0].Cpos[1] = asteroids[i].Cpos[1];
+      asteroidGhosts[i][1].Cpos[0] = asteroids[i].Cpos[0];
+    }
+    for(j=0; j<3; ++j) {
+      asteroidGhosts[i][j].updateHitbox();
+      asteroidGhosts[i][j].updateSVG();
+    }
   }
 }
 
