@@ -22,7 +22,7 @@ var asteroidSizeAdditive = 10; //pixels
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
-var maxBullets = 3;
+var maxBullets = 5;
 var shipCartAclRate = 128; //pixels/second^2
 var shipRotAclRate = 4*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
@@ -246,6 +246,14 @@ function newGameClicked() {
   stopGameLoop = true;
   score = 0;
   level = 1;
+  shipGhost = [];
+  asteroids = [];
+  asteroidGhosts = [];
+  bullets = [];
+  bulletGhosts = [];
+  timeStamp1 = null;
+  timeStamp2 = null;
+  dT = null;
   initialSetup();
   ship = new spaceship("main");
   ship.updateSVG();
@@ -268,6 +276,14 @@ function resetClicked() {
   stopGameLoop = true;
   score = null;
   level = null;
+  shipGhost = [];
+  asteroids = [];
+  asteroidGhosts = [];
+  bullets = [];
+  bulletGhosts = [];
+  timeStamp1 = null;
+  timeStamp2 = null;
+  dT = null;
   initialSetup();
   updateUI();
 }
