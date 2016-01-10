@@ -38,6 +38,7 @@ var shipGhost = [];
 var asteroids = [];
 var asteroidGhosts = [];
 var bullets = [];
+var bulletGhosts = [];
 var numberOfStars = 30;
 var minStars = 20;
 var maxStars = 40;
@@ -285,6 +286,7 @@ function shoot() {
     return;
   }
   bullets.push(new bullet(bullets.length));
+  bulletGhosts.push([new bullet(bullets.length + "ghostX"), new bullet(bullets.length + "ghostY"), new bullet(bullets.length + "ghostXY")]);
 }
 function mainLoop() {
   if(stopGameLoop) {
@@ -484,7 +486,7 @@ function asteroidsLoopMotionEvaluation(dT) {
   }
 }
 function bulletsLoopMotionEvaluation(dT) {
-  var i;
+  var i, j, movedX, movedY;
   for(i=0; i<bullets.length; ++i) {
     bullets[i].Cacl = [0, 0];
 
@@ -509,6 +511,54 @@ function bulletsLoopMotionEvaluation(dT) {
 
     bullets[i].updateHitbox();
     bullets[i].updateSVG();
+
+    movedX = false;
+    movedY = false;
+
+    if(bullets[i].hitbox[0][0].c.x + bullets[i].hitbox[0][0].r>boardWidth) {
+      bulletGhosts[i][0].Cpos[0] = bullets[i].Cpos[0] - boardWidth;
+      bulletGhosts[i][2].Cpos[0] = bullets[i].Cpos[0] - boardWidth;
+      movedX = true;
+    }
+    else if(bullets[i].hitbox[0][0].c.x - bullets[i].hitbox[0][0].r<0) {
+      bulletGhosts[i][0].Cpos[0] = bullets[i].Cpos[0] + boardWidth;
+      bulletGhosts[i][2].Cpos[0] = bullets[i].Cpos[0] + boardWidth;
+      movedX = true;
+    }
+    if(bullets[i].hitbox[0][0].c.y + bullets[i].hitbox[0][0].r>boardHeight) {
+      bulletGhosts[i][1].Cpos[1] = bullets[i].Cpos[1] - boardHeight;
+      bulletGhosts[i][2].Cpos[1] = bullets[i].Cpos[1] - boardHeight;
+      movedY = true;
+    }
+    else if(bullets[i].hitbox[0][0].c.y - bullets[i].hitbox[0][0].r<0) {
+      bulletGhosts[i][1].Cpos[1] = bullets[i].Cpos[1] + boardHeight;
+      bulletGhosts[i][2].Cpos[1] = bullets[i].Cpos[1] + boardHeight;
+      movedY = true;
+    }
+
+    if(movedX && !movedY) {
+      bulletGhosts[i][0].Cpos[1] = bullets[i].Cpos[1];
+      bulletGhosts[i][1].Cpos = [-100, -100];
+      bulletGhosts[i][2].Cpos = [-100, -100];
+    }
+    else if(movedY && !movedX) {
+      bulletGhosts[i][0].Cpos = [-100, -100];
+      bulletGhosts[i][1].Cpos[0] = bullets[i].Cpos[0];
+      bulletGhosts[i][2].Cpos = [-100, -100];
+    }
+    else if((!movedX) && (!movedY)) {
+      for(j=0; j<3; ++j) {
+        bulletGhosts[i][j].Cpos = [-100, -100];
+      }
+    }
+    else if(movedX && movedY) {
+      bulletGhosts[i][0].Cpos[1] = bullets[i].Cpos[1];
+      bulletGhosts[i][1].Cpos[0] = bullets[i].Cpos[0];
+    }
+    for(j=0; j<3; ++j) {
+      bulletGhosts[i][j].updateHitbox();
+      bulletGhosts[i][j].updateSVG();
+    }
   }
 }
 
