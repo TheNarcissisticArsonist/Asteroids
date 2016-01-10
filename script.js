@@ -20,9 +20,10 @@ var spaceshipMaxSpeed = 150; //pixels/second
 var asteroidSizeMultiplier = 3; //pixels * r^2
 var asteroidSizeAdditive = 10; //pixels
 var minAsteroidStartDistance = 75; //pixels
-var bulletSpeed = 200; //pixels/second
+var bulletSpeed = 400; //pixels/second
 var bulletRadius = 3; //pixels
 var maxBullets = 5;
+var bulletTime = 1.5; //seconds
 var shipCartAclRate = 128; //pixels/second^2
 var shipRotAclRate = 4*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
@@ -207,7 +208,7 @@ function bullet(idTag) {
   y = r*Math.sin(t+Math.PI/2);
   this.Cvel = [x, y];
   this.Cacl = [0, 0];
-  this.distanceTraveled = null //  a;owgheaowgh;owagh
+  this.time = null //  a;owgheaowgh;owagh
   this.idTag = idTag;
   c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), bulletRadius);
   this.hitbox = [[c], []];
@@ -527,6 +528,17 @@ function bulletsLoopMotionEvaluation(dT) {
 
     bullets[i].updateHitbox();
     bullets[i].updateSVG();
+
+    bullets[i].time += dT;
+    if(bullets[i].time > bulletTime) {
+      bullets[i].hitbox[1][0].parentNode.removeChild(bullets[i].hitbox[1][0]);
+      for(j=0; j<3; ++j) {
+        bulletGhosts[i][j].hitbox[1][0].parentNode.removeChild(bulletGhosts[i][j].hitbox[1][0]);
+      }
+      bullets.splice(i, 1);
+      bulletGhosts.splice(i, 1);
+      return;
+    }
 
     movedX = false;
     movedY = false;
