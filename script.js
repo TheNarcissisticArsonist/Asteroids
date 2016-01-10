@@ -320,6 +320,7 @@ function mainLoop() {
   spaceshipLoopMotionEvaluation(dT);
   asteroidsLoopMotionEvaluation(dT);
   bulletsLoopMotionEvaluation(dT);
+  spaceshipCollisionEvaluation();
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -407,17 +408,17 @@ function spaceshipLoopMotionEvaluation(dT) {
   }
   if(movedX && !movedY) {
     shipGhost[0].Cpos[1] = ship.Cpos[1];
-    shipGhost[1].Cpos = [-100, -100];
-    shipGhost[2].Cpos = [-100, -100];
+    shipGhost[1].Cpos = [-1000, -1000];
+    shipGhost[2].Cpos = [-1000, -1000];
   }
   else if(movedY && !movedX) {
     shipGhost[1].Cpos[0] = ship.Cpos[0];
-    shipGhost[0].Cpos = [-100, -100];
-    shipGhost[2].Cpos = [-100, -100];
+    shipGhost[0].Cpos = [-1000, -1000];
+    shipGhost[2].Cpos = [-1000, -1000];
   }
   else if((!movedX) && (!movedY)) {
     for(i=0; i<3; ++i) {
-      shipGhost[i].Cpos = [-100, -100];
+      shipGhost[i].Cpos = [-1000, -1000];
     }
   }
   else if(movedX && movedY) {
@@ -483,17 +484,17 @@ function asteroidsLoopMotionEvaluation(dT) {
 
     if(movedX && !movedY) {
       asteroidGhosts[i][0].Cpos[1] = asteroids[i].Cpos[1];
-      asteroidGhosts[i][1].Cpos = [-100, -100];
-      asteroidGhosts[i][2].Cpos = [-100, -100];
+      asteroidGhosts[i][1].Cpos = [-10000, -10000];
+      asteroidGhosts[i][2].Cpos = [-10000, -10000];
     }
     else if(movedY && !movedX) {
-      asteroidGhosts[i][0].Cpos = [-100, -100];
+      asteroidGhosts[i][0].Cpos = [-10000, -10000];
       asteroidGhosts[i][1].Cpos[0] = asteroids[i].Cpos[0];
-      asteroidGhosts[i][2].Cpos = [-100, -100];
+      asteroidGhosts[i][2].Cpos = [-10000, -10000];
     }
     else if((!movedX) && (!movedY)) {
       for(j=0; j<3; ++j) {
-        asteroidGhosts[i][j].Cpos = [-100, -100];
+        asteroidGhosts[i][j].Cpos = [-10000, -10000];
       }
     }
     else if(movedX && movedY) {
@@ -592,6 +593,45 @@ function bulletsLoopMotionEvaluation(dT) {
       return;
     }
   }
+}
+function spaceshipCollisionEvaluation() {
+  var i, j, hit, tempAsteroidArray, tempShipArray;
+  hit = false;
+  tempAsteroidArray = getAllAsteroidHitboxes();
+  tempShipArray = getAllSpaceshipHitboxes();
+  for(i=0; i<tempAsteroidArray.length; ++i) {
+    for(j=0; j<tempShipArray.length; ++j) {
+      if(lineCircleCollisionTest(tempShipArray[j], tempAsteroidArray[i])) {
+        hit = true;
+        break;
+      }
+    }
+  }
+  if(hit) {
+    console.log("DEAD");
+  }
+}
+function getAllAsteroidHitboxes() {
+  var i, j;
+  var tempAsteroidArray = [];
+  for(i=0; i<asteroids.length; ++i) {
+    tempAsteroidArray.push(asteroids[i].hitbox[0][0]);
+    for(j=0; j<3; ++j) {
+      tempAsteroidArray.push(asteroidGhosts[i][j].hitbox[0][0]);
+    }
+  }
+  return tempAsteroidArray;
+}
+function getAllSpaceshipHitboxes() {
+  var i, j;
+  var tempShipArray = [];
+  for(i=0; i<3; ++i) {
+    tempShipArray.push(ship.hitbox[0][i]);
+    for(j=0; j<3; ++j) {
+      tempShipArray.push(shipGhost[j].hitbox[0][i]);
+    }
+  }
+  return tempShipArray;
 }
 
 function distance(p1, p2) {
@@ -694,8 +734,8 @@ function lineCircleCollisionTest(l, c) {
   v.setY(c.c.y - l.p1.y);
 
   r = new point(0, 0);
-  r.setX(l1.getDirectionUnitVector()[1] * c.r * -1);
-  r.setY(l1.getDirectionUnitVector()[0] * c.r);
+  r.setX(l.getDirectionUnitVector()[1] * c.r * -1);
+  r.setY(l.getDirectionUnitVector()[0] * c.r);
 
   compVontoR = vectorDot(r, v)/vectorMagnitude(r)
 
