@@ -48,6 +48,7 @@ var timeStamp1 = null;
 var timeStamp2 = null;
 var dT = null;
 var stopGameLoop = false;
+var currentBulletID = 0;
 
 //Classes (Geometric, Game)
 function point(x, y) {
@@ -255,6 +256,7 @@ function newGameClicked() {
   timeStamp1 = null;
   timeStamp2 = null;
   dT = null;
+  currentBulletID = 0;
   initialSetup();
   ship = new spaceship("main");
   ship.updateSVG();
@@ -285,6 +287,7 @@ function resetClicked() {
   timeStamp1 = null;
   timeStamp2 = null;
   dT = null;
+  currentBulletID = 0;
   initialSetup();
   updateUI();
 }
@@ -302,8 +305,9 @@ function shoot() {
   if(bullets.length >= maxBullets) {
     return;
   }
-  bullets.push(new bullet(bullets.length));
-  bulletGhosts.push([new bullet(bullets.length + "ghostX"), new bullet(bullets.length + "ghostY"), new bullet(bullets.length + "ghostXY")]);
+  bullets.push(new bullet(currentBulletID));
+  bulletGhosts.push([new bullet(currentBulletID - 1 + "ghostX"), new bullet(currentBulletID - 1 + "ghostY"), new bullet(currentBulletID - 1 + "ghostXY")]);
+  ++currentBulletID;
 }
 function mainLoop() {
   if(stopGameLoop) {
@@ -529,17 +533,6 @@ function bulletsLoopMotionEvaluation(dT) {
     bullets[i].updateHitbox();
     bullets[i].updateSVG();
 
-    bullets[i].time += dT;
-    if(bullets[i].time > bulletTime) {
-      bullets[i].hitbox[1][0].parentNode.removeChild(bullets[i].hitbox[1][0]);
-      for(j=0; j<3; ++j) {
-        bulletGhosts[i][j].hitbox[1][0].parentNode.removeChild(bulletGhosts[i][j].hitbox[1][0]);
-      }
-      bullets.splice(i, 1);
-      bulletGhosts.splice(i, 1);
-      return;
-    }
-
     movedX = false;
     movedY = false;
 
@@ -586,6 +579,17 @@ function bulletsLoopMotionEvaluation(dT) {
     for(j=0; j<3; ++j) {
       bulletGhosts[i][j].updateHitbox();
       bulletGhosts[i][j].updateSVG();
+    }
+
+    bullets[i].time += dT;
+    if(bullets[i].time > bulletTime) {
+      bullets[i].hitbox[1][0].parentNode.removeChild(bullets[i].hitbox[1][0]);
+      for(j=0; j<3; ++j) {
+        bulletGhosts[i][j].hitbox[1][0].parentNode.removeChild(bulletGhosts[i][j].hitbox[1][0]);
+      }
+      bullets.splice(i, 1);
+      bulletGhosts.splice(i, 1);
+      return;
     }
   }
 }
