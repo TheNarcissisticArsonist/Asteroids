@@ -22,6 +22,7 @@ var asteroidSizeAdditive = 10; //pixels
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 200; //pixels/second
 var bulletRadius = 3; //pixels
+var maxBullets = 3;
 var shipCartAclRate = 128; //pixels/second^2
 var shipRotAclRate = 4*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
@@ -220,7 +221,7 @@ function bullet(idTag) {
   }
   this.updateSVG = function() {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
-    this.hitbox[1][0].setAttribute("cy", BoardHeight-this.Cpos[1]);
+    this.hitbox[1][0].setAttribute("cy", boardHeight-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.hitbox[0][0].r);
   }
   this.updateHitbox();
@@ -278,6 +279,12 @@ function spawnAsteroids() {
     asteroidGhosts.push([spawnAsteroid(i+"ghostX"), spawnAsteroid(i+"ghostY"), spawnAsteroid(i+"ghostXY")]);
   }
 }
+function shoot() {
+  if(bullets.length >= maxBullets) {
+    return;
+  }
+  bullets.push(new bullet(bullets.length));
+}
 function mainLoop() {
   if(stopGameLoop) {
     return;
@@ -288,6 +295,7 @@ function mainLoop() {
 
   spaceshipLoopMotionEvaluation(dT);
   asteroidsLoopMotionEvaluation(dT);
+  bulletsLoopMotionEvaluation(dT);
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -474,6 +482,34 @@ function asteroidsLoopMotionEvaluation(dT) {
     }
   }
 }
+function bulletsLoopMotionEvaluation(dT) {
+  var i;
+  for(i=0; i<bullets.length; ++i) {
+    bullets[i].Cacl = [0, 0];
+
+    bullets[i].Cvel[0] += bullets[i].Cacl[0] * dT;
+    bullets[i].Cvel[1] += bullets[i].Cacl[1] * dT;
+
+    bullets[i].Cpos[0] += bullets[i].Cvel[0] * dT;
+    bullets[i].Cpos[1] += bullets[i].Cvel[1] * dT;
+
+    if(bullets[i].Cpos[0] > boardWidth) {
+      bullets[i].Cpos[0] -= boardWidth;
+    }
+    else if(bullets[i].Cpos[0] < 0) {
+      bullets[i].Cpos[0] += boardWidth;
+    }
+    if(bullets[i].Cpos[1] > boardHeight) {
+      bullets[i].Cpos[1] -= boardHeight;
+    }
+    else if(bullets[i].Cpos[1] < 0) {
+      bullets[i].Cpos[1] += boardHeight;
+    }
+
+    bullets[i].updateHitbox();
+    bullets[i].updateSVG();
+  }
+}
 
 function distance(p1, p2) {
   var x, y;
@@ -634,7 +670,7 @@ document.addEventListener("keydown", function(event) {
       keys.d = true;
       break;
     case 32: //space
-      //shoot
+      shoot();
       break;
     case 78: //n
       newGameClicked();
