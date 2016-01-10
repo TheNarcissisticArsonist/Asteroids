@@ -202,8 +202,8 @@ function bullet(idTag) {
   this.Cpos = [ship.hitbox[0][0].p1.x, ship.hitbox[0][0].p1.y];
   r = bulletSpeed;
   t = ship.Rpos;
-  x = r*Math.cos(t);
-  y = r*Math.sin(t);
+  x = r*Math.cos(t+Math.PI/2);
+  y = r*Math.sin(t+Math.PI/2);
   this.Cvel = [x, y];
   this.Cacl = [0, 0];
   this.distanceTraveled = null //  a;owgheaowgh;owagh
@@ -220,6 +220,7 @@ function bullet(idTag) {
     this.updateSVG();
   }
   this.updateSVG = function() {
+    this.hitbox[1][0] = document.getElementById("bullet" + this.idTag);
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
     this.hitbox[1][0].setAttribute("cy", boardHeight-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.hitbox[0][0].r);
