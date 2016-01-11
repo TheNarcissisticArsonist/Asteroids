@@ -408,17 +408,17 @@ function spaceshipLoopMotionEvaluation(dT) {
   }
   if(movedX && !movedY) {
     shipGhost[0].Cpos[1] = ship.Cpos[1];
-    shipGhost[1].Cpos = [-1000, -1000];
-    shipGhost[2].Cpos = [-1000, -1000];
+    shipGhost[1].Cpos = [-100, -100];
+    shipGhost[2].Cpos = [-100, -100];
   }
   else if(movedY && !movedX) {
     shipGhost[1].Cpos[0] = ship.Cpos[0];
-    shipGhost[0].Cpos = [-1000, -1000];
-    shipGhost[2].Cpos = [-1000, -1000];
+    shipGhost[0].Cpos = [-100, -100];
+    shipGhost[2].Cpos = [-100, -100];
   }
   else if((!movedX) && (!movedY)) {
     for(i=0; i<3; ++i) {
-      shipGhost[i].Cpos = [-1000, -1000];
+      shipGhost[i].Cpos = [-100, -100];
     }
   }
   else if(movedX && movedY) {
@@ -484,17 +484,17 @@ function asteroidsLoopMotionEvaluation(dT) {
 
     if(movedX && !movedY) {
       asteroidGhosts[i][0].Cpos[1] = asteroids[i].Cpos[1];
-      asteroidGhosts[i][1].Cpos = [-10000, -10000];
-      asteroidGhosts[i][2].Cpos = [-10000, -10000];
+      asteroidGhosts[i][1].Cpos = [-100, -100];
+      asteroidGhosts[i][2].Cpos = [-100, -100];
     }
     else if(movedY && !movedX) {
-      asteroidGhosts[i][0].Cpos = [-10000, -10000];
+      asteroidGhosts[i][0].Cpos = [-100, -100];
       asteroidGhosts[i][1].Cpos[0] = asteroids[i].Cpos[0];
-      asteroidGhosts[i][2].Cpos = [-10000, -10000];
+      asteroidGhosts[i][2].Cpos = [-100, -100];
     }
     else if((!movedX) && (!movedY)) {
       for(j=0; j<3; ++j) {
-        asteroidGhosts[i][j].Cpos = [-10000, -10000];
+        asteroidGhosts[i][j].Cpos = [-100, -100];
       }
     }
     else if(movedX && movedY) {
@@ -609,6 +609,10 @@ function spaceshipCollisionEvaluation() {
   }
   if(hit) {
     console.log("DEAD");
+    document.body.style.backgroundColor = "red";
+  }
+  else {
+    document.body.style.backgroundColor = "black";
   }
 }
 function getAllAsteroidHitboxes() {
@@ -617,7 +621,9 @@ function getAllAsteroidHitboxes() {
   for(i=0; i<asteroids.length; ++i) {
     tempAsteroidArray.push(asteroids[i].hitbox[0][0]);
     for(j=0; j<3; ++j) {
-      tempAsteroidArray.push(asteroidGhosts[i][j].hitbox[0][0]);
+      if(asteroidGhosts[i][j].Cpos != [-100, -100]); {
+        tempAsteroidArray.push(asteroidGhosts[i][j].hitbox[0][0]);
+      }
     }
   }
   return tempAsteroidArray;
@@ -628,7 +634,9 @@ function getAllSpaceshipHitboxes() {
   for(i=0; i<3; ++i) {
     tempShipArray.push(ship.hitbox[0][i]);
     for(j=0; j<3; ++j) {
-      tempShipArray.push(shipGhost[j].hitbox[0][i]);
+      if(shipGhost[j].Cpos != [-100, -100]) {
+        tempShipArray.push(shipGhost[j].hitbox[0][i]);
+      }
     }
   }
   return tempShipArray;
@@ -737,10 +745,12 @@ function lineCircleCollisionTest(l, c) {
   r.setX(l.getDirectionUnitVector()[1] * c.r * -1);
   r.setY(l.getDirectionUnitVector()[0] * c.r);
 
+  rLine = new line(r, c.c);
+
   compVontoR = Math.abs(vectorDot(r, v)/vectorMagnitude(r));
 
   if(compVontoR <= c.r) {
-
+    return lineCollisionTest(rLine, l);
   }
   else {
     return false;
