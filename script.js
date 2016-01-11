@@ -320,6 +320,7 @@ function mainLoop() {
   spaceshipLoopMotionEvaluation(dT);
   asteroidsLoopMotionEvaluation(dT);
   bulletsLoopMotionEvaluation(dT);
+  asteroidSpaceshipCollision();
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -593,6 +594,26 @@ function bulletsLoopMotionEvaluation(dT) {
     }
   }
 }
+function asteroidSpaceshipCollision() {
+  var i, j, collided;
+  for(i=0; i<3; ++i) {
+    for(j=0; j<asteroids.length; ++j) {
+      if(lineCircleCollisionTest(ship.hitbox[0][i], asteroids[j].hitbox[0][0])) {
+        collided = true;
+        break;
+      }
+    }
+    if(collided) {
+      break;
+    }
+  }
+  if(collided) {
+    document.body.style.backgroundColor = "red";
+  }
+  else {
+    document.body.style.backgroundColor = "black";
+  }
+}
 
 function distance(p1, p2) {
   var x, y;
@@ -693,11 +714,13 @@ function lineCircleCollisionTest(l, c) {
   v.setX(c.c.x - l.p1.x);
   v.setY(c.c.y - l.p1.y);
 
+  vLine = new line(createPoint(0, 0), v);
+
   r = new point(0, 0);
   r.setX(l.getDirectionUnitVector()[1] * c.r * -1);
   r.setY(l.getDirectionUnitVector()[0] * c.r);
 
-  rLine = new line(r, c.c);
+  rLine = new line(createPoint(r.x + c.c.x, r.y + c.c.y), createPoint(c.c.x+(vLine.getDirectionUnitVector()[1] * c.r * -1), c.c.y+(vLine.getDirectionUnitVector()[0] * c.r)));
 
   compVontoR = Math.abs(vectorDot(r, v)/vectorMagnitude(r));
 
