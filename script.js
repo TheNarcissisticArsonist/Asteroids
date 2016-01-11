@@ -320,7 +320,6 @@ function mainLoop() {
   spaceshipLoopMotionEvaluation(dT);
   asteroidsLoopMotionEvaluation(dT);
   bulletsLoopMotionEvaluation(dT);
-  spaceshipCollisionEvaluation();
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -593,53 +592,6 @@ function bulletsLoopMotionEvaluation(dT) {
       return;
     }
   }
-}
-function spaceshipCollisionEvaluation() {
-  var i, j, hit, tempAsteroidArray, tempShipArray;
-  hit = false;
-  tempAsteroidArray = getAllAsteroidHitboxes();
-  tempShipArray = getAllSpaceshipHitboxes();
-  for(i=0; i<tempAsteroidArray.length; ++i) {
-    for(j=0; j<tempShipArray.length; ++j) {
-      if(lineCircleCollisionTest(tempShipArray[j], tempAsteroidArray[i])) {
-        hit = true;
-        break;
-      }
-    }
-  }
-  if(hit) {
-    console.log("DEAD");
-    document.body.style.backgroundColor = "red";
-  }
-  else {
-    document.body.style.backgroundColor = "black";
-  }
-}
-function getAllAsteroidHitboxes() {
-  var i, j;
-  var tempAsteroidArray = [];
-  for(i=0; i<asteroids.length; ++i) {
-    tempAsteroidArray.push(asteroids[i].hitbox[0][0]);
-    for(j=0; j<3; ++j) {
-      if(asteroidGhosts[i][j].Cpos != [-100, -100]); {
-        tempAsteroidArray.push(asteroidGhosts[i][j].hitbox[0][0]);
-      }
-    }
-  }
-  return tempAsteroidArray;
-}
-function getAllSpaceshipHitboxes() {
-  var i, j;
-  var tempShipArray = [];
-  for(i=0; i<3; ++i) {
-    tempShipArray.push(ship.hitbox[0][i]);
-    for(j=0; j<3; ++j) {
-      if(shipGhost[j].Cpos != [-100, -100]) {
-        tempShipArray.push(shipGhost[j].hitbox[0][i]);
-      }
-    }
-  }
-  return tempShipArray;
 }
 
 function distance(p1, p2) {
