@@ -740,7 +740,7 @@ function lineCircleCollisionTest(l, c) {
   compVontoR = Math.abs(vectorDot(r, v)/vectorMagnitude(r));
 
   if(compVontoR <= c.r) {
-    return true;
+
   }
   else {
     return false;
