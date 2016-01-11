@@ -36,10 +36,13 @@ var score = null;
 var level = null;
 var ship = null;
 var shipGhost = [];
+var shipGhostInactivePosition = [-100, -100];
 var asteroids = [];
 var asteroidGhosts = [];
+var asteroidGhostInactivePosition = [-1000, -1000];
 var bullets = [];
 var bulletGhosts = [];
+var bulletGhostInactivePosition = [-10000, -10000];
 var numberOfStars = 30;
 var minStars = 20;
 var maxStars = 40;
@@ -408,17 +411,17 @@ function spaceshipLoopMotionEvaluation(dT) {
   }
   if(movedX && !movedY) {
     shipGhost[0].Cpos[1] = ship.Cpos[1];
-    shipGhost[1].Cpos = [-100, -100];
-    shipGhost[2].Cpos = [-100, -100];
+    shipGhost[1].Cpos = shipGhostInactivePosition;
+    shipGhost[2].Cpos = shipGhostInactivePosition;
   }
   else if(movedY && !movedX) {
     shipGhost[1].Cpos[0] = ship.Cpos[0];
-    shipGhost[0].Cpos = [-100, -100];
-    shipGhost[2].Cpos = [-100, -100];
+    shipGhost[0].Cpos = shipGhostInactivePosition;
+    shipGhost[2].Cpos = shipGhostInactivePosition;
   }
   else if((!movedX) && (!movedY)) {
     for(i=0; i<3; ++i) {
-      shipGhost[i].Cpos = [-100, -100];
+      shipGhost[i].Cpos = shipGhostInactivePosition;
     }
   }
   else if(movedX && movedY) {
@@ -484,17 +487,17 @@ function asteroidsLoopMotionEvaluation(dT) {
 
     if(movedX && !movedY) {
       asteroidGhosts[i][0].Cpos[1] = asteroids[i].Cpos[1];
-      asteroidGhosts[i][1].Cpos = [-100, -100];
-      asteroidGhosts[i][2].Cpos = [-100, -100];
+      asteroidGhosts[i][1].Cpos = asteroidGhostInactivePosition;
+      asteroidGhosts[i][2].Cpos = asteroidGhostInactivePosition;
     }
     else if(movedY && !movedX) {
-      asteroidGhosts[i][0].Cpos = [-100, -100];
+      asteroidGhosts[i][0].Cpos = asteroidGhostInactivePosition;
       asteroidGhosts[i][1].Cpos[0] = asteroids[i].Cpos[0];
-      asteroidGhosts[i][2].Cpos = [-100, -100];
+      asteroidGhosts[i][2].Cpos = asteroidGhostInactivePosition;
     }
     else if((!movedX) && (!movedY)) {
       for(j=0; j<3; ++j) {
-        asteroidGhosts[i][j].Cpos = [-100, -100];
+        asteroidGhosts[i][j].Cpos = asteroidGhostInactivePosition;
       }
     }
     else if(movedX && movedY) {
@@ -560,17 +563,17 @@ function bulletsLoopMotionEvaluation(dT) {
 
     if(movedX && !movedY) {
       bulletGhosts[i][0].Cpos[1] = bullets[i].Cpos[1];
-      bulletGhosts[i][1].Cpos = [-100, -100];
-      bulletGhosts[i][2].Cpos = [-100, -100];
+      bulletGhosts[i][1].Cpos = bulletGhostInactivePosition;
+      bulletGhosts[i][2].Cpos = bulletGhostInactivePosition;
     }
     else if(movedY && !movedX) {
-      bulletGhosts[i][0].Cpos = [-100, -100];
+      bulletGhosts[i][0].Cpos = bulletGhostInactivePosition;
       bulletGhosts[i][1].Cpos[0] = bullets[i].Cpos[0];
-      bulletGhosts[i][2].Cpos = [-100, -100];
+      bulletGhosts[i][2].Cpos = bulletGhostInactivePosition;
     }
     else if((!movedX) && (!movedY)) {
       for(j=0; j<3; ++j) {
-        bulletGhosts[i][j].Cpos = [-100, -100];
+        bulletGhosts[i][j].Cpos = bulletGhostInactivePosition;
       }
     }
     else if(movedX && movedY) {
