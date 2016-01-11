@@ -737,7 +737,7 @@ function lineCircleCollisionTest(l, c) {
   r.setX(l.getDirectionUnitVector()[1] * c.r * -1);
   r.setY(l.getDirectionUnitVector()[0] * c.r);
 
-  compVontoR = vectorDot(r, v)/vectorMagnitude(r)
+  compVontoR = Math.abs(vectorDot(r, v)/vectorMagnitude(r));
 
   if(compVontoR <= c.r) {
     return true;
