@@ -598,11 +598,36 @@ function bulletsLoopMotionEvaluation(dT) {
   }
 }
 function asteroidSpaceshipCollision() {
-  var i, j, collided;
+  var i, j, k, collided;
+  var activeSpaceships = [];
+  var activeAsteroids = [];
+
+  activeSpaceships.push(ship);
   for(i=0; i<3; ++i) {
-    for(j=0; j<asteroids.length; ++j) {
-      if(lineCircleCollisionTest(ship.hitbox[0][i], asteroids[j].hitbox[0][0])) {
-        collided = true;
+    if(shipGhost[i].Cpos != [-100, -100]) {
+      activeSpaceships.push(shipGhost[i]);
+    }
+  }
+  for(i=0; i<asteroids.length; ++i) {
+    activeAsteroids.push(asteroids[i]);
+    for(j=0; j<3; ++j) {
+      if(asteroidGhosts[i][j].Cpos != [-100, -100]) {
+        activeAsteroids.push(asteroidGhosts[i][j]);
+      }
+    }
+  }
+
+  collided = false;
+
+  for(i=0; i<activeSpaceships.length; ++i) {
+    for(j=0; j<3; ++j) {
+      for(k=0; k<activeAsteroids.length; ++k) {
+        if(lineCircleCollisionTest(activeSpaceships[i].hitbox[0][j], activeAsteroids[k].hitbox[0][0])) {
+          collided = true;
+          break;
+        }
+      }
+      if(collided) {
         break;
       }
     }
