@@ -411,17 +411,22 @@ function spaceshipLoopMotionEvaluation(dT) {
   }
   if(movedX && !movedY) {
     shipGhost[0].Cpos[1] = ship.Cpos[1];
-    shipGhost[1].Cpos = shipGhostInactivePosition;
-    shipGhost[2].Cpos = shipGhostInactivePosition;
+    shipGhost[1].Cpos[0] = shipGhostInactivePosition[0];
+    shipGhost[1].Cpos[1] = shipGhostInactivePosition[1];
+    shipGhost[2].Cpos[0] = shipGhostInactivePosition[0];
+    shipGhost[2].Cpos[1] = shipGhostInactivePosition[1];
   }
   else if(movedY && !movedX) {
     shipGhost[1].Cpos[0] = ship.Cpos[0];
-    shipGhost[0].Cpos = shipGhostInactivePosition;
-    shipGhost[2].Cpos = shipGhostInactivePosition;
+    shipGhost[0].Cpos[0] = shipGhostInactivePosition[0];
+    shipGhost[0].Cpos[1] = shipGhostInactivePosition[1];
+    shipGhost[2].Cpos[0] = shipGhostInactivePosition[0];
+    shipGhost[2].Cpos[1] = shipGhostInactivePosition[1];
   }
   else if((!movedX) && (!movedY)) {
     for(i=0; i<3; ++i) {
-      shipGhost[i].Cpos = shipGhostInactivePosition;
+      shipGhost[i].Cpos[0] = shipGhostInactivePosition[0];
+      shipGhost[i].Cpos[1] = shipGhostInactivePosition[1];
     }
   }
   else if(movedX && movedY) {
@@ -487,17 +492,22 @@ function asteroidsLoopMotionEvaluation(dT) {
 
     if(movedX && !movedY) {
       asteroidGhosts[i][0].Cpos[1] = asteroids[i].Cpos[1];
-      asteroidGhosts[i][1].Cpos = asteroidGhostInactivePosition;
-      asteroidGhosts[i][2].Cpos = asteroidGhostInactivePosition;
+      asteroidGhosts[i][1].Cpos[0] = asteroidGhostInactivePosition[0];
+      asteroidGhosts[i][1].Cpos[1] = asteroidGhostInactivePosition[1];
+      asteroidGhosts[i][2].Cpos[0] = asteroidGhostInactivePosition[0];
+      asteroidGhosts[i][2].Cpos[1] = asteroidGhostInactivePosition[1];
     }
     else if(movedY && !movedX) {
-      asteroidGhosts[i][0].Cpos = asteroidGhostInactivePosition;
+      asteroidGhosts[i][0].Cpos[0] = asteroidGhostInactivePosition[0];
+      asteroidGhosts[i][0].Cpos[1] = asteroidGhostInactivePosition[1];
       asteroidGhosts[i][1].Cpos[0] = asteroids[i].Cpos[0];
-      asteroidGhosts[i][2].Cpos = asteroidGhostInactivePosition;
+      asteroidGhosts[i][2].Cpos[0] = asteroidGhostInactivePosition[0];
+      asteroidGhosts[i][2].Cpos[1] = asteroidGhostInactivePosition[1];
     }
     else if((!movedX) && (!movedY)) {
       for(j=0; j<3; ++j) {
-        asteroidGhosts[i][j].Cpos = asteroidGhostInactivePosition;
+        asteroidGhosts[i][j].Cpos[0] = asteroidGhostInactivePosition[0];
+        asteroidGhosts[i][j].Cpos[1] = asteroidGhostInactivePosition[1];
       }
     }
     else if(movedX && movedY) {
@@ -563,17 +573,22 @@ function bulletsLoopMotionEvaluation(dT) {
 
     if(movedX && !movedY) {
       bulletGhosts[i][0].Cpos[1] = bullets[i].Cpos[1];
-      bulletGhosts[i][1].Cpos = bulletGhostInactivePosition;
-      bulletGhosts[i][2].Cpos = bulletGhostInactivePosition;
+      bulletGhosts[i][1].Cpos[0] = bulletGhostInactivePosition[0];
+      bulletGhosts[i][1].Cpos[1] = bulletGhostInactivePosition[1];
+      bulletGhosts[i][2].Cpos[0] = bulletGhostInactivePosition[0];
+      bulletGhosts[i][2].Cpos[1] = bulletGhostInactivePosition[1];
     }
     else if(movedY && !movedX) {
-      bulletGhosts[i][0].Cpos = bulletGhostInactivePosition;
+      bulletGhosts[i][0].Cpos[0] = bulletGhostInactivePosition[0];
+      bulletGhosts[i][0].Cpos[1] = bulletGhostInactivePosition[1];
       bulletGhosts[i][1].Cpos[0] = bullets[i].Cpos[0];
-      bulletGhosts[i][2].Cpos = bulletGhostInactivePosition;
+      bulletGhosts[i][2].Cpos[0] = bulletGhostInactivePosition[0];
+      bulletGhosts[i][2].Cpos[1] = bulletGhostInactivePosition[1];
     }
     else if((!movedX) && (!movedY)) {
       for(j=0; j<3; ++j) {
-        bulletGhosts[i][j].Cpos = bulletGhostInactivePosition;
+        bulletGhosts[i][j].Cpos[0] = bulletGhostInactivePosition[0];
+        bulletGhosts[i][j].Cpos[1] = bulletGhostInactivePosition[1];
       }
     }
     else if(movedX && movedY) {
