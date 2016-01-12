@@ -324,6 +324,7 @@ function mainLoop() {
   asteroidsLoopMotionEvaluation(dT);
   bulletsLoopMotionEvaluation(dT);
   asteroidSpaceshipCollision();
+  bulletSpaceshipCollision();
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -619,14 +620,14 @@ function asteroidSpaceshipCollision() {
 
   activeSpaceships.push(ship);
   for(i=0; i<3; ++i) {
-    if(shipGhost[i].Cpos != [-100, -100]) {
+    if(shipGhost[i].Cpos[0] != shipGhostInactivePosition[0] || shipGhost[i].Cpos[1] != shipGhostInactivePosition[1]) {
       activeSpaceships.push(shipGhost[i]);
     }
   }
   for(i=0; i<asteroids.length; ++i) {
     activeAsteroids.push(asteroids[i]);
     for(j=0; j<3; ++j) {
-      if(asteroidGhosts[i][j].Cpos != [-100, -100]) {
+      if(asteroidGhosts[i][j].Cpos[0] != asteroidGhostInactivePosition[0] || asteroidGhosts[i][j].Cpos[1] != asteroidGhostInactivePosition[1]) {
         activeAsteroids.push(asteroidGhosts[i][j]);
       }
     }
@@ -651,11 +652,16 @@ function asteroidSpaceshipCollision() {
     }
   }
   if(collided) {
+    gameOver();
     document.body.style.backgroundColor = "red";
   }
   else {
     document.body.style.backgroundColor = "black";
   }
+}
+
+function gameOver() {
+  //
 }
 
 function distance(p1, p2) {
