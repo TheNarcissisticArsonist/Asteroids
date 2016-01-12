@@ -204,7 +204,7 @@ function asteroid(idTag) {
   this.updateSVG();
 }
 function bullet(idTag) {
-  var x, y, r, t, c;
+  var x, y, r, t, c, i, index;
   this.Cpos = [ship.hitbox[0][0].p1.x, ship.hitbox[0][0].p1.y];
   r = bulletSpeed;
   t = ship.Rpos;
@@ -230,6 +230,15 @@ function bullet(idTag) {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
     this.hitbox[1][0].setAttribute("cy", boardHeight-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.hitbox[0][0].r);
+  }
+  this.remove = function() {
+    index = bullets.indexOf(this);
+    this.hitbox[1][0].parentNode.removeChild(bullets[index].hitbox[1][0]);
+    for(i=0; i<3; ++i) {
+      bulletGhosts[index][i].hitbox[1][0].parentNode.removeChild(bulletGhosts[index][i].hitbox[1][0]);
+    }
+    bullets.splice(index, 1);
+    bulletGhosts.splice(index, 1);
   }
   this.updateHitbox();
   this.createSVG();
@@ -603,13 +612,7 @@ function bulletsLoopMotionEvaluation(dT) {
 
     bullets[i].time += dT;
     if(bullets[i].time > bulletTime) {
-      bullets[i].hitbox[1][0].parentNode.removeChild(bullets[i].hitbox[1][0]);
-      for(j=0; j<3; ++j) {
-        bulletGhosts[i][j].hitbox[1][0].parentNode.removeChild(bulletGhosts[i][j].hitbox[1][0]);
-      }
-      bullets.splice(i, 1);
-      bulletGhosts.splice(i, 1);
-      return;
+      bullets[i].remove();
     }
   }
 }
