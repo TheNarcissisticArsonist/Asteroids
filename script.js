@@ -324,6 +324,7 @@ function mainLoop() {
   asteroidsLoopMotionEvaluation(dT);
   bulletsLoopMotionEvaluation(dT);
   asteroidSpaceshipCollision();
+  asteroidBulletCollision();
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -656,6 +657,54 @@ function asteroidSpaceshipCollision() {
   }
   else {
     document.body.style.backgroundColor = "black";
+  }
+}
+function asteroidBulletCollision() {
+  if(bullets.length == 0) {
+    return;
+  }
+
+  var i, j, collided, c1, c2, cD, r1, r2, rD;
+  var activeAsteroids = [];
+  var activeBullets = [];
+
+  for(i=0; i<asteroids.length; ++i) {
+    activeAsteroids.push(asteroids[i]);
+    for(j=0; j<3; ++j) {
+      if(asteroidGhosts[i][j].Cpos[0] != asteroidGhostInactivePosition[0] || asteroidGhosts[i][j].Cpos[1] != asteroidGhostInactivePosition[1]) {
+        activeAsteroids.push(asteroidGhosts[i][j]);
+      }
+    }
+  }
+
+  for(i=0; i<bullets.length; ++i) {
+    activeBullets.push(bullets[i]);
+    for(j=0; j<3; ++j) {
+      if(bulletGhosts[i][j].Cpos[0] != bulletGhostInactivePosition[0] || bulletGhosts[i][j].Cpos[1] != bulletGhostInactivePosition[1]) {
+        activeBullets.push(bulletGhosts[i][j]);
+      }
+    }
+  }
+
+  collided = false;
+
+  for(i=0; i<activeAsteroids.length; ++i) {
+    for(j=0; j<activeBullets.length; ++j) {
+      c1 = activeAsteroids[i].hitbox[0][0].c;
+      c2 = activeBullets[j].hitbox[0][0].c;
+      cD = distance(c1, c2);
+      r1 = activeAsteroids[i].hitbox[0][0].r;
+      r2 = activeBullets[j].hitbox[0][0].r;
+      rD = r1 + r2;
+
+      if(cD <= rD) {
+        collided = true;
+      }
+    }
+  }
+
+  if(collided) {
+    console.log("Good shot!");
   }
 }
 
