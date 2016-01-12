@@ -324,7 +324,6 @@ function mainLoop() {
   asteroidsLoopMotionEvaluation(dT);
   bulletsLoopMotionEvaluation(dT);
   asteroidSpaceshipCollision();
-  bulletSpaceshipCollision();
 
   //Get next frame
   timeStamp1 = new Date().getTime();
