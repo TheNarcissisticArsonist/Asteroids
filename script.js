@@ -722,10 +722,11 @@ function asteroidBulletCollision() {
   }
 }
 function splitAsteroid(asteroid) {
-  switch(asteroid.asteroidSize) {
-    case 1:
-      asteroid.remove();
-      break;
+  if(asteroid.asteroidSize == 1) {
+    asteroid.remove();
+  }
+  else {
+    //
   }
 }
 
