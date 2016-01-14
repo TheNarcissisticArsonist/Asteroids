@@ -29,9 +29,9 @@ var shipRotAclRate = 4*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
 //Some of these units may be wrong, but ¯\_(ツ)_/¯
 var standardSVGStyle = "stroke: rgba(255,255,255,1);";
-var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>"
+var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>";
 var asteroidInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
-var bulletInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"]
+var bulletInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
 var score = null;
 var level = null;
 var ship = null;
@@ -164,7 +164,7 @@ function spaceship(idTag) {
   this.createSVG();
 }
 function asteroid(idTag) {
-  var x, y, s, t, c, p1, p2;
+  var x, y, s, t, c, p1, p2, index;
   p1 = new point(ship.Cpos[0], ship.Cpos[1]);
   do {
     x = Math.random() * boardWidth;
@@ -198,6 +198,15 @@ function asteroid(idTag) {
     this.hitbox[1][0].setAttribute("cx", this.Cpos[0]);
     this.hitbox[1][0].setAttribute("cy", boardHeight-this.Cpos[1]);
     this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier+asteroidSizeAdditive);
+  }
+  this.remove = function() {
+    index = asteroids.indexOf(this);
+    this.hitbox[1][0].parentNode.removeChild(asteroids[index].hitbox[1][0]);
+    for(i=0; i<3; ++i) {
+      asteroidGhosts[index][i].hitbox[1][0].parentNode.removeChild(asteroidGhosts[index][i].hitbox[1][0]);
+    }
+    asteroids.splice(index, 1);
+    asteroidGhosts.splice(index, 1);
   }
   this.updateHitbox();
   this.createSVG();
@@ -708,6 +717,14 @@ function asteroidBulletCollision() {
 
   for(i=0; i<collided.length; ++i) {
     bullets[collided[i][1]].remove();
+    splitAsteroid(asteroids[collided[i][0]]);
+  }
+}
+function splitAsteroid(asteroid) {
+  switch(asteroid.asteroidSize) {
+    case 1:
+      asteroid.remove();
+      break;
   }
 }
 
