@@ -19,6 +19,7 @@ var maxAsteroidSpeed = 150; //pixels/second
 var spaceshipMaxSpeed = 150; //pixels/second
 var asteroidSizeMultiplier = 3; //pixels * r^2
 var asteroidSizeAdditive = 10; //pixels
+var initialAsteroidSize = 3;
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 400; //pixels/second
 var bulletRadius = 3; //pixels
@@ -163,7 +164,7 @@ function spaceship(idTag) {
   this.updateHitbox();
   this.createSVG();
 }
-function asteroid(idTag) {
+function asteroid(idTag, size) {
   var x, y, s, t, c, p1, p2, index;
   p1 = new point(ship.Cpos[0], ship.Cpos[1]);
   do {
@@ -179,7 +180,7 @@ function asteroid(idTag) {
   y = s * Math.sin(t);
   this.Cvel = [x, y];
   this.Cacl = [0, 0];
-  this.asteroidSize = 3;
+  this.asteroidSize = size;
   this.idTag = idTag;
   c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), this.asteroidSize);
   this.hitbox = [[c], []];
@@ -312,14 +313,14 @@ function resetClicked() {
   initialSetup();
   updateUI();
 }
-function spawnAsteroid(number) {
-  return new asteroid(number);
+function spawnAsteroid(number, size) {
+  return new asteroid(number, size);
 }
 function spawnAsteroids() {
   var i;
   for(i=0; i<level; ++i) {
-    asteroids.push(spawnAsteroid(i));
-    asteroidGhosts.push([spawnAsteroid(i+"ghostX"), spawnAsteroid(i+"ghostY"), spawnAsteroid(i+"ghostXY")]);
+    asteroids.push(spawnAsteroid(i, initialAsteroidSize));
+    asteroidGhosts.push([spawnAsteroid(i+"ghostX", initialAsteroidSize), spawnAsteroid(i+"ghostY", initialAsteroidSize), spawnAsteroid(i+"ghostXY", initialAsteroidSize)]);
   }
 }
 function shoot() {
