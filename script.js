@@ -672,42 +672,42 @@ function asteroidBulletCollision() {
   var activeBullets = [];
 
   for(i=0; i<asteroids.length; ++i) {
-    activeAsteroids.push(asteroids[i]);
+    activeAsteroids.push([asteroids[i], i]);
     for(j=0; j<3; ++j) {
       if(asteroidGhosts[i][j].Cpos[0] != asteroidGhostInactivePosition[0] || asteroidGhosts[i][j].Cpos[1] != asteroidGhostInactivePosition[1]) {
-        activeAsteroids.push(asteroidGhosts[i][j]);
+        activeAsteroids.push([asteroidGhosts[i][j], i]);
       }
     }
   }
 
   for(i=0; i<bullets.length; ++i) {
-    activeBullets.push(bullets[i]);
+    activeBullets.push([bullets[i], i]);
     for(j=0; j<3; ++j) {
       if(bulletGhosts[i][j].Cpos[0] != bulletGhostInactivePosition[0] || bulletGhosts[i][j].Cpos[1] != bulletGhostInactivePosition[1]) {
-        activeBullets.push(bulletGhosts[i][j]);
+        activeBullets.push([bulletGhosts[i][j], i]);
       }
     }
   }
 
-  collided = false;
+  collided = [];
 
   for(i=0; i<activeAsteroids.length; ++i) {
     for(j=0; j<activeBullets.length; ++j) {
-      c1 = activeAsteroids[i].hitbox[0][0].c;
-      c2 = activeBullets[j].hitbox[0][0].c;
+      c1 = activeAsteroids[i][0].hitbox[0][0].c;
+      c2 = activeBullets[j][0].hitbox[0][0].c;
       cD = distance(c1, c2);
-      r1 = activeAsteroids[i].hitbox[0][0].r;
-      r2 = activeBullets[j].hitbox[0][0].r;
+      r1 = activeAsteroids[i][0].hitbox[0][0].r;
+      r2 = activeBullets[j][0].hitbox[0][0].r;
       rD = r1 + r2;
 
       if(cD <= rD) {
-        collided = true;
+        collided.push([activeAsteroids[i][1], activeBullets[j][1]]);
       }
     }
   }
 
-  if(collided) {
-    console.log("Good shot!");
+  for(i=0; i<collided.length; ++i) {
+    bullets[collided[i][1]].remove();
   }
 }
 
