@@ -166,16 +166,18 @@ function spaceship(idTag) {
 }
 function asteroid(idTag, size, initialPos) {
   var x, y, s, t, c, p1, p2, index;
-  p1 = new point(ship.Cpos[0], ship.Cpos[1]);
-  do {
-    x = Math.random() * boardWidth;
-    y = Math.random() * boardHeight;
-    p2 = createPoint(x, y);
-  }
-  while(distance(p1, p2) < minAsteroidStartDistance);
-  this.Cpos = [x, y];
   if(typeof initialPos != "undefined" && initialPos[0] > 0 && initialPos[0] < boardWidth && initialPos[1] > 0 &&  initialPos[1] < boardHeight) {
     this.Cpos = [initialPos[0], initialPos[1]];
+  }
+  else {
+    p1 = new point(ship.Cpos[0], ship.Cpos[1]);
+    do {
+      x = Math.random() * boardWidth;
+      y = Math.random() * boardHeight;
+      p2 = createPoint(x, y);
+    }
+    while(distance(p1, p2) < minAsteroidStartDistance);
+    this.Cpos = [x, y];
   }
   s = (Math.random() * (maxAsteroidSpeed-minAsteroidSpeed)) + minAsteroidSpeed;
   t = Math.random() * 2 * Math.PI;
@@ -323,7 +325,7 @@ function spawnAsteroids() {
   var i;
   for(i=0; i<level; ++i) {
     asteroids.push(spawnAsteroid(i, initialAsteroidSize));
-    asteroidGhosts.push([spawnAsteroid(i+"ghostX", initialAsteroidSize), spawnAsteroid(i+"ghostY", initialAsteroidSize), spawnAsteroid(i+"ghostXY", initialAsteroidSize)]);
+    asteroidGhosts.push([spawnAsteroid(i+"ghostX", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(i+"ghostY", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(i+"ghostXY", initialAsteroidSize, asteroidGhostInactivePosition)]);
   }
 }
 function shoot() {
