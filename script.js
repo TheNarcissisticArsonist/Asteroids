@@ -25,7 +25,7 @@ var bulletSpeed = 400; //pixels/second
 var bulletRadius = 3; //pixels
 var maxBullets = 5;
 var bulletTime = 1.5; //seconds
-var shipCartAclRate = 128; //pixels/second^2
+var shipCartAclRate = 256; //pixels/second^2
 var shipRotAclRate = 4*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
 //Some of these units may be wrong, but ¯\_(ツ)_/¯
