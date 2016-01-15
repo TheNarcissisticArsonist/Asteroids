@@ -54,6 +54,7 @@ var timeStamp2 = null;
 var dT = null;
 var stopGameLoop = false;
 var currentBulletID = 0;
+var currentAsteroidID = 0;
 
 //Classes (Geometric, Game)
 function point(x, y) {
@@ -188,6 +189,7 @@ function asteroid(idTag, size, initialPos) {
   this.Cacl = [0, 0];
   this.asteroidSize = size;
   this.idTag = idTag;
+  ++currentAsteroidID;
   c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), this.asteroidSize);
   this.hitbox = [[c], []];
   this.updateHitbox = function() {
@@ -325,8 +327,8 @@ function spawnAsteroid(number, size) {
 function spawnAsteroids() {
   var i;
   for(i=0; i<level; ++i) {
-    asteroids.push(spawnAsteroid(i, initialAsteroidSize));
-    asteroidGhosts.push([spawnAsteroid(i+"ghostX", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(i+"ghostY", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(i+"ghostXY", initialAsteroidSize, asteroidGhostInactivePosition)]);
+    asteroids.push(spawnAsteroid(currentAsteroidID, initialAsteroidSize));
+    asteroidGhosts.push([spawnAsteroid(currentAsteroidID+"ghostX", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(currentAsteroidID+"ghostY", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(currentAsteroidID+"ghostXY", initialAsteroidSize, asteroidGhostInactivePosition)]);
   }
 }
 function shoot() {
@@ -734,7 +736,7 @@ function splitAsteroid(asteroid) {
     asteroid.remove();
   }
   else {
-    //
+
   }
 }
 
