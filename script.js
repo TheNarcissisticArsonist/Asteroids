@@ -25,7 +25,8 @@ var bulletSpeed = 400; //pixels/second
 var bulletRadius = 3; //pixels
 var maxBullets = 5;
 var bulletTime = 1.5; //seconds
-var shipCartAclRate = 256; //pixels/second^2
+var shipCartAclRate = 512; //pixels/second^2
+var shipDecelRate = 0.99;
 var shipRotAclRate = 4*Math.PI; //radians/second^2
 var spaceshipRotationSlowingRate = 1; //This can be anywhere from 0 (where rotation remains constant) to 1. Higher is possible but not recommended
 //Some of these units may be wrong, but ¯\_(ツ)_/¯
@@ -368,7 +369,9 @@ function spaceshipLoopMotionEvaluation(dT) {
   ship.Cacl = [x, y];
   //vel
   ship.Cvel[0] += ship.Cacl[0] * dT;
+  ship.Cvel[0] *= shipDecelRate;
   ship.Cvel[1] += ship.Cacl[1] * dT;
+  ship.Cvel[1] *= shipDecelRate;
   //pos
   ship.Cpos[0] += ship.Cvel[0] * dT;
   ship.Cpos[1] += ship.Cvel[1] * dT;
