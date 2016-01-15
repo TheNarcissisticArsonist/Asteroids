@@ -760,6 +760,30 @@ function rotatePoint(x, y, t) {
   return [x_, y_];
 }
 
+function geometricCollision(g1, g2) {
+  if(g1 instanceof circle && g2 instanceof circle) {
+    return circleCollisionTest(g1, g2);
+  }
+  else if(g1 instanceof circle && g2 instanceof line) {
+    return lineCircleCollisionTest(g2, g1);
+  }
+  else if(g1 instanceof line && g2 instanceof circle) {
+    return lineCircleCollisionTest(g1, g2);
+  }
+  else if(g1 instanceof line && g2 instanceof line) {
+    return lineCollisionTest(g1, g2);
+  }
+}
+function circleCollisionTest(circle1, circle2) {
+  var c1, c2, cD, r1, r2, rD;
+  c1 = circle1.c;
+  c2 = circle2.c;
+  cD = distance(c1, c2);
+  r1 = circle1.r;
+  r2 = circle2.r;
+  rD = r1 + r2;
+  return cD >= rD
+}
 function lineCollisionTest(l1, l2) {
   var a, b, c, d, e, f, g, h, u, v, p, m, t;
   //Special case: line segments are on the same line
