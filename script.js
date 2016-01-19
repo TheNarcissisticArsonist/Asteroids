@@ -20,6 +20,7 @@ var spaceshipMaxSpeed = 150; //pixels/second
 var asteroidSizeMultiplier = 3; //pixels * r^2
 var asteroidSizeAdditive = 10; //pixels
 var initialAsteroidSize = 3;
+var asteroidSplitConstant = 3;
 var minAsteroidStartDistance = 75; //pixels
 var bulletSpeed = 400; //pixels/second
 var bulletRadius = 3; //pixels
@@ -167,7 +168,7 @@ function spaceship(idTag) {
   this.createSVG();
 }
 function asteroid(idTag, size, initialPos) {
-  var x, y, s, t, c, p1, p2, index;
+  var x, y, s, t, c, p1, p2;
   if(typeof initialPos != "undefined" && initialPos[0] > 0 && initialPos[0] < boardWidth && initialPos[1] > 0 &&  initialPos[1] < boardHeight) {
     this.Cpos = [initialPos[0], initialPos[1]];
   }
@@ -189,7 +190,6 @@ function asteroid(idTag, size, initialPos) {
   this.Cacl = [0, 0];
   this.asteroidSize = size;
   this.idTag = idTag;
-  ++currentAsteroidID;
   c = new circle(createPoint(this.Cpos[0], this.Cpos[1]), this.asteroidSize);
   this.hitbox = [[c], []];
   this.updateHitbox = function() {
@@ -209,8 +209,8 @@ function asteroid(idTag, size, initialPos) {
     this.hitbox[1][0].setAttribute("r", this.asteroidSize*this.asteroidSize*asteroidSizeMultiplier+asteroidSizeAdditive);
   }
   this.remove = function() {
-    index = asteroids.indexOf(this);
-    this.hitbox[1][0].parentNode.removeChild(asteroids[index].hitbox[1][0]);
+    var index = asteroids.indexOf(this);
+    asteroids[index].hitbox[1][0].parentNode.removeChild(asteroids[index].hitbox[1][0]);
     for(i=0; i<3; ++i) {
       asteroidGhosts[index][i].hitbox[1][0].parentNode.removeChild(asteroidGhosts[index][i].hitbox[1][0]);
     }
@@ -222,7 +222,7 @@ function asteroid(idTag, size, initialPos) {
   this.updateSVG();
 }
 function bullet(idTag) {
-  var x, y, r, t, c, i, index;
+  var x, y, r, t, c, i;
   this.Cpos = [ship.hitbox[0][0].p1.x, ship.hitbox[0][0].p1.y];
   r = bulletSpeed;
   t = ship.Rpos;
@@ -250,7 +250,7 @@ function bullet(idTag) {
     this.hitbox[1][0].setAttribute("r", this.hitbox[0][0].r);
   }
   this.remove = function() {
-    index = bullets.indexOf(this);
+    var index = bullets.indexOf(this);
     this.hitbox[1][0].parentNode.removeChild(bullets[index].hitbox[1][0]);
     for(i=0; i<3; ++i) {
       bulletGhosts[index][i].hitbox[1][0].parentNode.removeChild(bulletGhosts[index][i].hitbox[1][0]);
@@ -329,6 +329,7 @@ function spawnAsteroids() {
   for(i=0; i<level; ++i) {
     asteroids.push(spawnAsteroid(currentAsteroidID, initialAsteroidSize));
     asteroidGhosts.push([spawnAsteroid(currentAsteroidID+"ghostX", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(currentAsteroidID+"ghostY", initialAsteroidSize, asteroidGhostInactivePosition), spawnAsteroid(currentAsteroidID+"ghostXY", initialAsteroidSize, asteroidGhostInactivePosition)]);
+    ++currentAsteroidID;
   }
 }
 function shoot() {
@@ -732,11 +733,9 @@ function asteroidBulletCollision() {
   }
 }
 function splitAsteroid(asteroid) {
+  var i;
   if(asteroid.asteroidSize == 1) {
     asteroid.remove();
-  }
-  else {
-
   }
 }
 
