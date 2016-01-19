@@ -733,7 +733,12 @@ function asteroidBulletCollision() {
 
   for(i=0; i<collided.length; ++i) {
     bullets[collided[i][1]].remove();
-    splitAsteroid(asteroids[collided[i][0]]);
+    try {
+      splitAsteroid(asteroids[collided[i][0]]);
+    }
+    catch(err) {
+      console.log(err);
+    }
   }
   return;
 }
