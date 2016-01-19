@@ -300,11 +300,7 @@ function newGameClicked() {
   shipGhost[2].updateSVG();
   spawnAsteroids();
   updateUI();
-  timeStamp1 = new Date().getTime();
-  window.setTimeout(function() {
-    stopGameLoop = false;
-    mainLoop();
-  }, 0);
+  newGameCountdown();
 }
 function resetClicked() {
   if(!confirm("Are you sure you want to reset?")) {
@@ -976,7 +972,13 @@ function newGameCountdown() {
               window.setTimeout(function() {
                 htmlELEMENTS.countdown.setAttribute("x", (boardWidth-window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0, -2))/2);
                 htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
-                //
+                window.setTimeout(function() {
+                  htmlELEMENTS.countdown.parentNode.removeChild(htmlELEMENTS.countdown);
+                  htmlELEMENTS.countdown = null;
+                  stopGameLoop = false;
+                  timeStamp1 = new Date().getTime();
+                  mainLoop();
+                }, 0);
               }, countdownTextDisplayOff);
             }, countdownTextDisplayOn);
           }, countdownTextDisplayOff);
