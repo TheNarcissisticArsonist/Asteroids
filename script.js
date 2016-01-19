@@ -359,6 +359,7 @@ function mainLoop() {
   timeStamp1 = new Date().getTime();
   console.log("Loop!");
   requestAnimationFrame(mainLoop);
+  nextLevel();
 };
 function spaceshipLoopMotionEvaluation(dT) {
   var x, y, r, t, v, i, movedX, movedY;
@@ -762,6 +763,16 @@ function splitAsteroid(asteroid) {
   }
   score += level;
   return;
+}
+function nextLevel() {
+  if(asteroids.length == 0) {
+    var i;
+    for(i=0; i<bullets.length; ++i) {
+      bullets[i].remove();
+    }
+    ++level;
+    spawnAsteroids();
+  }
 }
 
 function gameOver() {
