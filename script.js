@@ -277,6 +277,7 @@ function initialSetup() {
 }
 function newGameClicked() {
   if(!confirm("Are you sure you want to start a new game?")) {
+    timeStamp1 = new Date().getTime();
     return;
   }
   stopGameLoop = true;
@@ -304,6 +305,7 @@ function newGameClicked() {
 }
 function resetClicked() {
   if(!confirm("Are you sure you want to reset?")) {
+    timeStamp1 = new Date().getTime();
     return;
   }
   stopGameLoop = true;
