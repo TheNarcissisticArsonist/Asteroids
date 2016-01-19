@@ -321,8 +321,8 @@ function resetClicked() {
   initialSetup();
   updateUI();
 }
-function spawnAsteroid(number, size) {
-  return new asteroid(number, size);
+function spawnAsteroid(number, size, pos) {
+  return new asteroid(number, size, pos);
 }
 function spawnAsteroids() {
   var i;
@@ -737,9 +737,21 @@ function asteroidBulletCollision() {
   }
 }
 function splitAsteroid(asteroid) {
-  var i;
+  var i, pos, size;
   if(asteroid.asteroidSize == 1) {
     asteroid.remove();
+  }
+  else if(asteroid.asteroidSize > 1) {
+    pos = [];
+    pos[0] = asteroid.Cpos[0];
+    pos[1] = asteroid.Cpos[1];
+    size = asteroid.asteroidSize - 1;
+    asteroid.remove();
+    for(i=0; i<asteroidSplitConstant; ++i) {
+      asteroids.push(spawnAsteroid(currentAsteroidID, size, pos));
+      asteroidGhosts.push([spawnAsteroid(currentAsteroidID+"ghostX", size, pos), spawnAsteroid(currentAsteroidID+"ghostY", size, pos), spawnAsteroid(currentAsteroidID+"ghostXY", size, pos)]);
+      ++currentAsteroidID;
+    }
   }
 }
 
