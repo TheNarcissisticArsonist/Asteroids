@@ -169,7 +169,7 @@ function spaceship(idTag) {
 }
 function asteroid(idTag, size, initialPos) {
   var x, y, s, t, c, p1, p2;
-  if(typeof initialPos != "undefined" && initialPos[0] > 0 && initialPos[0] < boardWidth && initialPos[1] > 0 &&  initialPos[1] < boardHeight) {
+  if(typeof initialPos != "undefined") {
     this.Cpos = [initialPos[0], initialPos[1]];
   }
   else {
@@ -358,8 +358,8 @@ function mainLoop() {
   //Get next frame
   timeStamp1 = new Date().getTime();
   console.log("Loop!");
+  window.setTimeout(nextLevel, 0);
   requestAnimationFrame(mainLoop);
-  nextLevel();
 };
 function spaceshipLoopMotionEvaluation(dT) {
   var x, y, r, t, v, i, movedX, movedY;
