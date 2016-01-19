@@ -735,6 +735,7 @@ function asteroidBulletCollision() {
     bullets[collided[i][1]].remove();
     splitAsteroid(asteroids[collided[i][0]]);
   }
+  return;
 }
 function splitAsteroid(asteroid) {
   var i, pos, size;
@@ -753,6 +754,7 @@ function splitAsteroid(asteroid) {
       ++currentAsteroidID;
     }
   }
+  return;
 }
 
 function gameOver() {
