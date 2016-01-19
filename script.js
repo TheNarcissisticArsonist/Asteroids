@@ -353,6 +353,7 @@ function mainLoop() {
   bulletsLoopMotionEvaluation(dT);
   asteroidSpaceshipCollision();
   asteroidBulletCollision();
+  updateUI();
 
   //Get next frame
   timeStamp1 = new Date().getTime();
@@ -759,6 +760,7 @@ function splitAsteroid(asteroid) {
       ++currentAsteroidID;
     }
   }
+  score += level;
   return;
 }
 
