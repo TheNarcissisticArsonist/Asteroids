@@ -35,6 +35,7 @@ var standardSVGStyle = "stroke: rgba(255,255,255,1);";
 var basicBoardOutlineSVG = "<svg id='gameBoard' width='"+boardWidth+"' height='"+boardHeight+"'></svg>";
 var asteroidInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
 var bulletInitialSVG = ["<circle cx='0' cy='0' r='1' style='"+standardSVGStyle+"' fill='black' id='", "'></circle>"];
+var countdownBoxHTML = "<text x='0' y='-100' font-size='75' font-family='Impact' id='countdownTextBox' fill='white'></text>";
 var score = null;
 var level = null;
 var ship = null;
@@ -56,6 +57,9 @@ var dT = null;
 var stopGameLoop = false;
 var currentBulletID = 0;
 var currentAsteroidID = 0;
+var countdownTextY = 75;
+var countdownTextDisplayOn = 500;
+var countdownTextDisplayOff = 500;
 
 //Classes (Geometric, Game)
 function point(x, y) {
@@ -946,6 +950,43 @@ function spaceshipInitialSVG(idTag) {
   return "<line id='spaceship"+idTag+"SVGFrontRight' x1='0' y1='0' x2='1' y2='1' style='"+standardSVGStyle+"'></line>\
     <line id='spaceship"+idTag+"SVGBack' x1='1' y1='1' x2='2' y2='2' style='"+standardSVGStyle+"'></line>\
     <line id='spaceship"+idTag+"SVGFrontLeft' x1='2' y1='2' x2='0' y2='0' style='"+standardSVGStyle+"'></line>"
+}
+function newGameCountdown() {
+  window.setTimeout(function() {
+    var countdown, width, height;
+    htmlELEMENTS.gameBoard.innerHTML += countdownBoxHTML;
+    htmlELEMENTS.countdown = document.getElementById("countdownTextBox");
+    htmlELEMENTS.countdown.innerHTML = "3";
+    width = window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0,-2);
+    htmlELEMENTS.countdown.setAttribute("x", (boardWidth-width)/2);
+    htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+    window.setTimeout(function() {
+      htmlELEMENTS.countdown.setAttribute("y", -100);
+      htmlELEMENTS.countdown.innerHTML = "2";
+      window.setTimeout(function() {
+        htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+        window.setTimeout(function() {
+          htmlELEMENTS.countdown.setAttribute("y", -100);
+          htmlELEMENTS.countdown.innerHTML = "1";
+          window.setTimeout(function() {
+            htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+            window.setTimeout(function() {
+              htmlELEMENTS.countdown.setAttribute("y", -100);
+              htmlELEMENTS.countdown.innerHTML = "GO!";
+              window.setTimeout(function() {
+                htmlELEMENTS.countdown.setAttribute("x", (boardWidth-window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0, -2))/2);
+                htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+                //
+              }, countdownTextDisplayOff);
+            }, countdownTextDisplayOn);
+          }, countdownTextDisplayOff);
+        }, countdownTextDisplayOn)
+      }, countdownTextDisplayOff);
+    }, countdownTextDisplayOn);
+  }, 0);
+}
+function nextLevelCountdown() {
+  //
 }
 
 //Event Listeners
