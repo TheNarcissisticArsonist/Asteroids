@@ -500,6 +500,10 @@ function asteroidsLoopMotionEvaluation(dT) {
     movedX = false;
     movedY = false;
 
+    for(j=0; j<3; ++j) {
+      asteroidGhosts[i][j].asteroidSize = asteroids[i].asteroidSize;
+    }
+
     if(asteroids[i].hitbox[0][0].c.x + asteroids[i].hitbox[0][0].r>boardWidth) {
       asteroidGhosts[i][0].Cpos[0] = asteroids[i].Cpos[0] - boardWidth;
       asteroidGhosts[i][2].Cpos[0] = asteroids[i].Cpos[0] - boardWidth;
