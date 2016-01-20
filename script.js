@@ -60,6 +60,7 @@ var currentAsteroidID = 0;
 var countdownTextY = 75;
 var countdownTextDisplayOn = 500;
 var countdownTextDisplayOff = 500;
+var nextTimeout;
 
 //Classes (Geometric, Game)
 function point(x, y) {
@@ -280,6 +281,7 @@ function newGameClicked() {
     timeStamp1 = new Date().getTime();
     return;
   }
+  window.clearTimeout(nextTimeout);
   stopGameLoop = true;
   score = 0;
   level = 1;
@@ -308,6 +310,7 @@ function resetClicked() {
     timeStamp1 = new Date().getTime();
     return;
   }
+  window.clearTimeout(nextTimeout);
   stopGameLoop = true;
   score = null;
   level = null;
@@ -958,25 +961,27 @@ function newGameCountdown() {
     width = window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0,-2);
     htmlELEMENTS.countdown.setAttribute("x", (boardWidth-width)/2);
     htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
-    window.setTimeout(function() {
+    nextTimeout = window.setTimeout(function() {
       htmlELEMENTS.countdown.setAttribute("y", -100);
       htmlELEMENTS.countdown.innerHTML = "2";
-      window.setTimeout(function() {
+      nextTimeout = window.setTimeout(function() {
         htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
-        window.setTimeout(function() {
+        nextTimeout = window.setTimeout(function() {
           htmlELEMENTS.countdown.setAttribute("y", -100);
           htmlELEMENTS.countdown.innerHTML = "1";
-          window.setTimeout(function() {
+          nextTimeout = window.setTimeout(function() {
             htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
-            window.setTimeout(function() {
+            nextTimeout = window.setTimeout(function() {
               htmlELEMENTS.countdown.setAttribute("y", -100);
               htmlELEMENTS.countdown.innerHTML = "GO!";
-              window.setTimeout(function() {
+              nextTimeout = window.setTimeout(function() {
                 htmlELEMENTS.countdown.setAttribute("x", (boardWidth-window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0, -2))/2);
                 htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
-                window.setTimeout(function() {
-                  htmlELEMENTS.countdown.parentNode.removeChild(htmlELEMENTS.countdown);
-                  htmlELEMENTS.countdown = null;
+                nextTimeout = window.setTimeout(function() {
+                  nextTimeout = window.setTimeout(function() {
+                    htmlELEMENTS.countdown.parentNode.removeChild(htmlELEMENTS.countdown);
+                    htmlELEMENTS.countdown = null;
+                  }, countdownTextDisplayOn);
                   stopGameLoop = false;
                   timeStamp1 = new Date().getTime();
                   mainLoop();
