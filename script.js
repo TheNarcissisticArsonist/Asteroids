@@ -21,7 +21,7 @@ var asteroidSizeMultiplier = 3; //pixels * r^2
 var asteroidSizeAdditive = 10; //pixels
 var initialAsteroidSize = 3;
 var asteroidSplitConstant = 3;
-var minAsteroidStartDistance = 75; //pixels
+var minAsteroidStartDistance = 100; //pixels
 var bulletSpeed = 400; //pixels/second
 var bulletRadius = 3; //pixels
 var maxBullets = 5;
@@ -783,6 +783,8 @@ function nextLevel() {
     ship.Rpos = 0;
     ship.Rvel = 0;
     ship.Racl = 0;
+    ship.updateHitbox();
+    ship.updateSVG();
     nextLevelCountdown();
   }
 }
@@ -1004,6 +1006,7 @@ function newGameCountdown() {
 function nextLevelCountdown() {
   window.setTimeout(function() {
     var countdown, width, height;
+    spawnAsteroids();
     htmlELEMENTS.gameBoard.innerHTML += countdownBoxHTML;
     htmlELEMENTS.countdown = document.getElementById("countdownTextBox");
     htmlELEMENTS.countdown.innerHTML = "Level "+level+"...";
@@ -1040,8 +1043,8 @@ function nextLevelCountdown() {
                         htmlELEMENTS.countdown.parentNode.removeChild(htmlELEMENTS.countdown);
                         htmlELEMENTS.countdown = null;
                       }, countdownTextDisplayOn);
-                      spawnAsteroids();
                       stopGameLoop = false;
+                      timeStamp1 = new Date().getTime();
                       mainLoop();
                     }, 0);
                   }, countdownTextDisplayOff);
@@ -1050,8 +1053,8 @@ function nextLevelCountdown() {
             }, countdownTextDisplayOn)
           }, countdownTextDisplayOff);
         }, countdownTextDisplayOn);
-      }, countdownTextDisplayOff*2);
-    }, countdownTextDisplayOn*2);
+      }, countdownTextDisplayOff);
+    }, countdownTextDisplayOn*2+countdownTextDisplayOff);
   }, 0);
 }
 
