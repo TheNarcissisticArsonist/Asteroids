@@ -776,7 +776,14 @@ function nextLevel() {
       bullets[i].remove();
     }
     ++level;
-    spawnAsteroids();
+    stopGameLoop = true;
+    ship.Cpos = [boardWidth/2, boardHeight/2];
+    ship.Cvel = [0, 0];
+    ship.Cacl = [0, 0];
+    ship.Rpos = 0;
+    ship.Rvel = 0;
+    ship.Racl = 0;
+    nextLevelCountdown();
   }
 }
 
@@ -995,7 +1002,57 @@ function newGameCountdown() {
   }, 0);
 }
 function nextLevelCountdown() {
-  //
+  window.setTimeout(function() {
+    var countdown, width, height;
+    htmlELEMENTS.gameBoard.innerHTML += countdownBoxHTML;
+    htmlELEMENTS.countdown = document.getElementById("countdownTextBox");
+    htmlELEMENTS.countdown.innerHTML = "Level "+level+"...";
+    width = window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0,-2);
+    htmlELEMENTS.countdown.setAttribute("x", (boardWidth-width)/2);
+    htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+    nextTimeout = window.setTimeout(function() {
+      var width;
+      htmlELEMENTS.countdown.setAttribute("y", -100);
+      htmlELEMENTS.countdown.innerHTML = "3";
+      width = window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0,-2);
+      htmlELEMENTS.countdown.setAttribute("x", (boardWidth-width)/2);
+      nextTimeout = window.setTimeout(function() {
+        htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+        nextTimeout = window.setTimeout(function() {
+          htmlELEMENTS.countdown.setAttribute("y", -100);
+          htmlELEMENTS.countdown.innerHTML = "2";
+          nextTimeout = window.setTimeout(function() {
+            htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+            nextTimeout = window.setTimeout(function() {
+              htmlELEMENTS.countdown.setAttribute("y", -100);
+              htmlELEMENTS.countdown.innerHTML = "1";
+              nextTimeout = window.setTimeout(function() {
+                htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+                nextTimeout = window.setTimeout(function() {
+                  htmlELEMENTS.countdown.setAttribute("y", -100);
+                  htmlELEMENTS.countdown.innerHTML = "GO!";
+                  nextTimeout = window.setTimeout(function() {
+                    htmlELEMENTS.countdown.setAttribute("x", (boardWidth-window.getComputedStyle(htmlELEMENTS.countdown, null).getPropertyValue("width").slice(0, -2))/2);
+                    htmlELEMENTS.countdown.setAttribute("y", countdownTextY);
+                    nextTimeout = window.setTimeout(function() {
+                      nextTimeout = window.setTimeout(function() {
+                        htmlELEMENTS.countdown = document.getElementById("countdownTextBox");
+                        htmlELEMENTS.countdown.parentNode.removeChild(htmlELEMENTS.countdown);
+                        htmlELEMENTS.countdown = null;
+                      }, countdownTextDisplayOn);
+                      spawnAsteroids();
+                      stopGameLoop = false;
+                      mainLoop();
+                    }, 0);
+                  }, countdownTextDisplayOff);
+                }, countdownTextDisplayOn);
+              }, countdownTextDisplayOff);
+            }, countdownTextDisplayOn)
+          }, countdownTextDisplayOff);
+        }, countdownTextDisplayOn);
+      }, countdownTextDisplayOff*2);
+    }, countdownTextDisplayOn*2);
+  }, 0);
 }
 
 //Event Listeners
