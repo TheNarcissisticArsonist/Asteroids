@@ -189,8 +189,8 @@ function asteroid(idTag, size, initialPos) {
   }
   s = (Math.random() * (maxAsteroidSpeed-minAsteroidSpeed)) + minAsteroidSpeed;
   t = Math.random() * 2 * Math.PI;
-  x = s * Math.cos(t);
-  y = s * Math.sin(t);
+  x = s * Math.cos(t) * Math.pow(level, 0.25);
+  y = s * Math.sin(t) * Math.pow(level, 0.25);
   this.Cvel = [x, y];
   this.Cacl = [0, 0];
   this.asteroidSize = size;
