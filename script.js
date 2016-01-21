@@ -688,10 +688,6 @@ function asteroidSpaceshipCollision() {
   }
   if(collided) {
     gameOver();
-    document.body.style.backgroundColor = "red";
-  }
-  else {
-    document.body.style.backgroundColor = "black";
   }
 }
 function asteroidBulletCollision() {
@@ -770,6 +766,9 @@ function splitAsteroid(asteroid) {
   return;
 }
 function nextLevel() {
+  if(stopGameLoop) {
+    return;
+  }
   if(asteroids.length == 0) {
     var i;
     for(i=0; i<bullets.length; ++i) {
@@ -790,7 +789,14 @@ function nextLevel() {
 }
 
 function gameOver() {
-  //
+  var i;
+  for(i=0; i<bullets.length; ++i) {
+    bullets[0].remove();
+  }
+  for(i=asteroids.length-1; i>=0; --i) {
+    asteroids[i].remove();
+  }
+  stopGameLoop = true;
 }
 
 function distance(p1, p2) {
