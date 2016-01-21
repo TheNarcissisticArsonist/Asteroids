@@ -341,6 +341,9 @@ function shoot() {
   if(bullets.length >= maxBullets) {
     return;
   }
+  else if(stopGameLoop) {
+    return;
+  }
   bullets.push(new bullet(currentBulletID));
   bulletGhosts.push([new bullet(currentBulletID - 1 + "ghostX"), new bullet(currentBulletID - 1 + "ghostY"), new bullet(currentBulletID - 1 + "ghostXY")]);
   ++currentBulletID;
@@ -771,7 +774,7 @@ function nextLevel() {
   }
   if(asteroids.length == 0) {
     var i;
-    for(i=0; i<bullets.length; ++i) {
+    for(i=bullets.length-1; i>=0; --i) {
       bullets[i].remove();
     }
     ++level;
